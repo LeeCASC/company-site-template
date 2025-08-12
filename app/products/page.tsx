@@ -1,0 +1,1 @@
+export const metadata={title:'产品与服务'} as const; export default function Page(){return (<section className='container py-12'><h1 className='text-3xl font-semibold'>产品与服务</h1></section>);}
