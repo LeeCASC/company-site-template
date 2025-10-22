@@ -3,11 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 /* app/globals.css 只展示品牌变量部分，其他保持你的原样 */
-:root{
-    --brand:#0ea5e9; /* 海风蓝：可替换成你的品牌色 */
-  }
-  .btn-primary{ background:var(--brand); border-color:var(--brand); color:#fff; }
-  .container-prose a{ color:var(--brand); }  
+:root { --brand: #0352A0; }
 body { @apply bg-white text-gray-900; }
 .card { @apply rounded-2xl border border-gray-200 shadow-sm bg-white; }
 .card-body { @apply p-6; }
