@@ -1,0 +1,40 @@
+{
+  "nav":{"mission":"企业愿景","cases":"成功案例","equipment":"装备实力","news":"新闻","careers":"招贤纳士","contact":"联系我们"},
+  "home":{
+    "kicker":"WIN THE WAY",
+    "heroTitle":"以「无界创新」重构跨境工程物流",
+    "heroDesc":"开创“中国港口 → 菲律宾近海”全程不换载的平板驳船直达方案，攻克超限件端到端运输难题，服务清洁能源与大型工程项目。",
+    "ctaPlan":"获取方案","ctaCases":"查看案例",
+    "missionTitle":"跨海之志 · 以卓越与诚信成就长期价值",
+    "missionBullets":["无界创新 · 重构供应链逻辑","端到端交付 · 海陆联运一体化","安全准时 · 标准化 SOP 与风控"],
+    "casesTitle":"成功案例（2023—2025）",
+    "cases":[
+      {"title":"Liangan Hydroelectric · 北拉瑙","desc":"发电机、变压器与输电材料运输（水电）"},
+      {"title":"Labrador Solar · 邦阿西南","desc":"组件与电站物资运输（光伏）"},
+      {"title":"Tanay Wind · 奎松","desc":"菲律宾首台 8MW 机组全流程超限物流；90km+ 山地多弯坡道路段"},
+      {"title":"Alabat Wind · 奎松","desc":"首批 8MW 单机部件端到端运输与特种作业"},
+      {"title":"专用码头与转运","desc":"平板驳船靠泊、联吊、转运与堆存"},
+      {"title":"最后一公里交付","desc":"山区进场、道路改造与现场吊装协调"}
+    ],
+    "equipTitle":"装备实力",
+    "equip":[
+      {"t":"Super Heavy-Duty Prime Mover","d":"8×8 全驱液力变扭，山地牵引性能卓越"},
+      {"t":"Hydraulic Modular Trailer","d":"多轴线模块化，适配机舱/塔筒/轮毂"},
+      {"t":"Blade Lifting Vehicle","d":"叶片举升/回转/变桨，狭窄弯道通过"},
+      {"t":"Low-Bed Transporter","d":"低平板半挂，提升通过性与稳定性"},
+      {"t":"Truck-mounted Crane","d":"汽车起重机与甲板双机联吊"},
+      {"t":"Multi-axle Blade Transporter","d":"≥55m 叶片伸缩式长途运输"}
+    ],
+    "ctaTitle":"专业工程物流 · 值得信赖",
+    "ctaDesc":"货运代理、超限/重大件海陆空运输、设备租赁、仓储、清关、方案设计与项目管理等服务。"
+  },
+  "careers":{
+    "title":"加入我们","intro":"我们在菲律宾深耕清洁能源与重型工程物流，欢迎有志之士同行。",
+    "openings":[
+      {"t":"Project Engineer","l":"菲律宾 · 现场/出差","r":"项目执行、施工协调、质量与安全"},
+      {"t":"Operations Manager","l":"马尼拉 · 办公/出差","r":"运输与仓储运营、流程优化、成本管控"},
+      {"t":"Logistics Coordinator","l":"马尼拉 · 办公","r":"订单调度、清关/报关对接、客户沟通"}
+    ],
+    "howto":"请将简历发送至：","email":"wintexlogistics@wintex.com.ph"
+  }
+}
