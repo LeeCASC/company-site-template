@@ -1,13 +1,21 @@
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* app/globals.css 只展示品牌变量部分，其他保持你的原样 */
-:root { --brand: #0352A0; }
-body { @apply bg-white text-gray-900; }
-.card { @apply rounded-2xl border border-gray-200 shadow-sm bg-white; }
-.card-body { @apply p-6; }
-.btn { @apply inline-flex items-center gap-2 rounded-full px-4 py-2 border border-gray-200 shadow-sm hover:shadow transition; }
-.btn-primary { @apply text-white; background: var(--brand); border-color: var(--brand); }
-.navlink { @apply text-sm font-medium text-gray-700 hover:text-gray-900; }
-.logo { height: 28px; }
+:root{ --brand:#F59E0B; }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Helvetica,Arial;line-height:1.6;color:#1f2937;background:#fff}
+.container{max-width:1120px;margin:0 auto;padding:0 16px}
+.logo{height:28px}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:1px solid #e5e7eb;border-radius:.75rem;padding:.6rem .9rem;font-weight:600;transition:.2s}
+.btn:hover{box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-1px)}
+.btn-primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.card{border:1px solid #e5e7eb;border-radius:1rem;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.card-body{padding:1rem 1rem}
+.navlink{color:#374151}
+.navlink:hover{color:#111827}
+.section-kicker{letter-spacing:.18em;text-transform:uppercase;color:#6b7280;font-size:.75rem}
+.block{border-radius:1rem;padding:2rem}
+.block-brand{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.block-neutral{background:#f9fafb;border:1px solid #eef2f7}
+.grid{display:grid;gap:1rem}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr}}
