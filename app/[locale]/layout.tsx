@@ -1,9 +1,9 @@
 import '../globals.css';
 import type {Metadata} from 'next';
 import {NextIntlClientProvider} from 'next-intl';
-import {siteConfig} from '../../lib/site';
-import {Link, Locale} from '../../i18n/routing';  // ✅ 导入 Locale
-import LocaleSwitcher from '../../components/LocaleSwitcher';
+import {siteConfig} from '@/lib/site';
+import {Link, Locale} from '@/i18n/routing';  // ✅ 导入 Locale
+import LocaleSwitcher from '@/components/LocaleSwitcher';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
