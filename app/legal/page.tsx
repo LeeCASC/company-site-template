@@ -1,1 +1,0 @@
-export const metadata={title:'隐私与条款'} as const; export default function Page(){return (<section className='container py-12'><h1 className='text-3xl font-semibold'>隐私与条款</h1></section>);}

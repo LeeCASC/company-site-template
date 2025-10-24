@@ -1,7 +1,7 @@
 'use client';
 
 import {useTranslations} from 'next-intl';
-import {Link} from 'next-intl/link';
+import Link from 'next/link';
 import type {Locale} from '@/i18n/routing';
 import {siteConfig} from '@/lib/site';
 
@@ -35,8 +35,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
           <h1 className="mt-3 text-4xl md:text-5xl font-bold leading-tight">{t('heroTitle')}</h1>
           <p className="mt-5 max-w-2xl text-lg text-white/90">{t('heroDesc')}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/#contact" locale={currentLocale} className="btn btn-primary">{t('ctaPlan')}</Link>
-            <Link href="/#cases"   locale={currentLocale} className="btn border-white/30 text-white hover:shadow">{t('ctaCases')}</Link>
+            <Link href="/#contact" className="btn btn-primary">{t('ctaPlan')}</Link>
+            <Link href="/#cases" className="btn border-white/30 text-white hover:shadow">{t('ctaCases')}</Link>
           </div>
         </div>
       </section>
@@ -117,7 +117,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 <li>📍 {siteConfig.contact.address}</li>
               </ul>
             </div>
-            <Link href="/careers" locale={currentLocale} className="btn btn-primary">{n('careers')}</Link>
+            <Link href="/careers" className="btn btn-primary">{n('careers')}</Link>
           </div>
         </div>
       </section>

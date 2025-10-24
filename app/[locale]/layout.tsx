@@ -2,7 +2,7 @@ import '../globals.css';
 import type {Metadata} from 'next';
 import {NextIntlClientProvider} from 'next-intl';
 import {siteConfig} from '@/lib/site';
-import {Link} from 'next-intl/link';
+import Link from 'next/link';
 import type {Locale} from '@/i18n/routing';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 
@@ -27,17 +27,17 @@ export default async function RootLayout({
       <body>
         <header className="sticky top-0 z-50 border-b bg-white/70 backdrop-blur">
           <div className="container flex h-16 items-center justify-between">
-            <Link href="/" locale={currentLocale} className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <img src="/logo.png" alt={siteConfig.name} className="logo" />
               <span className="font-semibold">{siteConfig.name}</span>
             </Link>
             <nav className="hidden md:flex items-center gap-6">
-              <Link href="/#mission" locale={currentLocale} className="navlink">{'nav.mission'}</Link>
-              <Link href="/#cases" locale={currentLocale} className="navlink">{'nav.cases'}</Link>
-              <Link href="/#equipment" locale={currentLocale} className="navlink">{'nav.equipment'}</Link>
-              <Link href="/news" locale={currentLocale} className="navlink">{'nav.news'}</Link>
-              <Link href="/careers" locale={currentLocale} className="navlink">{'nav.careers'}</Link>
-              <Link href="/#contact" locale={currentLocale} className="navlink">{'nav.contact'}</Link>
+              <Link href="/#mission" className="navlink">{'nav.mission'}</Link>
+              <Link href="/#cases" className="navlink">{'nav.cases'}</Link>
+              <Link href="/#equipment" className="navlink">{'nav.equipment'}</Link>
+              <Link href="/news" className="navlink">{'nav.news'}</Link>
+              <Link href="/careers" className="navlink">{'nav.careers'}</Link>
+              <Link href="/#contact" className="navlink">{'nav.contact'}</Link>
               <LocaleSwitcher />
             </nav>
           </div>
