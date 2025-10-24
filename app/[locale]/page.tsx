@@ -25,19 +25,19 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   return (
     <>
       {/* HERO：封面大图 */}
-      <section className="relative overflow-hidden min-h-[70vh] flex items-center">
+      <section className="relative overflow-hidden h-[50vh] md:h-[60vh] flex items-center">
         <div className="absolute inset-0">
           <img src="/wintex/hero.jpg" alt="Hero" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
         </div>
-        <div className="relative container py-20 md:py-32 text-white">
-          <div className="max-w-4xl">
+        <div className="relative container py-16 md:py-20 text-white">
+          <div className="max-w-3xl">
             <Kicker>{t('kicker')}</Kicker>
-            <h1 className="mt-4 text-5xl md:text-6xl font-bold leading-tight">{t('heroTitle')}</h1>
-            <p className="mt-6 max-w-3xl text-xl text-white/90 leading-relaxed">{t('heroDesc')}</p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link href="/#contact" className="btn btn-primary text-lg px-8 py-4">{t('ctaPlan')}</Link>
-              <Link href="/#cases" className="btn border-white/40 text-white hover:bg-white/10 text-lg px-8 py-4">{t('ctaCases')}</Link>
+            <h1 className="mt-3 text-4xl md:text-5xl font-bold leading-tight">{t('heroTitle')}</h1>
+            <p className="mt-4 max-w-2xl text-lg text-white/90 leading-relaxed">{t('heroDesc')}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/#contact" className="btn btn-primary">{t('ctaPlan')}</Link>
+              <Link href="/#cases" className="btn border-white/30 text-white hover:bg-white/10">{t('ctaCases')}</Link>
             </div>
           </div>
         </div>
@@ -84,17 +84,17 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
         <div className="grid grid-3 mt-8">
           {cases.map((c,i)=>(
             <article key={i} className="card overflow-hidden fade-in-up">
-              <div className="image-container">
+              <div className="image-container h-48">
                 <img
                   src={`/wintex/case${i+1}.jpg`}
                   alt={c.title}
-                  className="h-56 w-full object-cover"
+                  className="h-full w-full object-cover object-center"
                   onError={(e)=>((e.target as HTMLImageElement).style.display='none')}
                 />
               </div>
               <div className="card-body">
-                <h3 className="font-semibold text-lg mb-2">{c.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{c.desc}</p>
+                <h3 className="font-semibold text-lg mb-3">{c.title}</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">{c.desc}</p>
               </div>
             </article>
           ))}
@@ -107,17 +107,17 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
         <div className="grid grid-3 mt-8">
           {equip.map((e,i)=>(
             <article key={i} className="card overflow-hidden fade-in-up">
-              <div className="image-container">
+              <div className="image-container h-48">
                 <img
                   src={`/wintex/equip${i+1}.jpg`}
                   alt={e.t}
-                  className="h-52 w-full object-cover"
+                  className="h-full w-full object-cover object-center"
                   onError={(img)=>((img.target as HTMLImageElement).style.display='none')}
                 />
               </div>
               <div className="card-body">
-                <h3 className="font-semibold text-lg mb-2">{e.t}</h3>
-                <p className="text-gray-600 leading-relaxed">{e.d}</p>
+                <h3 className="font-semibold text-lg mb-3">{e.t}</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">{e.d}</p>
               </div>
             </article>
           ))}
