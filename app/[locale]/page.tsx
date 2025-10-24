@@ -25,19 +25,49 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   return (
     <>
       {/* HERO：封面大图 */}
-      <section className="relative overflow-hidden h-[50vh] md:h-[60vh] flex items-center">
+      <section className="relative overflow-hidden h-[60vh] md:h-[70vh] flex items-center">
         <div className="absolute inset-0">
           <img src="/wintex/hero.jpg" alt="Hero" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
         </div>
-        <div className="relative container py-16 md:py-20 text-white">
-          <div className="max-w-3xl">
-            <Kicker>{t('kicker')}</Kicker>
-            <h1 className="mt-3 text-4xl md:text-5xl font-bold leading-tight">{t('heroTitle')}</h1>
-            <p className="mt-4 max-w-2xl text-lg text-white/90 leading-relaxed">{t('heroDesc')}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/#contact" className="btn btn-primary">{t('ctaPlan')}</Link>
-              <Link href="/#cases" className="btn border-white/30 text-white hover:bg-white/10">{t('ctaCases')}</Link>
+        
+        {/* 企业图标和名称 - 左上角 */}
+        <div className="absolute top-6 left-6 z-10">
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt={siteConfig.name} className="h-10 w-auto" />
+            <span className="text-white text-xl font-bold">{siteConfig.name}</span>
+          </div>
+        </div>
+
+        {/* 导航菜单 - 右上角 */}
+        <div className="absolute top-6 right-6 z-10">
+          <nav className="hero-nav flex items-center gap-4 text-white">
+            <Link href="/#mission" className="navlink text-sm font-medium hover:text-brand">关于我们</Link>
+            <Link href="/#mission" className="navlink text-sm font-medium hover:text-brand">企业愿景</Link>
+            <Link href="/#cases" className="navlink text-sm font-medium hover:text-brand">成功案例</Link>
+            <Link href="/#equipment" className="navlink text-sm font-medium hover:text-brand">装备实力</Link>
+            <Link href="/news" className="navlink text-sm font-medium hover:text-brand">新闻</Link>
+            <Link href="/careers" className="navlink text-sm font-medium hover:text-brand">招贤纳士</Link>
+            <Link href="/#contact" className="navlink text-sm font-medium hover:text-brand">联系我们</Link>
+            <div className="flex items-center gap-2 ml-4">
+              <button className="text-white text-sm font-medium hover:text-brand">CN</button>
+              <span className="text-white/50">|</span>
+              <button className="text-white text-sm font-medium hover:text-brand">EN</button>
+            </div>
+          </nav>
+        </div>
+
+        {/* 企业愿景内容 - 左侧 */}
+        <div className="relative container py-20 md:py-32 text-white">
+          <div className="max-w-2xl">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 border border-white/20">
+              <Kicker>{t('kicker')}</Kicker>
+              <h1 className="mt-3 text-4xl md:text-5xl font-bold leading-tight">{t('heroTitle')}</h1>
+              <p className="mt-4 max-w-xl text-lg text-white/90 leading-relaxed">{t('heroDesc')}</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/#contact" className="btn btn-primary">{t('ctaPlan')}</Link>
+                <Link href="/#cases" className="btn border-white/30 text-white hover:bg-white/10">{t('ctaCases')}</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -81,10 +111,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 成功案例 */}
       <section id="cases" className="container py-16 md:py-20">
         <Kicker>{t('casesTitle')}</Kicker>
-        <div className="grid grid-3 mt-8">
+        <div className="grid grid-cols-3 gap-6 mt-8">
           {cases.map((c,i)=>(
             <article key={i} className="card overflow-hidden fade-in-up">
-              <div className="image-container h-48">
+              <div className="image-container h-40">
                 <img
                   src={`/wintex/case${i+1}.jpg`}
                   alt={c.title}
@@ -93,7 +123,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 />
               </div>
               <div className="card-body">
-                <h3 className="font-semibold text-lg mb-3">{c.title}</h3>
+                <h3 className="font-semibold text-base mb-2">{c.title}</h3>
                 <p className="text-gray-600 leading-relaxed text-sm">{c.desc}</p>
               </div>
             </article>
@@ -104,10 +134,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 装备实力 */}
       <section id="equipment" className="container py-16 md:py-20">
         <Kicker>{t('equipTitle')}</Kicker>
-        <div className="grid grid-3 mt-8">
+        <div className="grid grid-cols-3 gap-6 mt-8">
           {equip.map((e,i)=>(
             <article key={i} className="card overflow-hidden fade-in-up">
-              <div className="image-container h-48">
+              <div className="image-container h-40">
                 <img
                   src={`/wintex/equip${i+1}.jpg`}
                   alt={e.t}
@@ -116,7 +146,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 />
               </div>
               <div className="card-body">
-                <h3 className="font-semibold text-lg mb-3">{e.t}</h3>
+                <h3 className="font-semibold text-base mb-2">{e.t}</h3>
                 <p className="text-gray-600 leading-relaxed text-sm">{e.d}</p>
               </div>
             </article>

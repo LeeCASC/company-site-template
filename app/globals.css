@@ -163,12 +163,15 @@ body{
   overflow:hidden;
   border-radius:0.5rem;
   background:#f8f9fa;
+  aspect-ratio: 2/1; /* 宽高比 2:1，类似 600x300 */
 }
 
 .image-container img{
   transition:transform 0.3s ease;
   object-fit:cover;
   object-position:center;
+  width:100%;
+  height:100%;
 }
 
 .image-container:hover img{
@@ -177,16 +180,50 @@ body{
 
 /* 统一的图片高度 */
 .case-image, .equip-image{
-  height:12rem;
+  height:10rem;
   width:100%;
   object-fit:cover;
   object-position:center;
+}
+
+/* 头图导航优化 */
+.hero-nav{
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.hero-nav .navlink{
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.hero-nav .navlink:hover{
+  color: var(--brand);
 }
 
 /* 响应式设计 */
 @media (max-width:1024px){
   .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .container{padding:0 16px}
+  .hero-nav{
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width:768px){
+  .grid-cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-nav{
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 1rem;
+  }
 }
 
 @media (max-width:768px){
