@@ -2,7 +2,7 @@ import '../globals.css';
 import type {Metadata} from 'next';
 import {NextIntlClientProvider} from 'next-intl';
 import {siteConfig} from '@/lib/site';
-import {Link} from 'next-intl';
+import {Link} from 'next-intl/link';
 import type {Locale} from '@/i18n/routing';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 
