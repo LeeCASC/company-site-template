@@ -1,9 +1,7 @@
-// i18n/routing.ts
-import {createSharedPathnamesNavigation} from 'next-intl/navigation';
+import {defineRouting} from 'next-intl/routing';
 
-export const locales = ['zh', 'en'] as const;
-export type Locale = (typeof locales)[number];
-export const localePrefix = 'always';
-
-export const {Link, redirect, usePathname, useRouter} =
-  createSharedPathnamesNavigation({locales, localePrefix});
+export const routing = defineRouting({
+  locales: ['en', 'zh'],
+  defaultLocale: 'zh',
+  localePrefix: 'always'
+});

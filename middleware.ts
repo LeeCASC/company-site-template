@@ -1,13 +1,8 @@
 // middleware.ts
-import './i18n/request'; // ✅ 强制让 Next 收集到该文件
-
 import createMiddleware from 'next-intl/middleware';
+import {routing} from './i18n/routing';
 
-export default createMiddleware({
-  locales: ['zh', 'en'],
-  defaultLocale: 'zh',
-  localePrefix: 'always'
-});
+export default createMiddleware(routing);
 
 export const config = {
   matcher: ['/', '/(zh|en)/:path*']
