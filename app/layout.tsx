@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
 import Link from "next/link";
-import LanguageSwitch from "@/components/LanguageSwitch";
+import LanguageSwitch from "./components/LanguageSwitch";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
