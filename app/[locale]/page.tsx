@@ -1,9 +1,9 @@
 'use client';
 
 import {useTranslations} from 'next-intl';
+import {Link} from 'next-intl';
 import type {Locale} from '@/i18n/routing';
 import {siteConfig} from '@/lib/site';
-import {Link} from '@/i18n/routing';
 
 function Kicker({children}:{children:React.ReactNode}) {
   return <p className="section-kicker">{children}</p>;
