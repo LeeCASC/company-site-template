@@ -25,39 +25,55 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   return (
     <>
       {/* HERO：封面大图 */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-[70vh] flex items-center">
         <div className="absolute inset-0">
           <img src="/wintex/hero.jpg" alt="Hero" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
         </div>
-        <div className="relative container pt-28 pb-16 md:pt-40 md:pb-28 text-white">
-          <Kicker>{t('kicker')}</Kicker>
-          <h1 className="mt-3 text-4xl md:text-5xl font-bold leading-tight">{t('heroTitle')}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/90">{t('heroDesc')}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/#contact" className="btn btn-primary">{t('ctaPlan')}</Link>
-            <Link href="/#cases" className="btn border-white/30 text-white hover:shadow">{t('ctaCases')}</Link>
+        <div className="relative container py-20 md:py-32 text-white">
+          <div className="max-w-4xl">
+            <Kicker>{t('kicker')}</Kicker>
+            <h1 className="mt-4 text-5xl md:text-6xl font-bold leading-tight">{t('heroTitle')}</h1>
+            <p className="mt-6 max-w-3xl text-xl text-white/90 leading-relaxed">{t('heroDesc')}</p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="/#contact" className="btn btn-primary text-lg px-8 py-4">{t('ctaPlan')}</Link>
+              <Link href="/#cases" className="btn border-white/40 text-white hover:bg-white/10 text-lg px-8 py-4">{t('ctaCases')}</Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 企业愿景 */}
-      <section id="mission" className="container py-16 md:py-20">
+      <section id="mission" className="container py-20 md:py-24">
         <Kicker>{t('missionTitle')}</Kicker>
-        <div className="grid grid-2 mt-4">
+        <div className="grid grid-2 mt-8">
           <div className="block block-brand">
-            <h2 className="text-2xl font-semibold mb-2">{n('mission')}</h2>
-            <ul className="list-disc pl-5 text-gray-700">
-              {missionBullets.map((s,i)=>(<li key={i}>{s}</li>))}
+            <h2 className="text-3xl font-bold mb-4 text-gray-800">{n('mission')}</h2>
+            <ul className="space-y-3 text-gray-700">
+              {missionBullets.map((s,i)=>(
+                <li key={i} className="flex items-start gap-3">
+                  <span className="text-brand text-xl mt-1">•</span>
+                  <span className="text-lg leading-relaxed">{s}</span>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="block block-neutral">
-            <h3 className="font-semibold mb-1">{n('contact')}</h3>
-            <ul className="text-gray-700">
-              <li>📞 {siteConfig.contact.phone}</li>
-              <li>✉️ {siteConfig.contact.email}</li>
-              <li>📍 {siteConfig.contact.address}</li>
-            </ul>
+            <h3 className="text-2xl font-bold mb-4 text-gray-800">{n('contact')}</h3>
+            <div className="space-y-4 text-gray-700">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">📞</span>
+                <span className="text-lg">{siteConfig.contact.phone}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">✉️</span>
+                <span className="text-lg">{siteConfig.contact.email}</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-2xl mt-1">📍</span>
+                <span className="text-lg leading-relaxed">{siteConfig.contact.address}</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -65,18 +81,20 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 成功案例 */}
       <section id="cases" className="container py-16 md:py-20">
         <Kicker>{t('casesTitle')}</Kicker>
-        <div className="grid grid-3 mt-4">
+        <div className="grid grid-3 mt-8">
           {cases.map((c,i)=>(
-            <article key={i} className="card overflow-hidden">
-              <img
-                src={`/wintex/case${i+1}.jpg`}
-                alt={c.title}
-                className="h-48 w-full object-cover hidden sm:block"
-                onError={(e)=>((e.target as HTMLImageElement).style.display='none')}
-              />
+            <article key={i} className="card overflow-hidden fade-in-up">
+              <div className="image-container">
+                <img
+                  src={`/wintex/case${i+1}.jpg`}
+                  alt={c.title}
+                  className="h-56 w-full object-cover"
+                  onError={(e)=>((e.target as HTMLImageElement).style.display='none')}
+                />
+              </div>
               <div className="card-body">
-                <h3 className="font-semibold">{c.title}</h3>
-                <p className="text-gray-600">{c.desc}</p>
+                <h3 className="font-semibold text-lg mb-2">{c.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{c.desc}</p>
               </div>
             </article>
           ))}
@@ -86,18 +104,20 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 装备实力 */}
       <section id="equipment" className="container py-16 md:py-20">
         <Kicker>{t('equipTitle')}</Kicker>
-        <div className="grid grid-3 mt-4">
+        <div className="grid grid-3 mt-8">
           {equip.map((e,i)=>(
-            <article key={i} className="card overflow-hidden">
-              <img
-                src={`/wintex/equip${i+1}.jpg`}
-                alt={e.t}
-                className="h-44 w-full object-cover hidden sm:block"
-                onError={(img)=>((img.target as HTMLImageElement).style.display='none')}
-              />
+            <article key={i} className="card overflow-hidden fade-in-up">
+              <div className="image-container">
+                <img
+                  src={`/wintex/equip${i+1}.jpg`}
+                  alt={e.t}
+                  className="h-52 w-full object-cover"
+                  onError={(img)=>((img.target as HTMLImageElement).style.display='none')}
+                />
+              </div>
               <div className="card-body">
-                <h3 className="font-semibold">{e.t}</h3>
-                <p className="text-gray-600">{e.d}</p>
+                <h3 className="font-semibold text-lg mb-2">{e.t}</h3>
+                <p className="text-gray-600 leading-relaxed">{e.d}</p>
               </div>
             </article>
           ))}
@@ -105,19 +125,31 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 联系我们 */}
-      <section id="contact" className="container pb-20">
-        <div className="card">
-          <div className="card-body flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
+      <section id="contact" className="container py-20 md:py-24">
+        <div className="card max-w-6xl mx-auto">
+          <div className="card-body flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div className="flex-1">
               <Kicker>{t('ctaTitle')}</Kicker>
-              <p className="text-gray-600 mt-2">{t('ctaDesc')}</p>
-              <ul className="mt-3 text-gray-700">
-                <li>📞 {siteConfig.contact.phone}</li>
-                <li>✉️ {siteConfig.contact.email}</li>
-                <li>📍 {siteConfig.contact.address}</li>
-              </ul>
+              <h2 className="text-3xl font-bold mt-2 mb-4 text-gray-800">{t('ctaTitle')}</h2>
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">{t('ctaDesc')}</p>
+              <div className="space-y-3 text-gray-700">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">📞</span>
+                  <span className="text-lg font-medium">{siteConfig.contact.phone}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">✉️</span>
+                  <span className="text-lg font-medium">{siteConfig.contact.email}</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl mt-1">📍</span>
+                  <span className="text-lg leading-relaxed">{siteConfig.contact.address}</span>
+                </div>
+              </div>
             </div>
-            <Link href="/careers" className="btn btn-primary">{n('careers')}</Link>
+            <div className="flex-shrink-0">
+              <Link href="/careers" className="btn btn-primary text-lg px-8 py-4">{n('careers')}</Link>
+            </div>
           </div>
         </div>
       </section>
