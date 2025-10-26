@@ -26,7 +26,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       <section
         className="
           relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] w-screen
-          h-[60vh] md:h-[70vh] overflow-hidden flex items-center
+          h-[80vh] md:h-[85vh] lg:h-[90vh] overflow-hidden flex items-center
         "
       >
         <img
@@ -38,13 +38,11 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
 
       {/* 公司简介 */}
       <section id="about" className="container py-16 md:py-20">
-        <div className="max-w-4xl mx-auto text-left">
-          <h2 className="section-title">{t('heroTitle')}</h2>
-          <div className="space-y-4 text-lg text-gray-700 mb-8">
-            <p>{t('heroDesc')}</p>
-          </div>
-          <Link href="/#mission" className="btn btn-primary">{t('ctaPlan')}</Link>
+        <h2 className="section-title">{t('heroTitle')}</h2>
+        <div className="space-y-4 text-lg text-gray-700 mb-8">
+          <p className="whitespace-pre-line">{t('heroDesc')}</p>
         </div>
+        <Link href="/#mission" className="btn btn-primary">{t('ctaPlan')}</Link>
       </section>
 
       {/* 我们的使命 */}
@@ -144,7 +142,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             </div>
           </article>
         </div>
-        <div className="text-center mt-8">
+        <div className="mt-8">
           <Link href="/#equipment" className="btn btn-primary">{t('equipmentButton')}</Link>
         </div>
       </section>

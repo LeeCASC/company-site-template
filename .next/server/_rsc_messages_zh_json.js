@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "_rsc_messages_zh_json";
+exports.ids = ["_rsc_messages_zh_json"];
+exports.modules = {
+
+/***/ "(rsc)/./messages/zh.json":
+/*!**************************!*\
+  !*** ./messages/zh.json ***!
+  \**************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"nav":{"About Us":"关于我们","mission":"企业愿景","cases":"成功案例","equipment":"装备实力","news":"新闻","careers":"招贤纳士","contact":"联系我们"},"home":{"kicker":"WIN THE WAY","heroTitle":"Wintex: Win the way","heroDesc":"重型工程物流，可再生能源项目，菲律宾深耕\\n无界定义物流，创新由此启幕","ctaPlan":"关于我们","ctaCases":"更多","missionTitle":"企业愿景","missionDesc1":"助力客户成功跨海越洋，将客户的重型设备、装备运往世界各个角落。","missionDesc2":"我们致力于卓越、可持续发展，为员工、客户和合作伙伴创 造无可比拟的价值。通过坚持创新、促进协作并秉持最高标 准的诚信，我们努力在物流行业树立新的标杆。","missionButton":"更多","casesTitle":"成功案例","case1Title":"阿拉巴特风力发电项目 8X8MW","case1Desc":"风力发电机组部件的重大件、 超限物流运输，确保准时且安全交付","case2Title":"塔奈风力发电项目 16X8MW","case2Desc":"风力发电机组部件的物流运输及特种货物操作","equipmentTitle":"装备实力","equip1Title":"起重卸货作业","equip2Title":"机舱运输作业","equipmentButton":"装备清单","newsTitle":"新闻","testimonial1":"\\"一个极好的赞美\\"","testimonial2":"\\"一个精彩的反馈\\"","testimonial3":"\\"一个真正的好评\\"","joinTitle":"招贤纳士","joinButton":"更多信息","contactTitle":"WinTex: Win The Way","contactUsTitle":"联系我们","contactTel":"电话: +63 917 620 0359","contactEmail":"邮箱: wintexlogistics@wintex.com.ph","contactAddress":"地址: 菲律宾马卡蒂市博尼法西奥堡BGC塔吉格市第7大道和第32街贸易金融大厦12楼1309单元"},"careers":{"title":"加入我们","intro":"我们在菲律宾深耕清洁能源与重型工程物流，欢迎有志之士同行。","openings":[{"t":"Project Engineer","l":"菲律宾 · 现场/出差","r":"项目执行、施工协调、质量与安全"},{"t":"Operations Manager","l":"马尼拉 · 办公/出差","r":"运输与仓储运营、流程优化、成本管控"},{"t":"Logistics Coordinator","l":"马尼拉 · 办公","r":"订单调度、清关/报关对接、客户沟通"}],"howto":"请将简历发送至：","email":"wintexlogistics@wintex.com.ph"}}');
+
+/***/ })
+
+};
+;

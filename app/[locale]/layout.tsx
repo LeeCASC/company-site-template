@@ -18,12 +18,13 @@ function Navigation() {
   
   return (
     <nav className="hidden md:flex items-center gap-5 text-[13px] font-medium text-gray-800">
-      <Link href="/#about" className="hover:text-gray-600">{n('About Us')}</Link>
-      <Link href="/#cases" className="hover:text-gray-600">{n('cases')}</Link>
-      <Link href="/#equipment" className="hover:text-gray-600">{n('equipment')}</Link>
-      <Link href="/#news" className="hover:text-gray-600">{n('news')}</Link>
+      <Link href={`/${locale}/#about`} className="hover:text-gray-600">{n('About Us')}</Link>
+      <Link href={`/${locale}/#mission`} className="hover:text-gray-600">{n('mission')}</Link>
+      <Link href={`/${locale}/#cases`} className="hover:text-gray-600">{n('cases')}</Link>
+      <Link href={`/${locale}/#equipment`} className="hover:text-gray-600">{n('equipment')}</Link>
+      <Link href={`/${locale}/#news`} className="hover:text-gray-600">{n('news')}</Link>
       <Link href={`/careers.html?lang=${locale}`} className="hover:text-gray-600">{n('careers')}</Link>
-      <Link href="/#contact" className="hover:text-gray-600">{n('contact')}</Link>
+      <Link href={`/${locale}/#contact`} className="hover:text-gray-600">{n('contact')}</Link>
       <div className="ml-2">
         <LocaleSwitcher />
       </div>
