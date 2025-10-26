@@ -23,7 +23,7 @@ function Navigation() {
       <Link href={`/${locale}/#cases`} className="hover:text-gray-600">{n('cases')}</Link>
       <Link href={`/${locale}/#equipment`} className="hover:text-gray-600">{n('equipment')}</Link>
       <Link href={`/${locale}/#news`} className="hover:text-gray-600">{n('news')}</Link>
-      <Link href={`/careers.html?lang=${locale}`} className="hover:text-gray-600">{n('careers')}</Link>
+      <a href={`/careers.html?lang=${locale}`} className="hover:text-gray-600">{n('careers')}</a>
       <Link href={`/${locale}/#contact`} className="hover:text-gray-600">{n('contact')}</Link>
       <div className="ml-2">
         <LocaleSwitcher />
