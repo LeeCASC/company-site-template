@@ -188,7 +188,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       <section id="join" className="container py-16 md:py-20">
         <div className="flex justify-between items-center">
           <h2 className="section-title mb-0">{t('joinTitle')}</h2>
-          <Link href={`/careers.html?lang=${currentLocale}`} className="btn btn-primary">{t('joinButton')}</Link>
+          <a href={`/careers.html?lang=${currentLocale}`} className="btn btn-primary">{t('joinButton')}</a>
         </div>
       </section>
 

@@ -43,81 +43,179 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
 
       {/* 企业愿景 */}
       <section id="mission" className="container py-16 md:py-20">
-        <Kicker>{t('missionTitle')}</Kicker>
-        <div className="grid grid-2 mt-4">
-          <div className="block block-brand">
-            <h2 className="text-2xl font-semibold mb-2">{n('mission')}</h2>
-            <ul className="list-disc pl-5 text-gray-700">
-              {missionBullets.map((s,i)=>(<li key={i}>{s}</li>))}
-            </ul>
+        
+        <h2 className="section-title">{t('missionTitle')}</h2>
+        <div className="grid grid-2 gap-8">
+          <div className="space-y-6">
+            <div className="space-y-4 text-gray-700">
+              <p className="text-lg leading-relaxed">
+                {t('missionDesc1')}
+              </p>
+              <p className="text-lg leading-relaxed">
+                {t('missionDesc2')}
+              </p>
+            </div>
+            <Link href="/#cases" className="btn btn-primary">{t('missionButton')}</Link>
           </div>
-          <div className="block block-neutral">
-            <h3 className="font-semibold mb-1">{n('contact')}</h3>
-            <ul className="text-gray-700">
-              <li>📞 {siteConfig.contact.phone}</li>
-              <li>✉️ {siteConfig.contact.email}</li>
-              <li>📍 {siteConfig.contact.address}</li>
-            </ul>
+          <div className="image-container">
+            <img
+              src="/wintex/case1.jpg"
+              alt="Our Mission"
+              className="h-full w-full object-cover object-center"
+            />
           </div>
         </div>
       </section>
 
-      {/* 成功案例 */}
+      {/* 案例 */}
       <section id="cases" className="container py-16 md:py-20">
-        <Kicker>{t('casesTitle')}</Kicker>
-        <div className="grid grid-3 mt-4">
-          {cases.map((c,i)=>(
-            <article key={i} className="card overflow-hidden">
+        <h2 className="section-title">{t('casesTitle')}</h2>
+        <div className="grid grid-2 gap-8">
+          <article className="card overflow-hidden fade-in-up">
+            <div className="image-container">
               <img
-                src={`/wintex/case${i+1}.jpg`}
-                alt={c.title}
-                className="h-48 w-full object-cover hidden sm:block"
-                onError={(e)=>((e.target as HTMLImageElement).style.display='none')}
+                src="/wintex/case2.jpg"
+                alt="Alabat Wind Power Project"
+                className="h-full w-full object-cover object-center"
               />
-              <div className="card-body">
-                <h3 className="font-semibold">{c.title}</h3>
-                <p className="text-gray-600">{c.desc}</p>
-              </div>
-            </article>
-          ))}
+            </div>
+            <div className="card-body">
+              <h3 className="font-semibold text-lg mb-2">{t('case1Title')}</h3>
+              <p className="text-gray-600 leading-relaxed">
+                {t('case1Desc')}
+              </p>
+            </div>
+          </article>
+          <article className="card overflow-hidden fade-in-up">
+            <div className="image-container">
+              <img
+                src="/wintex/case3.jpg"
+                alt="Tanay Wind Power Project"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+            <div className="card-body">
+              <h3 className="font-semibold text-lg mb-2">{t('case2Title')}</h3>
+              <p className="text-gray-600 leading-relaxed">
+                {t('case2Desc')}
+              </p>
+            </div>
+          </article>
         </div>
       </section>
 
-      {/* 装备实力 */}
+      {/* 装备 */}
       <section id="equipment" className="container py-16 md:py-20">
-        <Kicker>{t('equipTitle')}</Kicker>
-        <div className="grid grid-3 mt-4">
-          {equip.map((e,i)=>(
-            <article key={i} className="card overflow-hidden">
+        <h2 className="section-title">{t('equipmentTitle')}</h2>
+        <div className="grid grid-2 gap-8">
+          <article className="card overflow-hidden fade-in-up">
+            <div className="image-container">
               <img
-                src={`/wintex/equip${i+1}.jpg`}
-                alt={e.t}
-                className="h-44 w-full object-cover hidden sm:block"
-                onError={(img)=>((img.target as HTMLImageElement).style.display='none')}
+                src="/wintex/equip1.jpg"
+                alt="Stacking"
+                className="h-full w-full object-cover object-center"
               />
-              <div className="card-body">
-                <h3 className="font-semibold">{e.t}</h3>
-                <p className="text-gray-600">{e.d}</p>
+            </div>
+            <div className="card-body">
+              <h3 className="font-semibold text-lg mb-2">{t('equip1Title')}</h3>
+              <p className="text-gray-600 leading-relaxed">
+                {t('equip1Desc')}
+              </p>
+            </div>
+          </article>
+          <article className="card overflow-hidden fade-in-up">
+            <div className="image-container">
+              <img
+                src="/wintex/equip2.jpg"
+                alt="Transportation"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+            <div className="card-body">
+              <h3 className="font-semibold text-lg mb-2">{t('equip2Title')}</h3>
+              <p className="text-gray-600 leading-relaxed">
+                {t('equip2Desc')}
+              </p>
+            </div>
+          </article>
+        </div>
+        <div className="mt-8">
+          <Link href="/#equipment" className="btn btn-primary">{t('equipmentButton')}</Link>
+        </div>
+      </section>
+
+      {/* 新闻 */}
+      <section id="news" className="container py-16 md:py-20">
+        <h2 className="section-title">{t('newsTitle')}</h2>
+        <div className="grid grid-3 gap-6">
+          <div className="testimonial-card">
+            <p className="text-gray-700 mb-4">{t('testimonial1')}</p>
+            <div className="flex items-center gap-3">
+              <div className="avatar bg-red-500">N</div>
+              <div>
+                <div className="font-semibold">Name</div>
+                <div className="text-sm text-gray-600">Description</div>
               </div>
-            </article>
-          ))}
+            </div>
+          </div>
+          <div className="testimonial-card">
+            <p className="text-gray-700 mb-4">{t('testimonial2')}</p>
+            <div className="flex items-center gap-3">
+              <div className="avatar bg-green-500">N</div>
+              <div>
+                <div className="font-semibold">Name</div>
+                <div className="text-sm text-gray-600">Description</div>
+              </div>
+            </div>
+          </div>
+          <div className="testimonial-card">
+            <p className="text-gray-700 mb-4">{t('testimonial3')}</p>
+            <div className="flex items-center gap-3">
+              <div className="avatar bg-blue-500">N</div>
+              <div>
+                <div className="font-semibold">Name</div>
+                <div className="text-sm text-gray-600">Description</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 加入我们 */}
+      <section id="join" className="container py-16 md:py-20">
+        <div className="flex justify-between items-center">
+          <h2 className="section-title mb-0">{t('joinTitle')}</h2>
+          <Link href={`/careers.html?lang=${currentLocale}`} className="btn btn-primary">{t('joinButton')}</Link>
         </div>
       </section>
 
       {/* 联系我们 */}
-      <section id="contact" className="container pb-20">
-        <div className="card">
-          <div className="card-body flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
-              <Kicker>{t('ctaTitle')}</Kicker>
-              <p className="text-gray-600 mt-2">{t('ctaDesc')}</p>
-              <ul className="mt-3 text-gray-700">
-                <li>📞 {siteConfig.contact.phone}</li>
-                <li>✉️ {siteConfig.contact.email}</li>
-                <li>📍 {siteConfig.contact.address}</li>
-              </ul>
+      <section id="contact" className="container py-16 md:py-20">
+        <div className="grid grid-2 gap-8">
+          <div>
+            <h3 className="text-xl font-bold mb-4">{t('contactTitle')}</h3>
+            <div className="flex gap-4">
+              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
+                <span className="text-xs">f</span>
+              </div>
+              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
+                <span className="text-xs">in</span>
+              </div>
+              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
+                <span className="text-xs">yt</span>
+              </div>
+              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
+                <span className="text-xs">@</span>
+              </div>
             </div>
-            <Link href="/careers" className="btn btn-primary">{n('careers')}</Link>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">{t('contactUsTitle')}</h3>
+            <div className="space-y-2 text-gray-700">
+              <div>{t('contactTel')}</div>
+              <div>{t('contactEmail')}</div>
+              <div>{t('contactAddress')}</div>
+            </div>
           </div>
         </div>
       </section>
