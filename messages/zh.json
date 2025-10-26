@@ -1,0 +1,44 @@
+{
+  "nav":{"About Us":"关于我们","mission":"企业使命","cases":"成功案例","equipment":"装备实力","news":"新闻","careers":"招贤纳士","contact":"联系我们"},
+  "home":{
+    "kicker":"WIN THE WAY",
+    "heroTitle":"Wintex: Win the way",
+    "heroDesc":"重型工程物流，可再生能源项目，菲律宾专注。无界定义物流，创新从这里开始。",
+    "ctaPlan":"关于我们","ctaCases":"更多",
+    "missionTitle":"我们的使命",
+    "missionDesc1":"Wintex物流致力于通过将重型设备和机械运送到世界每个角落，赋能客户征服海洋和大陆。",
+    "missionDesc2":"我们致力于卓越和可持续发展，为我们的员工、客户和合作伙伴创造无与伦比的价值。通过不懈的创新、协作伙伴关系和坚定不移的诚信，我们努力在物流行业树立新的标杆。",
+    "missionButton":"更多",
+    "casesTitle":"成功案例",
+    "case1Title":"Alabat风力发电项目 8x8MW",
+    "case1Desc":"风力发电机组组件的超大/重型物流运输，确保及时安全的交付。",
+    "case2Title":"Tanay风力发电项目 16x8MW",
+    "case2Desc":"风力发电机组组件的物流运输和专业货物处理。",
+    "equipmentTitle":"装备实力",
+    "equip1Title":"堆垛",
+    "equip1Desc":"甲板上两台起重机同时作业。",
+    "equip2Title":"运输",
+    "equip2Desc":"风力发电机组机舱运输进行中。",
+    "equipmentButton":"装备清单",
+    "newsTitle":"新闻",
+    "testimonial1":"\"一个极好的赞美\"",
+    "testimonial2":"\"一个精彩的反馈\"",
+    "testimonial3":"\"一个真正的好评\"",
+    "joinTitle":"加入我们",
+    "joinButton":"更多信息",
+    "contactTitle":"WinTex: Win The Way",
+    "contactUsTitle":"联系我们",
+    "contactTel":"电话: +63 917 620 0359",
+    "contactEmail":"邮箱: wintexlogistics@wintex.com.ph",
+    "contactAddress":"地址: 菲律宾马卡蒂市博尼法西奥堡BGC塔吉格市第7大道和第32街贸易金融大厦12楼1309单元"
+  },
+  "careers":{
+    "title":"加入我们","intro":"我们在菲律宾深耕清洁能源与重型工程物流，欢迎有志之士同行。",
+    "openings":[
+      {"t":"Project Engineer","l":"菲律宾 · 现场/出差","r":"项目执行、施工协调、质量与安全"},
+      {"t":"Operations Manager","l":"马尼拉 · 办公/出差","r":"运输与仓储运营、流程优化、成本管控"},
+      {"t":"Logistics Coordinator","l":"马尼拉 · 办公","r":"订单调度、清关/报关对接、客户沟通"}
+    ],
+    "howto":"请将简历发送至：","email":"wintexlogistics@wintex.com.ph"
+  }
+}
