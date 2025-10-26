@@ -6,6 +6,10 @@
         "cn": "商务助理",
         "en": "Business Assistant"
       },
+      "salary": {
+        "cn": "薪资待遇：面议",
+        "en": "Salary: Negotiable"
+      },
       "description": {
         "cn": "负责工程分包商管理、总包商商务对接、重型运输成本控制等工作",
         "en": "Responsible for subcontractor management, EPC contractor engagement, and heavy transport cost control"
@@ -25,17 +29,17 @@
           "Filipino national, able to work at project sites",
           "Fluent English communication skills"
         ]
-      },
-      "salary": {
-        "cn": "薪资待遇：面议",
-        "en": "Salary: Negotiable"
       }
     },
     {
       "id": "translator",
       "title": {
-        "cn": "现场翻译",
+        "cn": "在线翻译",
         "en": "On-site Translator"
+      },
+      "salary": {
+        "cn": "薪资待遇：面议",
+        "en": "Salary: Negotiable"
       },
       "description": {
         "cn": "为中方特种设备操作手提供现场英语口语翻译服务",
@@ -56,10 +60,6 @@
           "Excellent Chinese-English oral interpretation skills",
           "Hardworking, adaptable to project site conditions"
         ]
-      },
-      "salary": {
-        "cn": "薪资待遇：面议",
-        "en": "Salary: Negotiable"
       }
     }
   ],

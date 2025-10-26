@@ -77,45 +77,13 @@ export default function CareersAdminPage() {
   };
 
   // 示例“发布”（无后端，仅演示）
-  // const publish = async () => {
-  //   if (!data) return;
-  //   setSaving(true);
-  //   await new Promise((r) => setTimeout(r, 500));
-  //   setSaving(false);
-  //   alert('已模拟发布（示例环境未接后端）。\n若要接 DB，请实现 PUT /api/careers');
-  // };
   const publish = async () => {
     if (!data) return;
     setSaving(true);
-    try {
-      const res = await fetch('/api/careers', {
-        method: 'PUT',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j?.error || `HTTP ${res.status}`);
-      }
-  
-      // 通知前台刷新（双通道：BroadcastChannel + localStorage 事件）
-      try {
-        const ch = new BroadcastChannel('careers');
-        ch.postMessage({ type: 'updated', at: Date.now() });
-        ch.close();
-      } catch {}
-  
-      localStorage.setItem('careers-updated', String(Date.now()));
-      alert('已发布成功');
-    } catch (e: any) {
-      alert('发布失败：' + e.message);
-    } finally {
-      setSaving(false);
-    }
+    await new Promise((r) => setTimeout(r, 500));
+    setSaving(false);
+    alert('已模拟发布（示例环境未接后端）。\n若要接 DB，请实现 PUT /api/careers');
   };
-
-
-
 
   if (!data) {
     return (
