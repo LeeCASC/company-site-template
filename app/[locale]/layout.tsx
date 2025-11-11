@@ -47,16 +47,20 @@ export default async function RootLayout({
 <body>
         {/* Top white header */}
         <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-          <div className="mx-auto max-w-[1200px] px-4 h-14 flex items-center justify-between">
+          <div className="mx-auto max-w-[1200px] px-4 h-20 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/images/wintex-logo.png" alt={siteConfig.name} className="h-8 w-auto" />
+              <img 
+                src="/images/wintex-logo.png" 
+                alt={siteConfig.name} 
+                className="h-[clamp(32px,4.44vw,64px)] w-auto transition-transform hover:scale-105" 
+              />
               <span className="sr-only">{siteConfig.name}</span>
             </Link>
             <Navigation />
           </div>
         </header>
         {/* spacer to avoid cover by fixed header */}
-        <div className="h-14"></div>
+        <div className="h-20"></div>
 <NextIntlClientProvider locale={currentLocale} messages={messages}>
           <main className="min-h-dvh">{children}</main>
         </NextIntlClientProvider>

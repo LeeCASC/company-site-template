@@ -39,17 +39,17 @@ export default {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
       },
       fontSize: {
-        // 基于设计规范的字体大小
-        'hero': ['80px', { lineHeight: 'normal', letterSpacing: '-1.6px', fontWeight: '700' }],
-        'hero-sub': ['48px', { lineHeight: 'normal', letterSpacing: '-0.96px', fontWeight: '700' }],
-        'display-lg': ['90px', { lineHeight: 'normal', fontWeight: '400' }],
-        'display-md': ['45px', { lineHeight: '35px', fontWeight: '200' }],
-        'section-title': ['48px', { lineHeight: 'normal', letterSpacing: '-0.96px', fontWeight: '600' }],
-        'subtitle': ['24px', { lineHeight: '150%', fontWeight: '400' }],
-        'body': ['24px', { lineHeight: '150%', fontWeight: '400' }],
-        'body-sm': ['24px', { lineHeight: '116%', fontWeight: '400' }],
-        'button': ['24px', { lineHeight: '150%', fontWeight: '500' }],
-        'small': ['16px', { lineHeight: '150%', fontWeight: '500' }],
+        // 基于设计规范的字体大小 - 使用 clamp 实现等比例缩放，优化移动端显示
+        'hero': ['clamp(32px, 8vw, 80px)', { lineHeight: 'normal', letterSpacing: '-1.6px', fontWeight: '700' }],
+        'hero-sub': ['clamp(20px, 5vw, 48px)', { lineHeight: 'normal', letterSpacing: '-0.96px', fontWeight: '700' }],
+        'display-lg': ['clamp(36px, 10vw, 90px)', { lineHeight: 'normal', fontWeight: '400' }],
+        'display-md': ['clamp(18px, 5vw, 45px)', { lineHeight: '1.2', fontWeight: '200' }],
+        'section-title': ['clamp(20px, 5vw, 48px)', { lineHeight: 'normal', letterSpacing: '-0.96px', fontWeight: '600' }],
+        'subtitle': ['clamp(16px, 3vw, 24px)', { lineHeight: '150%', fontWeight: '400' }],
+        'body': ['clamp(16px, 3vw, 24px)', { lineHeight: '150%', fontWeight: '400' }],
+        'body-sm': ['clamp(16px, 3vw, 24px)', { lineHeight: '116%', fontWeight: '400' }],
+        'button': ['clamp(16px, 3vw, 24px)', { lineHeight: '150%', fontWeight: '500' }],
+        'small': ['clamp(12px, 2vw, 16px)', { lineHeight: '150%', fontWeight: '500' }],
       },
       spacing: {
         // 基于设计规范的间距
