@@ -29,16 +29,16 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 深蓝色统计区域 - 企业愿景 */}
-      <section id="mission" className="bg-brand-primary text-white py-8 sm:py-12 md:py-20 scroll-mt-20">
+      <section id="mission" className="bg-brand-primary text-white py-4 sm:py-6 md:py-8 lg:py-20 scroll-mt-20">
         {/* 使用与 Hero 相同的容器和间距，确保左右边界距离一致 */}
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] relative w-full">
           {/* 使用与 Hero 相同的宽度，保持比例 1287/939 - 移动端使用 100% 宽度 */}
-          <div className="w-full max-w-[1287px] mx-auto relative" style={{ aspectRatio: '1287/939' }}>
+          <div className="w-full max-w-[1287px] mx-auto relative overflow-hidden" style={{ aspectRatio: '1287/939' }}>
             <div className="absolute inset-0 bg-brand-primary rounded-lg"></div>
-            <div className="relative z-10 h-full flex flex-col px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px] py-6 sm:py-8 md:py-12 lg:py-[80px]">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6 sm:mb-8 md:mb-12 gap-6 sm:gap-8 flex-1">
+            <div className="relative z-10 h-full flex flex-col px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px] pt-4 sm:pt-6 md:pt-8 lg:pt-[80px] pb-2 sm:pb-4 md:pb-6 lg:pb-[20px]">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-4 sm:mb-6 md:mb-8 gap-4 sm:gap-6 flex-1 min-h-0">
                 {/* 左侧：25年运营经验 - 换行显示 */}
-                <div className="flex flex-col">
+                <div className="flex flex-col flex-shrink-0">
                   <div className="flex items-baseline gap-2">
                     <span className="text-display-lg text-gray-100">{t('statsYears')}</span>
                     <span className="text-display-md text-gray-100">{t('statsYearsText')}</span>
@@ -46,31 +46,31 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                   <span className="text-[clamp(16px,2.5vw,30px)] leading-[clamp(20px,2.8vw,35px)] font-light text-gray-100 mt-2">{t('statsExperience')}</span>
                 </div>
 
-                {/* 右侧：三个图标 - 等比例缩放 */}
-                <div className="flex flex-wrap gap-3 sm:gap-4 md:gap-[28px] justify-center lg:justify-end w-full lg:w-auto">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-[clamp(80px,20vw,198px)] h-[clamp(76px,19vw,190px)] mb-2 sm:mb-4 flex items-center justify-center">
+                {/* 右侧：三个图标 - 等比例缩放，确保始终在一行，PC端进一步缩小 */}
+                <div className="flex gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-[28px] justify-center lg:justify-end flex-shrink-0">
+                  <div className="flex flex-col items-center text-center flex-shrink-0">
+                    <div className="w-[clamp(70px,12vw,120px)] h-[clamp(67px,11.5vw,114px)] mb-2 sm:mb-4 flex items-center justify-center">
                       <img src="/icons/Anchor.svg" alt="Anchor" className="w-full h-full object-contain" />
                     </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100">{t('icon1Title')}</p>
+                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 whitespace-nowrap">{t('icon1Title')}</p>
                 </div>
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-[clamp(80px,22vw,217px)] h-[clamp(76px,19vw,188px)] mb-2 sm:mb-4 flex items-center justify-center">
+                <div className="flex flex-col items-center text-center flex-shrink-0">
+                  <div className="w-[clamp(70px,13.5vw,130px)] h-[clamp(67px,12vw,116px)] mb-2 sm:mb-4 flex items-center justify-center">
                     <img src="/icons/Feather.svg" alt="Feather" className="w-full h-full object-contain" />
                   </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100">{t('icon2Title')}</p>
+                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 whitespace-nowrap">{t('icon2Title')}</p>
                 </div>
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-[clamp(80px,20vw,198px)] h-[clamp(76px,19vw,190px)] mb-2 sm:mb-4 flex items-center justify-center">
+                <div className="flex flex-col items-center text-center flex-shrink-0">
+                  <div className="w-[clamp(70px,12vw,120px)] h-[clamp(67px,11.5vw,114px)] mb-2 sm:mb-4 flex items-center justify-center">
                     <img src="/icons/Box.svg" alt="Box" className="w-full h-full object-contain" />
                   </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100">{t('icon3Title')}</p>
+                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 whitespace-nowrap">{t('icon3Title')}</p>
                   </div>
                 </div>
               </div>
 
-              {/* 世界地图 - 相对于容器等比例缩放，保持 1077/673 比例 */}
-              <div className="relative mt-auto mx-auto w-full" style={{ aspectRatio: '1077/673', maxWidth: '1077px' }}>
+              {/* 世界地图 - 在蓝色区域内，确保不溢出，PC端增加与图标的距离 */}
+              <div className="relative mt-2 sm:mt-4 md:mt-6 lg:mt-12 xl:mt-16 mx-auto w-full flex-shrink-0" style={{ aspectRatio: '1077/673', maxWidth: '1077px', maxHeight: '100%' }}>
                 <img
                   src="/images/image_1.png"
                   alt="World Map"
