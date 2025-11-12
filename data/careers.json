@@ -1,0 +1,74 @@
+{
+  "jobs": [
+    {
+      "id": "business",
+      "title": {
+        "cn": "商务助理",
+        "en": "Business Assistant"
+      },
+      "salary": {
+        "cn": "薪资待遇：面议",
+        "en": "Salary: Negotiable"
+      },
+      "description": {
+        "cn": "负责工程分包商管理、总包商商务对接、重型运输成本控制等工作",
+        "en": "Responsible for subcontractor management, EPC contractor engagement, and heavy transport cost control"
+      },
+      "requirements": {
+        "cn": [
+          "5年以上工程物流/建筑施工企业经验",
+          "3年以上多类型分包商管理经验",
+          "≥5次成功向总包商索赔经验",
+          "菲律宾籍，能适应项目现场工作环境",
+          "流利的英语沟通能力"
+        ],
+        "en": [
+          "5+ years in engineering logistics/construction",
+          "3+ years managing multiple subcontractor types",
+          "≥5 successful claims against EPC contractors",
+          "Filipino national, able to work at project sites",
+          "Fluent English communication skills"
+        ]
+      }
+    },
+    {
+      "id": "translator",
+      "title": {
+        "cn": "在线翻译",
+        "en": "On-site Translator"
+      },
+      "salary": {
+        "cn": "薪资待遇：面议",
+        "en": "Salary: Negotiable"
+      },
+      "description": {
+        "cn": "为中方特种设备操作手提供现场英语口语翻译服务",
+        "en": "Provide on-site English interpretation for Chinese heavy equipment operators"
+      },
+      "requirements": {
+        "cn": [
+          "中国籍应届本科毕业生",
+          "英语相关专业优先",
+          "大学英语六级600分以上",
+          "优秀的中英双语口语表达能力",
+          "吃苦耐劳，能适应项目现场环境"
+        ],
+        "en": [
+          "Chinese fresh graduate with bachelor's degree",
+          "English-related majors preferred",
+          "CET-6 score ≥600",
+          "Excellent Chinese-English oral interpretation skills",
+          "Hardworking, adaptable to project site conditions"
+        ]
+      }
+    }
+  ],
+  "contact": {
+    "phone": "+63 917 620 0359",
+    "email": "wintexlogistics@wintex.com.ph",
+    "address": {
+      "cn": "菲律宾马卡蒂市博尼法西奥堡BGC塔吉格市第7大道和第32街贸易金融大厦12楼1309单元",
+      "en": "Unit 1309 12 Floor Trade and Financial Tower 7th ave and 32nd st, Fort Bonifacio, BGC Taguig City"
+    }
+  }
+}
