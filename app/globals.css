@@ -67,6 +67,7 @@ body{
   border-radius:.75rem;
   padding:.75rem 1.25rem;
   font-weight:600;
+  font-family:'Inter',ui-sans-serif,system-ui,Segoe UI,Helvetica,Arial,sans-serif;
   transition:all 0.3s ease;
   text-decoration:none;
   cursor:pointer;
@@ -380,20 +381,77 @@ body{
   text-shadow: 0 0 10px rgba(230, 230, 230, 0.8), 0 0 20px rgba(230, 230, 230, 0.6), 0 0 30px rgba(230, 230, 230, 0.4);
 }
 
+@keyframes numberFlash {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  25% {
+    opacity: 0.5;
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(247, 185, 89, 0.8), 0 0 40px rgba(247, 185, 89, 0.6), 0 0 60px rgba(247, 185, 89, 0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    text-shadow: 0 0 30px rgba(247, 185, 89, 1), 0 0 50px rgba(247, 185, 89, 0.8), 0 0 70px rgba(247, 185, 89, 0.6);
+  }
+  75% {
+    opacity: 0.5;
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(247, 185, 89, 0.8), 0 0 40px rgba(247, 185, 89, 0.6), 0 0 60px rgba(247, 185, 89, 0.4);
+  }
+}
+
+.number-flash {
+  animation: numberFlash 0.25s ease-in-out;
+}
+
 /* 移除特定按钮的所有边框和轮廓线 - 仅针对25年区域的图标按钮 */
-section#mission button {
+section#mission button,
+section#mission button::before,
+section#mission button::after {
   border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
   outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
   box-shadow: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif !important;
 }
 
 section#mission button:focus,
 section#mission button:active,
-section#mission button:hover {
+section#mission button:hover,
+section#mission button:focus::before,
+section#mission button:focus::after,
+section#mission button:active::before,
+section#mission button:active::after,
+section#mission button:hover::before,
+section#mission button:hover::after {
   outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
   border: none !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
   box-shadow: none !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif !important;
+}
+
+/* 确保按钮内的所有元素也没有边框 */
+section#mission button *,
+section#mission button *::before,
+section#mission button *::after {
+  border: none !important;
+  outline: none !important;
 }

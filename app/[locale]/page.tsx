@@ -34,12 +34,12 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       <section id="mission" className="text-white py-4 sm:py-6 md:py-8 lg:py-12 xl:py-20 scroll-mt-20">
         {/* 使用与 Hero 相同的容器和间距，确保左右边界距离一致 */}
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] relative w-full">
-          {/* 优化比例：使用更灵活的响应式设计，移除固定 aspectRatio，改用 min-height，宽度与Hero保持一致，高度缩短使视觉更协调 */}
-          <div className="w-full max-w-[1287px] mx-auto relative overflow-hidden rounded-lg bg-brand-primary">
-            <div className="relative z-10 flex flex-col px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px] pt-4 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-16 pb-3 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-3 sm:mb-4 md:mb-6 lg:mb-8 gap-4 sm:gap-6 lg:gap-8">
+          {/* 使用与Hero相同的宽度和高度比例，保持完全一致 */}
+          <div className="w-full max-w-[1287px] mx-auto relative overflow-visible rounded-lg bg-brand-primary" style={{ aspectRatio: '1287/648' }}>
+            <div className="relative z-10 flex flex-col px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px] h-full pt-0 sm:pt-0 md:pt-0 lg:pt-0 xl:pt-0 pb-3 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-3 sm:mb-4 md:mb-6 lg:mb-8 gap-4 sm:gap-6 lg:gap-8 flex-shrink-0" style={{ position: 'relative', top: 'clamp(-15px, -2.5vw, -50px)' }}>
                 {/* 左侧：25年运营经验 - 换行显示 */}
-                <div className="flex flex-col flex-shrink-0">
+                <div className="flex flex-col flex-shrink-0" style={{ marginTop: 'clamp(10px, 2vw, 40px)' }}>
                   <div className="flex items-baseline gap-2">
                     <AnimatedNumber 
                       key={currentLocale}
@@ -48,89 +48,124 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                       className="text-display-lg text-gray-100"
                       trigger={currentLocale}
                     />
-                    <span className="text-display-md text-gray-100">{t('statsYearsText')}</span>
+                    <span className="text-[clamp(16px,2.5vw,30px)] font-bold text-gray-100" style={{ lineHeight: 'normal', letterSpacing: '-0.6px' }}>{t('statsYearsText')}</span>
                   </div>
-                  <span className="text-[clamp(16px,2.5vw,30px)] leading-[clamp(20px,2.8vw,35px)] font-light text-gray-100 mt-2">{t('statsExperience')}</span>
+                  <span className="text-[clamp(16px,2.5vw,30px)] font-bold text-gray-100 mt-2" style={{ lineHeight: 'normal', letterSpacing: '-0.6px' }}>{t('statsExperience')}</span>
                 </div>
 
-                {/* 右侧：三个图标 - 等比例缩放，确保始终在一行，PC端进一步缩小 */}
-                <div className="flex gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-[28px] justify-center lg:justify-end flex-shrink-0 w-full lg:w-auto">
+                {/* 右侧：三个图标 - 中英文都一行显示，图标位置完全一致 */}
+                <div className="flex flex-nowrap gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-[28px] justify-center lg:justify-end flex-shrink-0 w-full lg:w-auto" style={{ alignItems: 'flex-start' }}>
                   <button 
                     onClick={() => {
                       // 可以添加点击事件处理逻辑
                       console.log('重型工程物流 clicked');
                     }}
-                    className="flex flex-col items-center text-center flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity p-2 w-[clamp(100px,15vw,180px)]"
+                    className="flex flex-col items-center text-center cursor-pointer hover:opacity-80 transition-opacity relative"
                     style={{ 
                       border: 'none', 
+                      borderWidth: '0',
                       outline: 'none', 
+                      outlineWidth: '0',
                       background: 'transparent',
                       boxShadow: 'none',
                       WebkitAppearance: 'none',
-                      MozAppearance: 'none'
+                      MozAppearance: 'none',
+                      fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif',
+                      width: 'clamp(60px, 8vw, 110px)',
+                      paddingTop: '2px',
+                      paddingLeft: '2px',
+                      paddingRight: '2px',
+                      paddingBottom: '0',
+                      flexShrink: 0
                     }}
                     onFocus={(e) => e.target.style.outline = 'none'}
                     onBlur={(e) => e.target.style.outline = 'none'}
                   >
-                    <div className="w-[clamp(70px,12vw,120px)] h-[clamp(67px,11.5vw,114px)] mb-2 sm:mb-4 flex items-center justify-center">
-                      <img src="/icons/Anchor.svg" alt="Anchor" className="w-full h-full object-contain" />
+                    <div className="w-[clamp(32px,5.4vw,54px)] h-[clamp(30px,5.2vw,51px)] flex items-center justify-center" style={{ border: 'none', outline: 'none', flexShrink: 0, marginTop: 0, marginBottom: 'clamp(2px, 0.5vw, 4px)' }}>
+                      <img src="/icons/Anchor.svg" alt="Anchor" className="w-full h-full object-contain" style={{ border: 'none', outline: 'none' }} />
                     </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 text-center w-full px-1" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{t('icon1Title')}</p>
+                    <p className="text-[clamp(7px,1.1vw,14px)] font-bold text-gray-100 text-center w-full whitespace-nowrap" style={{ fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif', lineHeight: 'normal', letterSpacing: '-0.28px', marginTop: 0 }}>{t('icon1Title')}</p>
                   </button>
                   <button 
                     onClick={() => {
                       // 可以添加点击事件处理逻辑
                       console.log('可再生能源项目 clicked');
                     }}
-                    className="flex flex-col items-center text-center flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity p-2 w-[clamp(100px,15vw,180px)]"
+                    className="flex flex-col items-center text-center cursor-pointer hover:opacity-80 transition-opacity relative"
                     style={{ 
                       border: 'none', 
+                      borderWidth: '0',
                       outline: 'none', 
+                      outlineWidth: '0',
                       background: 'transparent',
                       boxShadow: 'none',
                       WebkitAppearance: 'none',
-                      MozAppearance: 'none'
+                      MozAppearance: 'none',
+                      fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif',
+                      width: 'clamp(60px, 8vw, 110px)',
+                      paddingTop: '2px',
+                      paddingLeft: '2px',
+                      paddingRight: '2px',
+                      paddingBottom: '0',
+                      flexShrink: 0
                     }}
                     onFocus={(e) => e.target.style.outline = 'none'}
                     onBlur={(e) => e.target.style.outline = 'none'}
                   >
-                    <div className="w-[clamp(70px,13.5vw,130px)] h-[clamp(67px,12vw,116px)] mb-2 sm:mb-4 flex items-center justify-center">
-                      <img src="/icons/Feather.svg" alt="Feather" className="w-full h-full object-contain" />
+                    <div className="w-[clamp(32px,5.4vw,54px)] h-[clamp(30px,5.2vw,51px)] flex items-center justify-center" style={{ border: 'none', outline: 'none', flexShrink: 0, marginTop: 0, marginBottom: 'clamp(2px, 0.5vw, 4px)' }}>
+                      <img src="/icons/Feather.svg" alt="Feather" className="w-full h-full object-contain" style={{ border: 'none', outline: 'none' }} />
                     </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 text-center w-full px-1" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{t('icon2Title')}</p>
+                    <p className="text-[clamp(7px,1.1vw,14px)] font-bold text-gray-100 text-center w-full whitespace-nowrap" style={{ fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif', lineHeight: 'normal', letterSpacing: '-0.28px', marginTop: 0 }}>{t('icon2Title')}</p>
                   </button>
                   <button 
                     onClick={() => {
                       // 可以添加点击事件处理逻辑
                       console.log('菲律宾深耕 clicked');
                     }}
-                    className="flex flex-col items-center text-center flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity p-2 w-[clamp(100px,15vw,180px)]"
+                    className="flex flex-col items-center text-center cursor-pointer hover:opacity-80 transition-opacity relative"
                     style={{ 
                       border: 'none', 
+                      borderWidth: '0',
                       outline: 'none', 
+                      outlineWidth: '0',
                       background: 'transparent',
                       boxShadow: 'none',
                       WebkitAppearance: 'none',
-                      MozAppearance: 'none'
+                      MozAppearance: 'none',
+                      fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif',
+                      width: 'clamp(60px, 8vw, 110px)',
+                      paddingTop: '2px',
+                      paddingLeft: '2px',
+                      paddingRight: '2px',
+                      paddingBottom: '0',
+                      flexShrink: 0
                     }}
                     onFocus={(e) => e.target.style.outline = 'none'}
                     onBlur={(e) => e.target.style.outline = 'none'}
                   >
-                    <div className="w-[clamp(70px,12vw,120px)] h-[clamp(67px,11.5vw,114px)] mb-2 sm:mb-4 flex items-center justify-center">
-                      <img src="/icons/Box.svg" alt="Box" className="w-full h-full object-contain" />
+                    <div className="w-[clamp(32px,5.4vw,54px)] h-[clamp(30px,5.2vw,51px)] flex items-center justify-center" style={{ border: 'none', outline: 'none', flexShrink: 0, marginTop: 0, marginBottom: 'clamp(2px, 0.5vw, 4px)' }}>
+                      <img src="/icons/Box.svg" alt="Box" className="w-full h-full object-contain" style={{ border: 'none', outline: 'none' }} />
                     </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 text-center w-full px-1" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{t('icon3Title')}</p>
+                    <p className="text-[clamp(7px,1.1vw,14px)] font-bold text-gray-100 text-center w-full whitespace-nowrap" style={{ fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif', lineHeight: 'normal', letterSpacing: '-0.28px', marginTop: 0 }}>{t('icon3Title')}</p>
                   </button>
                 </div>
               </div>
 
-              {/* 世界地图 - 在蓝色区域内，确保不溢出，PC端增加与图标的距离，添加星星点灯动画 */}
-              <div className="relative mt-2 sm:mt-3 md:mt-4 lg:mt-6 xl:mt-8 mx-auto w-full flex-shrink-0" style={{ aspectRatio: '1077/673', maxWidth: '1077px' }}>
+              {/* 世界地图 - 在蓝色区域内，确保不溢出，PC端增加与图标的距离，添加星星点灯动画，保证完整显示，居中显示，适当放大，向上移动 */}
+              <div className="relative mx-auto w-full flex-1 flex items-center justify-center min-h-0" style={{ maxWidth: '100%', overflow: 'visible', marginTop: 'clamp(-40px, -5vw, -120px)' }}>
                 <StarMap>
                   <img
                     src="/images/image_1.png"
                     alt="World Map"
-                    className="w-full h-full object-contain"
+                    className="mx-auto object-contain"
+                    style={{ 
+                      display: 'block', 
+                      width: '100%',
+                      height: '100%',
+                      maxWidth: '180%',
+                      maxHeight: '180%',
+                      objectFit: 'contain'
+                    }}
                   />
                 </StarMap>
               </div>
@@ -142,7 +177,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 白色介绍区域 - 关于我们 */}
       <section id="about" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20">
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px]">
-          <div className="max-w-[1287px] mx-auto px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px]">
+          <div className="max-w-[1287px] mx-auto">
             <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-center">
             {/* 左侧：文字内容 */}
             <div className="flex-1">
