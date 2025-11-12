@@ -3,10 +3,13 @@ import type { Config } from "tailwindcss";
 export default {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
+<<<<<<< HEAD
     // 覆盖默认字体族，确保所有元素默认使用 Inter
     fontFamily: {
       sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
     },
+=======
+>>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
     extend: {
       container: { 
         center: true, 
@@ -39,10 +42,16 @@ export default {
           900: "#111827",
         },
       },
+<<<<<<< HEAD
       // 字体族已在 theme 中定义，这里可以添加其他字体族（如 serif, mono 等）
       // fontFamily: {
       //   sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
       // },
+=======
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
+      },
+>>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
       fontSize: {
         // 基于设计规范的字体大小 - 使用 clamp 实现等比例缩放，优化移动端显示
         'hero': ['clamp(32px, 8vw, 80px)', { lineHeight: 'normal', letterSpacing: '-1.6px', fontWeight: '700' }],

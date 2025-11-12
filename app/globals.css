@@ -41,10 +41,13 @@
 
 *{box-sizing:border-box}
 html,body{height:100%}
+<<<<<<< HEAD
 /* 确保所有元素都使用 Inter 字体 */
 *,*::before,*::after{
   font-family:'Inter',ui-sans-serif,system-ui,Segoe UI,Helvetica,Arial,sans-serif;
 }
+=======
+>>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
 body{
   margin:0;
   font-family:'Inter',ui-sans-serif,system-ui,Segoe UI,Helvetica,Arial,sans-serif;
@@ -67,7 +70,10 @@ body{
   border-radius:.75rem;
   padding:.75rem 1.25rem;
   font-weight:600;
+<<<<<<< HEAD
   font-family:'Inter',ui-sans-serif,system-ui,Segoe UI,Helvetica,Arial,sans-serif;
+=======
+>>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
   transition:all 0.3s ease;
   text-decoration:none;
   cursor:pointer;
@@ -364,6 +370,7 @@ body{
 
 ::-webkit-scrollbar-thumb:hover{
   background:var(--brand-dark);
+<<<<<<< HEAD
 }
 
 /* 数字发光动画 */
@@ -454,4 +461,6 @@ section#mission button *::before,
 section#mission button *::after {
   border: none !important;
   outline: none !important;
+=======
+>>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
 }
