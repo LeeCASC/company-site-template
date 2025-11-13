@@ -23,6 +23,9 @@ export default {
           "accent-50": "rgba(247, 185, 89, 0.5)", // 50% 透明度
         },
         // 功能色
+        equip: {
+          blue: "#156082", // 蓝色，可根据 equip_bg.png 实际颜色调整
+        },
         error: "#FF1515",
         warning: "#FF4A1C",
         // 灰色系统

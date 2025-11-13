@@ -485,8 +485,9 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             {/* 左侧：文字内容 */}
             <div className="flex-1" ref={introSectionRef as any}>
               <h2 
-                className="text-section-title text-brand-primary mb-4"
+                className="text-section-title text-brand-primary mb-4 "
                 style={{
+                  fontSize: 'clamp(15px, 3.75vw, 36px)',
                   opacity: introSectionInView ? 1 : 0,
                   transform: introSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: introSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
@@ -497,6 +498,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               <p 
                 className="text-subtitle text-brand-accent mb-6"
                 style={{
+                  fontSize: 'clamp(12px, 2.25vw, 18px)',
                   opacity: introSectionInView ? 1 : 0,
                   transform: introSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: introSectionInView ? 'opacity 0.8s ease-out 0.1s, transform 0.8s ease-out 0.1s' : 'none'
@@ -507,6 +509,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               <p 
                 className="text-body text-gray-400 mb-8"
                 style={{
+                  fontSize: '0.75em',
                   opacity: introSectionInView ? 1 : 0,
                   transform: introSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: introSectionInView ? 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s' : 'none'
@@ -515,7 +518,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 {t('introDesc')}
               </p>
               <Link 
-                href={`/${currentLocale}#about`} 
+                href={`/${currentLocale}/about`} 
                 className="btn btn-primary"
                 style={{
                   opacity: introSectionInView ? 1 : 0,
@@ -555,6 +558,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             <h2 
               className="text-section-title text-brand-primary"
               style={{
+                fontSize: 'clamp(15px, 3.75vw, 36px)',
                 opacity: newsSectionInView ? 1 : 0,
                 transform: newsSectionInView ? 'translateY(0)' : 'translateY(30px)',
                 transition: newsSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
@@ -563,49 +567,58 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               {t('newsTitle')}
             </h2>
             <Link 
-              href={`/${currentLocale}#news`} 
-              className="inline-flex items-center justify-center bg-gray-50 text-brand-primary hover:bg-gray-100 rounded-button px-6 py-3 text-button font-medium transition-colors shadow-button whitespace-nowrap"
+              href={`/${currentLocale}/news`} 
+              className="inline-flex items-center justify-center bg-gray-50 text-brand-primary hover:bg-gray-100 rounded-button px-6 py-3 font-medium transition-colors shadow-button whitespace-nowrap"
+              style={{
+                fontSize: 'clamp(12px, 2.25vw, 18px)',
+              }}
             >
               {t('allNews')}
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
-              { img: '/images/news_1.png', title: 'News 1' },
-              { img: '/images/news_2.png', title: 'News 2' },
-              { img: '/images/news_3.png', title: 'News 3' },
+              { img: '/images/news_1.png', title: 'News 1', id: '1' },
+              { img: '/images/news_2.png', title: 'News 2', id: '2' },
+              { img: '/images/news_3.png', title: 'News 3', id: '3' },
             ].map((news, i) => (
               <div
                 key={i}
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
-                style={{ aspectRatio: '27/13' }}
               >
-                <div className="flex-1 overflow-hidden rounded-lg mb-3 bg-brand-accent-50 p-[13px]" style={{ maxWidth: '100%' }}>
-                  <img
-                    ref={newsRefs[i]}
-                    src={news.img}
-                    alt={news.title}
-                    className="w-full h-full object-cover rounded-lg transition-transform hover:scale-105"
-                    style={{ 
-                      maxWidth: '100%', 
-                      height: 'auto', 
-                      width: '100%',
-                      opacity: newsInViews[i] ? 1 : 0,
-                      transform: newsInViews[i] ? 'translateY(0)' : 'translateY(30px)',
-                      transition: newsInViews[i] ? `opacity 0.8s ease-out ${i * 0.1}s, transform 0.8s ease-out ${i * 0.1}s` : 'none'
-                    }}
-                  />
-                </div>
-                <p 
-                  className="text-body text-gray-650 leading-[150%] line-clamp-4 min-h-[5rem]"
+                <Link href={`/${currentLocale}/news/${news.id}`}>
+                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[13px] flex items-center justify-center cursor-pointer" style={{ minHeight: '200px' }}>
+                    <img
+                      ref={newsRefs[i]}
+                      src={news.img}
+                      alt={news.title}
+                      className="w-full h-auto object-contain rounded-lg transition-transform hover:scale-105"
+                      style={{ 
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        opacity: newsInViews[i] ? 1 : 0,
+                        transform: newsInViews[i] ? 'translateY(0)' : 'translateY(30px)',
+                        transition: newsInViews[i] ? `opacity 0.8s ease-out ${i * 0.1}s, transform 0.8s ease-out ${i * 0.1}s` : 'none'
+                      }}
+                    />
+                  </div>
+                </Link>
+                <div 
+                  className="text-body leading-[150%] min-h-[5rem] text-center"
                   style={{
+                    fontSize: '0.9375em',
                     opacity: newsInViews[i] ? 1 : 0,
                     transform: newsInViews[i] ? 'translateY(0)' : 'translateY(30px)',
                     transition: newsInViews[i] ? `opacity 0.8s ease-out ${(i * 0.1 + 0.2)}s, transform 0.8s ease-out ${(i * 0.1 + 0.2)}s` : 'none'
                   }}
                 >
-                  {t('newsCardText')}
-                </p>
+                  <p className="mb-2 font-bold" style={{ color: '#156082' }}>
+                    {t('newsCardText')}
+                  </p>
+                  <p className="text-gray-400">
+                    {t('newsCardText')}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -639,6 +652,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               <h2 
                 className="text-section-title text-brand-primary mb-4"
                 style={{
+                  fontSize: 'clamp(15px, 3.75vw, 36px)',
                   opacity: strengthSectionInView ? 1 : 0,
                   transform: strengthSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: strengthSectionInView ? 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s' : 'none'
@@ -649,6 +663,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               <p 
                 className="text-subtitle text-brand-accent mb-6"
                 style={{
+                  fontSize: 'clamp(12px, 2.25vw, 18px)',
                   opacity: strengthSectionInView ? 1 : 0,
                   transform: strengthSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: strengthSectionInView ? 'opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s' : 'none'
@@ -659,6 +674,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               <p 
                 className="text-body text-gray-400 mb-8"
                 style={{
+                  fontSize: '0.75em',
                   opacity: strengthSectionInView ? 1 : 0,
                   transform: strengthSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: strengthSectionInView ? 'opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s' : 'none'
@@ -670,6 +686,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 href={`/${currentLocale}#strength`} 
                 className="btn btn-primary"
                 style={{
+                  fontSize: 'clamp(12px, 2.25vw, 18px)',
                   opacity: strengthSectionInView ? 1 : 0,
                   transform: strengthSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: strengthSectionInView ? 'opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s' : 'none'
@@ -691,6 +708,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               <h2 
                 className="text-section-title text-white"
                 style={{
+                  fontSize: 'clamp(15px, 3.75vw, 36px)',
                   opacity: equipmentSectionInView ? 1 : 0,
                   transform: equipmentSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: equipmentSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
@@ -698,7 +716,15 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               >
                 {t('equipmentListTitle')}
               </h2>
-              <Link href={`/${currentLocale}#equipment`} className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-4 sm:px-6 py-2 sm:py-3 text-button font-medium transition-colors">{t('readMore')}</Link>
+              <Link 
+                href={`/${currentLocale}#equipment`} 
+                className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-4 sm:px-6 py-2 sm:py-3 font-medium transition-colors"
+                style={{
+                  fontSize: 'clamp(12px, 2.25vw, 18px)',
+                }}
+              >
+                {t('readMore')}
+              </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
@@ -728,8 +754,9 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                   />
                 </div>
                 <p 
-                  className="text-button text-brand-primary text-center py-4"
+                  className="text-brand-primary text-center py-4"
                   style={{
+                    fontSize: 'clamp(12px, 2.25vw, 18px)',
                     opacity: equipmentInViews[i] ? 1 : 0,
                     transform: equipmentInViews[i] ? 'translateY(0)' : 'translateY(30px)',
                     transition: equipmentInViews[i] ? `opacity 0.8s ease-out ${(i * 0.1 + 0.2)}s, transform 0.8s ease-out ${(i * 0.1 + 0.2)}s` : 'none'
@@ -751,19 +778,19 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-6 sm:mb-8">
             {/* 左侧：联系我们 */}
             <div>
-              <h3 className="text-section-title text-brand-primary mb-6">{t('contactUsTitle')}</h3>
+              <h3 className="text-1xl md:text-2xl lg:text-3xl font-bold text-brand-primary mb-6 leading-tight">{t('contactUsTitle')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <img src="/icons/Phone.svg" alt="Phone" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-                  <span className="text-body text-gray-500">{t('contactTel')}</span>
+                  <span className="text-body text-gray-500" style={{ fontSize: '1.15em' }}>{t('contactTel')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <img src="/icons/Mail.svg" alt="Mail" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-                  <span className="text-body text-gray-500">{t('contactEmail')}</span>
+                  <span className="text-body text-gray-500" style={{ fontSize: '1.15em' }}>{t('contactEmail')}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <img src="/icons/Map pin.svg" alt="Map pin" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-                  <span className="text-body text-gray-500">{t('contactAddress')}</span>
+                  <span className="text-body text-gray-500" style={{ fontSize: '1.15em' }}>{t('contactAddress')}</span>
                 </div>
               </div>
             </div>
