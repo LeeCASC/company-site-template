@@ -3,7 +3,6 @@
 import {useTranslations} from 'next-intl';
 import Link from 'next/link';
 import type {Locale} from '@/i18n/routing';
-<<<<<<< HEAD
 import AnimatedNumber from '@/components/AnimatedNumber';
 import StarMap from '@/components/StarMap';
 import { useEffect, useRef, useState } from 'react';
@@ -64,13 +63,10 @@ function useInView(options = {}) {
 
   return [ref, isInView, triggerAnimation] as const;
 }
-=======
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
 
 export default function Home({params:{locale}}:{params:{locale:string}}) {
   const currentLocale = (locale as Locale) ?? 'zh';
   const t = useTranslations('home');
-<<<<<<< HEAD
   
   // 为各个区域创建 ref 和 inView 状态
   // Hero 区域在页面加载时立即显示动画
@@ -236,13 +232,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
     };
   }, []);
   
-=======
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
 
   return (
     <>
       {/* Hero Section - 响应式大图 */}
-<<<<<<< HEAD
       <section className="relative w-full overflow-hidden" style={{ maxWidth: '100%' }}>
         <div className="w-full relative" style={{ maxWidth: '100%' }}>
           {/* 使用与深蓝色区域相同的宽度，保持比例 - 移动端使用 100% 宽度 */}
@@ -397,27 +390,12 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 </div>
                 <p className="text-[clamp(20px, 3.5vw, 40px)] font-bold text-brand-primary text-center w-full whitespace-nowrap" style={{ fontFamily: 'Inter, ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif', lineHeight: 'normal', letterSpacing: '-0.28px', marginTop: 0 }}>{t('icon3Title')}</p>
               </button>
-=======
-      <section className="relative w-full overflow-hidden flex items-center justify-center py-4 sm:py-8 md:py-12 lg:py-16">
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] relative w-full">
-          {/* 使用与深蓝色区域相同的宽度，保持比例 - 移动端使用 100% 宽度 */}
-          <div className="w-full max-w-[1287px] mx-auto relative" style={{ aspectRatio: '1287/648' }}>
-            <img
-              src="/images/hero.png"
-              alt="Hero"
-              className="absolute inset-0 w-full h-full object-cover object-center rounded-lg"
-            />
-            <div className="relative z-10 text-center h-full flex flex-col items-center justify-center px-4">
-              <h1 className="text-hero text-white mb-2 sm:mb-4">{t('heroTitle')}</h1>
-              <p className="text-hero-sub text-brand-accent">{t('heroSubtitle')}</p>
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
             </div>
           </div>
         </div>
       </section>
 
       {/* 深蓝色统计区域 - 企业愿景 */}
-<<<<<<< HEAD
       <section id="mission" className="text-white py-4 sm:py-6 md:py-8 lg:py-12 xl:py-20 scroll-mt-20" style={{ maxWidth: '100%' }} ref={missionSectionRef as any}>
         <div className="w-full relative" style={{ maxWidth: '100%' }}>
           {/* 使用与Hero相同的宽度和高度比例，保持完全一致 */}
@@ -493,55 +471,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                     />
                   </StarMap>
                 </div>
-=======
-      <section id="mission" className="bg-brand-primary text-white py-4 sm:py-6 md:py-8 lg:py-20 scroll-mt-20">
-        {/* 使用与 Hero 相同的容器和间距，确保左右边界距离一致 */}
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] relative w-full">
-          {/* 使用与 Hero 相同的宽度，保持比例 1287/939 - 移动端使用 100% 宽度 */}
-          <div className="w-full max-w-[1287px] mx-auto relative overflow-hidden" style={{ aspectRatio: '1287/939' }}>
-            <div className="absolute inset-0 bg-brand-primary rounded-lg"></div>
-            <div className="relative z-10 h-full flex flex-col px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px] pt-4 sm:pt-6 md:pt-8 lg:pt-[80px] pb-2 sm:pb-4 md:pb-6 lg:pb-[20px]">
-              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-4 sm:mb-6 md:mb-8 gap-4 sm:gap-6 flex-1 min-h-0">
-                {/* 左侧：25年运营经验 - 换行显示 */}
-                <div className="flex flex-col flex-shrink-0">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-display-lg text-gray-100">{t('statsYears')}</span>
-                    <span className="text-display-md text-gray-100">{t('statsYearsText')}</span>
-                  </div>
-                  <span className="text-[clamp(16px,2.5vw,30px)] leading-[clamp(20px,2.8vw,35px)] font-light text-gray-100 mt-2">{t('statsExperience')}</span>
-                </div>
-
-                {/* 右侧：三个图标 - 等比例缩放，确保始终在一行，PC端进一步缩小 */}
-                <div className="flex gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-[28px] justify-center lg:justify-end flex-shrink-0">
-                  <div className="flex flex-col items-center text-center flex-shrink-0">
-                    <div className="w-[clamp(70px,12vw,120px)] h-[clamp(67px,11.5vw,114px)] mb-2 sm:mb-4 flex items-center justify-center">
-                      <img src="/icons/Anchor.svg" alt="Anchor" className="w-full h-full object-contain" />
-                    </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 whitespace-nowrap">{t('icon1Title')}</p>
-                </div>
-                <div className="flex flex-col items-center text-center flex-shrink-0">
-                  <div className="w-[clamp(70px,13.5vw,130px)] h-[clamp(67px,12vw,116px)] mb-2 sm:mb-4 flex items-center justify-center">
-                    <img src="/icons/Feather.svg" alt="Feather" className="w-full h-full object-contain" />
-                  </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 whitespace-nowrap">{t('icon2Title')}</p>
-                </div>
-                <div className="flex flex-col items-center text-center flex-shrink-0">
-                  <div className="w-[clamp(70px,12vw,120px)] h-[clamp(67px,11.5vw,114px)] mb-2 sm:mb-4 flex items-center justify-center">
-                    <img src="/icons/Box.svg" alt="Box" className="w-full h-full object-contain" />
-                  </div>
-                    <p className="text-[clamp(14px,2.5vw,30px)] leading-[clamp(18px,2.8vw,35px)] font-light text-gray-100 whitespace-nowrap">{t('icon3Title')}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 世界地图 - 在蓝色区域内，确保不溢出，PC端增加与图标的距离 */}
-              <div className="relative mt-2 sm:mt-4 md:mt-6 lg:mt-12 xl:mt-16 mx-auto w-full flex-shrink-0" style={{ aspectRatio: '1077/673', maxWidth: '1077px', maxHeight: '100%' }}>
-                <img
-                  src="/images/image_1.png"
-                  alt="World Map"
-                  className="w-full h-full object-contain"
-                />
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               </div>
             </div>
           </div>
@@ -549,7 +478,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 白色介绍区域 - 关于我们 */}
-<<<<<<< HEAD
       <section id="about" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20" style={{ maxWidth: '100%' }}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px]" style={{ maxWidth: '100%' }}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
@@ -601,27 +529,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
 
             {/* 右侧：图片 */}
             <div className="flex-1" style={{ maxWidth: '100%' }}>
-=======
-      <section id="about" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20">
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px]">
-          <div className="max-w-[1287px] mx-auto px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px]">
-            <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-center">
-            {/* 左侧：文字内容 */}
-            <div className="flex-1">
-              <h2 className="text-section-title text-brand-primary mb-4">{t('introTitle')}</h2>
-              <p className="text-subtitle text-brand-accent mb-6">{t('introSubtitle')}</p>
-              <p className="text-body text-gray-400 mb-8">{t('introDesc')}</p>
-              <Link href={`/${currentLocale}#about`} className="btn btn-primary">{t('ctaPlan')}</Link>
-            </div>
-
-            {/* 右侧：图片 */}
-            <div className="flex-1">
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               <img
                 src="/images/introduction.png"
                 alt="Introduction"
                 className="w-full h-auto rounded-lg"
-<<<<<<< HEAD
                 style={{ 
                   maxWidth: '100%', 
                   height: 'auto', 
@@ -630,8 +541,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                   transform: introSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: introSectionInView ? 'opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s' : 'none'
                 }}
-=======
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               />
             </div>
             </div>
@@ -640,7 +549,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 新闻区域 */}
-<<<<<<< HEAD
       <section id="news" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20" style={{ maxWidth: '100%' }} ref={newsSectionRef as any}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
@@ -657,15 +565,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             <Link 
               href={`/${currentLocale}#news`} 
               className="inline-flex items-center justify-center bg-gray-50 text-brand-primary hover:bg-gray-100 rounded-button px-6 py-3 text-button font-medium transition-colors shadow-button whitespace-nowrap"
-=======
-      <section id="news" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20">
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-section-title text-brand-primary">{t('newsTitle')}</h2>
-            <Link 
-              href={`/${currentLocale}#news`} 
-              className="inline-flex items-center justify-center bg-gray-50 text-brand-primary hover:bg-gray-100 rounded-button px-6 py-3 text-button font-medium transition-colors shadow-button"
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
             >
               {t('allNews')}
             </Link>
@@ -678,7 +577,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             ].map((news, i) => (
               <div
                 key={i}
-<<<<<<< HEAD
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
                 style={{ aspectRatio: '27/13' }}
               >
@@ -708,17 +606,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 >
                   {t('newsCardText')}
                 </p>
-=======
-                className="rounded-card bg-brand-accent-50 p-[13px]"
-                style={{ aspectRatio: '27/13' }}
-              >
-                <img
-                  src={news.img}
-                  alt={news.title}
-                  className="w-full h-full object-cover rounded-lg"
-                />
-                <p className="text-body-sm text-gray-500 mt-4 line-clamp-2">{t('newsCardText')}</p>
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               </div>
             ))}
           </div>
@@ -726,26 +613,16 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 实力见证区域 */}
-<<<<<<< HEAD
       <section id="strength" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20" style={{ maxWidth: '100%' }}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
             <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-center">
             {/* 左侧：图片 */}
             <div className="flex-1" style={{ maxWidth: '100%' }}>
-=======
-      <section id="strength" className="bg-white py-8 sm:py-12 md:py-20 scroll-mt-20">
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]">
-          <div className="max-w-[1287px] mx-auto">
-            <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-center">
-            {/* 左侧：图片 */}
-            <div className="flex-1">
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               <img
                 src="/images/strength.png"
                 alt="Proof of Strength"
                 className="w-full h-auto rounded-lg"
-<<<<<<< HEAD
                 style={{ 
                   maxWidth: '100%', 
                   height: 'auto', 
@@ -754,13 +631,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                   transform: strengthSectionInView ? 'translateY(0)' : 'translateY(30px)',
                   transition: strengthSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
                 }}
-=======
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               />
             </div>
 
             {/* 右侧：文字内容 */}
-<<<<<<< HEAD
             <div className="flex-1" ref={strengthSectionRef as any}>
               <h2 
                 className="text-section-title text-brand-primary mb-4"
@@ -803,13 +677,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               >
                 {t('readMore')}
               </Link>
-=======
-            <div className="flex-1">
-              <h2 className="text-section-title text-brand-primary mb-4">{t('strengthTitle')}</h2>
-              <p className="text-subtitle text-brand-accent mb-6">{t('strengthSubtitle')}</p>
-              <p className="text-body text-gray-400 mb-8">{t('strengthDesc')}</p>
-              <Link href={`/${currentLocale}#strength`} className="btn btn-primary">{t('readMore')}</Link>
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
             </div>
             </div>
           </div>
@@ -817,7 +684,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 设备清单区域 - 橙色背景 - 装备实力 */}
-<<<<<<< HEAD
       <section id="equipment" className="bg-brand-accent py-8 sm:py-12 md:py-20 scroll-mt-20" style={{ maxWidth: '100%' }} ref={equipmentSectionRef as any}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
@@ -832,13 +698,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               >
                 {t('equipmentListTitle')}
               </h2>
-=======
-      <section id="equipment" className="bg-brand-accent py-8 sm:py-12 md:py-20 scroll-mt-20">
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]">
-          <div className="max-w-[1287px] mx-auto">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
-              <h2 className="text-section-title text-white">{t('equipmentListTitle')}</h2>
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               <Link href={`/${currentLocale}#equipment`} className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-4 sm:px-6 py-2 sm:py-3 text-button font-medium transition-colors">{t('readMore')}</Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -852,7 +711,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 key={i}
                 className="bg-white rounded-lg overflow-hidden"
               >
-<<<<<<< HEAD
                 <div className="aspect-square" style={{ maxWidth: '100%' }}>
                   <img
                     ref={equipmentRefs[i]}
@@ -879,16 +737,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 >
                   {equip.name}
                 </p>
-=======
-                <div className="aspect-square">
-                  <img
-                    src={equip.img}
-                    alt={equip.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="text-button text-brand-primary text-center py-4">{equip.name}</p>
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
               </div>
             ))}
             </div>
@@ -897,22 +745,15 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* Footer - 联系信息 */}
-<<<<<<< HEAD
       <footer id="contact" className="bg-gray-50 py-8 sm:py-12 md:py-20 scroll-mt-20" style={{ maxWidth: '100%' }}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
-=======
-      <footer id="contact" className="bg-gray-50 py-8 sm:py-12 md:py-20 scroll-mt-20">
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]">
-          <div className="max-w-[1287px] mx-auto">
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-6 sm:mb-8">
             {/* 左侧：联系我们 */}
             <div>
               <h3 className="text-section-title text-brand-primary mb-6">{t('contactUsTitle')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-<<<<<<< HEAD
                   <img src="/icons/Phone.svg" alt="Phone" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
                   <span className="text-body text-gray-500">{t('contactTel')}</span>
                 </div>
@@ -922,17 +763,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 </div>
                 <div className="flex items-center gap-3">
                   <img src="/icons/Map pin.svg" alt="Map pin" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-=======
-                  <img src="/icons/Phone.svg" alt="Phone" className="w-[30px] h-[30px]" />
-                  <span className="text-body text-gray-500">{t('contactTel')}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <img src="/icons/Mail.svg" alt="Mail" className="w-[30px] h-[30px]" />
-                  <span className="text-body text-gray-500">{t('contactEmail')}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <img src="/icons/Map pin.svg" alt="Map pin" className="w-[30px] h-[30px]" />
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
                   <span className="text-body text-gray-500">{t('contactAddress')}</span>
                 </div>
               </div>

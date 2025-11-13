@@ -43,8 +43,13 @@ export default async function RootLayout({
 
   return (
     <html lang={currentLocale}>
-      
-<body>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
         {/* Top white header */}
         <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
           <div className="mx-auto max-w-[1200px] px-4 h-20 flex items-center justify-between">

@@ -2,21 +2,13 @@
   "nav":{"About Us":"About Us","mission":"Mission","cases":"Case","equipment":"Equipment","news":"News","careers":"Join Us","contact":"Contact Us"},
   "home":{
     "kicker":"WIN THE WAY",
-<<<<<<< HEAD
     "heroTitle":"Wintex Logistics",
-=======
-    "heroTitle":"Wintex Logistic",
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
     "heroSubtitle":"「Win the Way」",
     "heroDesc":"Heavy Engineering Logistics, Renewable Projects, Philippines Focus.\nBoundless Defines Logistics, Where Innovation Begins.",
     "statsYears":"25",
     "statsYearsText":"Years",
     "statsExperience":"Operating Experience",
-<<<<<<< HEAD
     "icon1Title":"Heavy Engineering",
-=======
-    "icon1Title":"Heavy Engineering Logistic",
->>>>>>> 99bf6173fdb9df502fb3c2e384e669af60cbb718
     "icon2Title":"Renewable Projects",
     "icon3Title":"Philippines Focus",
     "introTitle":"Sailing Beyond Boundaries",
