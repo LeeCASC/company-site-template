@@ -15,9 +15,21 @@ const CareersSchema = z.object({
       title: z.object({ cn: z.string(), en: z.string() }),
       salary: z.object({ cn: z.string(), en: z.string() }).optional(),
       description: z.object({ cn: z.string(), en: z.string() }).optional(),
+      responsibilities: z.object({
+        cn: z.string().optional(),
+        en: z.string().optional()
+      }).optional(),
       requirements: z.object({
-        cn: z.array(z.string()).optional(),
-        en: z.array(z.string()).optional()
+        cn: z.string().optional(),
+        en: z.string().optional()
+      }).optional(),
+      workLocation: z.object({
+        cn: z.string().optional(),
+        en: z.string().optional()
+      }).optional(),
+      preferredConditions: z.object({
+        cn: z.string().optional(),
+        en: z.string().optional()
       }).optional()
     })
   ),
@@ -55,15 +67,71 @@ async function writeStore(data: unknown) {
   await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }
 
+// 转换数据格式：将数组格式的 requirements 转换为字符串
+function normalizeJobData(data: any) {
+  if (Array.isArray(data.jobs)) {
+    data.jobs = data.jobs.map((job: any) => {
+      const normalized = { ...job };
+      
+      // 转换 requirements：如果是数组，转换为字符串
+      if (normalized.requirements) {
+        if (Array.isArray(normalized.requirements.cn)) {
+          normalized.requirements.cn = normalized.requirements.cn.join('\n');
+        }
+        if (Array.isArray(normalized.requirements.en)) {
+          normalized.requirements.en = normalized.requirements.en.join('\n');
+        }
+      }
+      
+      // 转换 responsibilities：如果是数组，转换为字符串
+      if (normalized.responsibilities) {
+        if (Array.isArray(normalized.responsibilities.cn)) {
+          normalized.responsibilities.cn = normalized.responsibilities.cn.join('\n');
+        }
+        if (Array.isArray(normalized.responsibilities.en)) {
+          normalized.responsibilities.en = normalized.responsibilities.en.join('\n');
+        }
+      }
+      
+      // 转换 workLocation：如果是数组，转换为字符串
+      if (normalized.workLocation) {
+        if (Array.isArray(normalized.workLocation.cn)) {
+          normalized.workLocation.cn = normalized.workLocation.cn.join('\n');
+        }
+        if (Array.isArray(normalized.workLocation.en)) {
+          normalized.workLocation.en = normalized.workLocation.en.join('\n');
+        }
+      }
+      
+      // 转换 preferredConditions：如果是数组，转换为字符串
+      if (normalized.preferredConditions) {
+        if (Array.isArray(normalized.preferredConditions.cn)) {
+          normalized.preferredConditions.cn = normalized.preferredConditions.cn.join('\n');
+        }
+        if (Array.isArray(normalized.preferredConditions.en)) {
+          normalized.preferredConditions.en = normalized.preferredConditions.en.join('\n');
+        }
+      }
+      
+      return normalized;
+    });
+  }
+  return data;
+}
+
 export async function GET() {
   const data = await readStore();
-  return NextResponse.json(data, { headers: { 'cache-control': 'no-store' } });
+  // 规范化数据格式，确保 requirements 是字符串格式
+  const normalized = normalizeJobData(data);
+  return NextResponse.json(normalized, { headers: { 'cache-control': 'no-store' } });
 }
 
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const parsed = CareersSchema.parse(body);
+    // 先规范化数据格式
+    const normalized = normalizeJobData(body);
+    const parsed = CareersSchema.parse(normalized);
     await writeStore(parsed);
     return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
   } catch (e: any) {
