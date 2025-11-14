@@ -1,224 +1,266 @@
+// File: app/[locale]/admin/careers/page.tsx
 'use client';
 
-import {useTranslations} from 'next-intl';
-import Link from 'next/link';
-import type {Locale} from '@/i18n/routing';
-import {siteConfig} from '@/lib/site';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocale } from 'next-intl';
 
-function Kicker({children}:{children:React.ReactNode}) {
-  return <p className="section-kicker">{children}</p>;
+type Job = {
+  id: string;
+  title: { cn: string; en: string };
+  salary: { cn: string; en: string };
+  responsibilities?: { cn: string; en: string };
+  requirements?: { cn: string; en: string };
+  preferredConditions?: { cn: string; en: string };
+};
+
+interface CareersData {
+  jobs: Job[];
+  contact: {
+    phone: string;
+    email: string;
+    address: { cn: string; en: string };
+  };
 }
 
-type CaseItem = { title: string; desc: string };
-type EquipItem = { t: string; d: string };
+export default function CareersAdminPage() {
+  const locale = useLocale();
+  const [data, setData] = useState<CareersData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
-export default function Home({params:{locale}}:{params:{locale:string}}) {
-  const currentLocale = locale as Locale;            // ✅ 收窄成 "zh" | "en"
+  const lang = useMemo<'cn' | 'en'>(() => (locale === 'en' ? 'en' : 'cn'), [locale]);
 
-  const t = useTranslations('home');
-  const n = useTranslations('nav');
+  // 加载 API（失败则回退到 localStorage 草稿）
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      setError(null);
+      try {
+        const res = await fetch('/api/careers', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as CareersData;
 
-  const missionBullets = t.raw('missionBullets') as string[];
-  const cases = t.raw('cases') as CaseItem[];
-  const equip = t.raw('equip') as EquipItem[];
+        const draft = typeof window !== 'undefined' ? localStorage.getItem('careersDraft') : null;
+        if (!mounted) return;
+        setData(draft ? JSON.parse(draft) : json);
+      } catch (e: any) {
+        const draft = typeof window !== 'undefined' ? localStorage.getItem('careersDraft') : null;
+        if (draft) {
+          if (!mounted) return;
+          setData(JSON.parse(draft));
+          setError('API 加载失败，已使用本地草稿');
+        } else {
+          if (!mounted) return;
+          setError('无法加载数据（API 不可用且本地草稿为空）');
+        }
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  // 修改 Job 某个字段（当前语言）
+  const patchJob = (id: string, path: 'title' | 'salary' | 'responsibilities' | 'requirements' | 'preferredConditions', v: string) => {
+    setData((prev) => {
+      if (!prev) return prev;
+      const next: CareersData = structuredClone(prev);
+      const job = next.jobs.find((j) => j.id === id);
+      if (job) {
+        if (path === 'responsibilities' || path === 'requirements' || path === 'preferredConditions') {
+          if (!job[path]) {
+            (job as any)[path] = { cn: '', en: '' };
+          }
+          (job as any)[path][lang] = v;
+        } else {
+          (job as any)[path][lang] = v;
+        }
+      }
+      return next;
+    });
+  };
+
+  const saveDraft = () => {
+    if (!data) return;
+    localStorage.setItem('careersDraft', JSON.stringify(data));
+    alert('已保存到浏览器本地草稿（localStorage）');
+  };
+
+  // 示例“发布”（无后端，仅演示）
+  // const publish = async () => {
+  //   if (!data) return;
+  //   setSaving(true);
+  //   await new Promise((r) => setTimeout(r, 500));
+  //   setSaving(false);
+  //   alert('已模拟发布（示例环境未接后端）。\n若要接 DB，请实现 PUT /api/careers');
+  // };
+  const publish = async () => {
+    if (!data) return;
+    setSaving(true);
+    try {
+      const res = await fetch('/api/careers', {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        throw new Error(j?.error || `HTTP ${res.status}`);
+      }
+  
+      // 通知前台刷新（双通道：BroadcastChannel + localStorage 事件）
+      try {
+        const ch = new BroadcastChannel('careers');
+        ch.postMessage({ type: 'updated', at: Date.now() });
+        ch.close();
+      } catch {}
+  
+      localStorage.setItem('careers-updated', String(Date.now()));
+      alert('已发布成功');
+    } catch (e: any) {
+      alert('发布失败：' + e.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+
+
+
+  if (!data) {
+    return (
+      <main className="container mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-4">Careers 管理</h1>
+        {error ? <p className="text-red-600">{error}</p> : <p>加载中…</p>}
+      </main>
+    );
+  }
 
   return (
-    <>
-      {/* HERO：封面大图 */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="/wintex/hero.jpg" alt="Hero" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-        </div>
-        <div className="relative container pt-28 pb-16 md:pt-40 md:pb-28 text-white">
-          <Kicker>{t('kicker')}</Kicker>
-          <h1 className="mt-3 text-4xl md:text-5xl font-bold leading-tight">{t('heroTitle')}</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/90">{t('heroDesc')}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/#contact" className="btn btn-primary">{t('ctaPlan')}</Link>
-            <Link href="/#cases" className="btn border-white/30 text-white hover:shadow">{t('ctaCases')}</Link>
-          </div>
-        </div>
+    <main className="container mx-auto p-6">
+      <header className="mb-6 flex items-center gap-3">
+        <h1 className="text-2xl font-bold">Careers 管理</h1>
+        {error && <span className="text-xs text-red-600">{error}</span>}
+        <span className="text-xs text-gray-500">当前语言：{lang.toUpperCase()}</span>
+      </header>
+
+      <section className="grid gap-6">
+        {data.jobs.map((job) => (
+          <article key={job.id} className="rounded-xl border p-4 bg-white/70">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-semibold">{job.id}</h2>
+              <span className="text-xs text-gray-500">编辑 {lang.toUpperCase()}</span>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">职位标题</span>
+                <input
+                  className="border rounded-lg px-3 py-2"
+                  value={job.title[lang]}
+                  onChange={(e) => patchJob(job.id, 'title', e.target.value)}
+                />
+              </label>
+
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">薪资文案</span>
+                <input
+                  className="border rounded-lg px-3 py-2"
+                  value={job.salary[lang]}
+                  onChange={(e) => patchJob(job.id, 'salary', e.target.value)}
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 grid gap-4">
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">核心职责（{lang.toUpperCase()}）</span>
+                <textarea
+                  className="border rounded-lg px-3 py-2 min-h-[150px] font-mono text-sm"
+                  value={job.responsibilities?.[lang] || ''}
+                  onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value)}
+                  placeholder="支持HTML格式或纯文本（每行一个条目）。使用 **文本** 表示粗体标题。"
+                />
+                <span className="text-xs text-gray-500 mt-1">提示：可直接输入HTML代码，或使用纯文本格式（每行一个条目）</span>
+              </label>
+
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">职位要求（{lang.toUpperCase()}）</span>
+                <textarea
+                  className="border rounded-lg px-3 py-2 min-h-[150px] font-mono text-sm"
+                  value={job.requirements?.[lang] || ''}
+                  onChange={(e) => patchJob(job.id, 'requirements', e.target.value)}
+                  placeholder="支持HTML格式或纯文本（每行一个条目）。使用 **文本** 表示粗体标题。"
+                />
+                <span className="text-xs text-gray-500 mt-1">提示：可直接输入HTML代码，或使用纯文本格式（每行一个条目）</span>
+              </label>
+
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">优先条件（{lang.toUpperCase()}）</span>
+                <textarea
+                  className="border rounded-lg px-3 py-2 min-h-[120px] font-mono text-sm"
+                  value={job.preferredConditions?.[lang] || ''}
+                  onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value)}
+                  placeholder="支持HTML格式或纯文本（每行一个条目）。"
+                />
+                <span className="text-xs text-gray-500 mt-1">提示：可直接输入HTML代码，或使用纯文本格式（每行一个条目）</span>
+              </label>
+            </div>
+          </article>
+        ))}
       </section>
 
-      {/* 企业愿景 */}
-      <section id="mission" className="container py-16 md:py-20">
-        
-        <h2 className="section-title">{t('missionTitle')}</h2>
-        <div className="grid grid-2 gap-8">
-          <div className="space-y-6">
-            <div className="space-y-4 text-gray-700">
-              <p className="text-lg leading-relaxed">
-                {t('missionDesc1')}
-              </p>
-              <p className="text-lg leading-relaxed">
-                {t('missionDesc2')}
-              </p>
-            </div>
-            <Link href="/#cases" className="btn btn-primary">{t('missionButton')}</Link>
-          </div>
-          <div className="image-container">
-            <img
-              src="/wintex/case1.jpg"
-              alt="Our Mission"
-              className="h-full w-full object-cover object-center"
+      <section className="mt-6 rounded-xl border p-4 bg-white/70">
+        <h3 className="font-semibold mb-3">联系方式</h3>
+        <div className="grid md:grid-cols-3 gap-4">
+          <label className="grid gap-1">
+            <span className="text-sm text-gray-600">电话</span>
+            <input
+              className="border rounded-lg px-3 py-2"
+              value={data.contact.phone}
+              onChange={(e) => setData({ ...data, contact: { ...data.contact, phone: e.target.value } })}
             />
-          </div>
+          </label>
+          <label className="grid gap-1">
+            <span className="text-sm text-gray-600">邮箱</span>
+            <input
+              className="border rounded-lg px-3 py-2"
+              value={data.contact.email}
+              onChange={(e) => setData({ ...data, contact: { ...data.contact, email: e.target.value } })}
+            />
+          </label>
+          <label className="grid gap-1 md:col-span-3">
+            <span className="text-sm text-gray-600">地址（{lang.toUpperCase()}）</span>
+            <input
+              className="border rounded-lg px-3 py-2"
+              value={data.contact.address[lang]}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  contact: {
+                    ...data.contact,
+                    address: { ...data.contact.address, [lang]: e.target.value },
+                  },
+                })
+              }
+            />
+          </label>
         </div>
       </section>
 
-      {/* 案例 */}
-      <section id="cases" className="container py-16 md:py-20">
-        <h2 className="section-title">{t('casesTitle')}</h2>
-        <div className="grid grid-2 gap-8">
-          <article className="card overflow-hidden fade-in-up">
-            <div className="image-container">
-              <img
-                src="/wintex/case2.jpg"
-                alt="Alabat Wind Power Project"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="card-body">
-              <h3 className="font-semibold text-lg mb-2">{t('case1Title')}</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {t('case1Desc')}
-              </p>
-            </div>
-          </article>
-          <article className="card overflow-hidden fade-in-up">
-            <div className="image-container">
-              <img
-                src="/wintex/case3.jpg"
-                alt="Tanay Wind Power Project"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="card-body">
-              <h3 className="font-semibold text-lg mb-2">{t('case2Title')}</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {t('case2Desc')}
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      {/* 装备 */}
-      <section id="equipment" className="container py-16 md:py-20">
-        <h2 className="section-title">{t('equipmentTitle')}</h2>
-        <div className="grid grid-2 gap-8">
-          <article className="card overflow-hidden fade-in-up">
-            <div className="image-container">
-              <img
-                src="/wintex/equip1.jpg"
-                alt="Stacking"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="card-body">
-              <h3 className="font-semibold text-lg mb-2">{t('equip1Title')}</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {t('equip1Desc')}
-              </p>
-            </div>
-          </article>
-          <article className="card overflow-hidden fade-in-up">
-            <div className="image-container">
-              <img
-                src="/wintex/equip2.jpg"
-                alt="Transportation"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="card-body">
-              <h3 className="font-semibold text-lg mb-2">{t('equip2Title')}</h3>
-              <p className="text-gray-600 leading-relaxed">
-                {t('equip2Desc')}
-              </p>
-            </div>
-          </article>
-        </div>
-        <div className="mt-8">
-          <Link href="/#equipment" className="btn btn-primary">{t('equipmentButton')}</Link>
-        </div>
-      </section>
-
-      {/* 新闻 */}
-      <section id="news" className="container py-16 md:py-20">
-        <h2 className="section-title">{t('newsTitle')}</h2>
-        <div className="grid grid-3 gap-6">
-          <div className="testimonial-card">
-            <p className="text-gray-700 mb-4">{t('testimonial1')}</p>
-            <div className="flex items-center gap-3">
-              <div className="avatar bg-red-500">N</div>
-              <div>
-                <div className="font-semibold">Name</div>
-                <div className="text-sm text-gray-600">Description</div>
-              </div>
-            </div>
-          </div>
-          <div className="testimonial-card">
-            <p className="text-gray-700 mb-4">{t('testimonial2')}</p>
-            <div className="flex items-center gap-3">
-              <div className="avatar bg-green-500">N</div>
-              <div>
-                <div className="font-semibold">Name</div>
-                <div className="text-sm text-gray-600">Description</div>
-              </div>
-            </div>
-          </div>
-          <div className="testimonial-card">
-            <p className="text-gray-700 mb-4">{t('testimonial3')}</p>
-            <div className="flex items-center gap-3">
-              <div className="avatar bg-blue-500">N</div>
-              <div>
-                <div className="font-semibold">Name</div>
-                <div className="text-sm text-gray-600">Description</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 加入我们 */}
-      <section id="join" className="container py-16 md:py-20">
-        <div className="flex justify-between items-center">
-          <h2 className="section-title mb-0">{t('joinTitle')}</h2>
-          <Link href={`/careers.html?lang=${currentLocale}`} className="btn btn-primary">{t('joinButton')}</Link>
-        </div>
-      </section>
-
-      {/* 联系我们 */}
-      <section id="contact" className="container py-16 md:py-20">
-        <div className="grid grid-2 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">{t('contactTitle')}</h3>
-            <div className="flex gap-4">
-              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
-                <span className="text-xs">f</span>
-              </div>
-              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
-                <span className="text-xs">in</span>
-              </div>
-              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
-                <span className="text-xs">yt</span>
-              </div>
-              <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center">
-                <span className="text-xs">@</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold mb-4">{t('contactUsTitle')}</h3>
-            <div className="space-y-2 text-gray-700">
-              <div>{t('contactTel')}</div>
-              <div>{t('contactEmail')}</div>
-              <div>{t('contactAddress')}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+      <div className="mt-6 flex gap-3">
+        <button onClick={saveDraft} className="px-4 py-2 rounded-lg border">
+          保存草稿（本地）
+        </button>
+        <button
+          onClick={publish}
+          disabled={saving}
+          className="px-4 py-2 rounded-lg border bg-black text-white disabled:opacity-50"
+        >
+          {saving ? '发布中…' : '发布（示例）'}
+        </button>
+      </div>
+    </main>
   );
 }
+ 
