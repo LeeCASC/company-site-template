@@ -19,7 +19,11 @@ function useInView(options = {}) {
           setIsInView(true);
         }
       },
-      { threshold: 0.1, ...options }
+      { 
+        threshold: 0.2, // 当元素20%进入视口时触发，确保动画更明显
+        rootMargin: '0px 0px -100px 0px', // 提前100px触发，让动画更早开始
+        ...options 
+      }
     );
 
     observer.observe(element);
@@ -145,8 +149,8 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
               className="relative w-full h-screen min-h-[800px] flex items-center justify-center"
               style={{
                 opacity: networkInView ? 1 : 0,
-                transform: networkInView ? 'scale(1)' : 'scale(0.9)',
-                transition: 'opacity 1s ease-out, transform 1s ease-out'
+                transform: networkInView ? 'scale(1)' : 'scale(0.95)',
+                transition: networkInView ? 'opacity 1s ease-out, transform 1s ease-out' : 'none'
               }}
             >
               {/* SVG 连接线 */}
@@ -154,7 +158,7 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 style={{
                   opacity: networkInView ? 1 : 0,
-                  transition: 'opacity 1.5s ease-out 0.5s'
+                  transition: networkInView ? 'opacity 1.5s ease-out 0.5s' : 'none'
                 }}
               >
                 {/* 从中心到各个节点的连接线 - 水平连线 */}
@@ -167,7 +171,7 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                   strokeWidth="2"
                   strokeDasharray={networkInView ? "0" : "10,5"}
                   style={{
-                    transition: 'stroke-dasharray 1s ease-out 1s'
+                    transition: networkInView ? 'stroke-dasharray 1s ease-out 1s' : 'none'
                   }}
                 />
                 <line 
@@ -233,10 +237,10 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                     <g 
                       key={i}
                       transform={`translate(${point.x}%, ${point.y}%) scale(${scale})`}
-                      style={{
-                        opacity: networkInView ? 1 : 0,
-                        transition: `opacity 0.5s ease-out ${1.8 + i * 0.2}s, transform 0.5s ease-out ${1.8 + i * 0.2}s`
-                      }}
+                    style={{
+                      opacity: networkInView ? 1 : 0,
+                      transition: networkInView ? `opacity 0.5s ease-out ${1.8 + i * 0.2}s, transform 0.5s ease-out ${1.8 + i * 0.2}s` : 'none'
+                    }}
                     >
                       <polygon
                         points="0,-8 8,0 0,8 -8,0"
@@ -255,7 +259,7 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                 style={{
                   opacity: networkInView ? 1 : 0,
                   transform: networkInView ? 'scale(1)' : 'scale(0)',
-                  transition: 'opacity 0.8s ease-out 0.8s, transform 0.8s ease-out 0.8s'
+                  transition: networkInView ? 'opacity 0.8s ease-out 0.8s, transform 0.8s ease-out 0.8s' : 'none'
                 }}
               >
                 {/* 外层灰色圆形 - 无边框，直径更大 */}
@@ -326,7 +330,7 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                     top: node.y,
                     opacity: networkInView ? 1 : 0,
                     transform: networkInView ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)',
-                    transition: `opacity 0.6s ease-out ${node.delay}s, transform 0.6s ease-out ${node.delay}s`
+                    transition: networkInView ? `opacity 0.6s ease-out ${node.delay}s, transform 0.6s ease-out ${node.delay}s` : 'none'
                   }}
                 >
                   {/* <div className="text-lg font-bold text-brand-accent mb-3">{node.title}</div> */}
@@ -354,7 +358,7 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                   top: '85%',
                   opacity: networkInView ? 1 : 0,
                   transform: networkInView ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)',
-                  transition: `opacity 0.6s ease-out 2.2s, transform 0.6s ease-out 2.2s`
+                  transition: networkInView ? `opacity 0.6s ease-out 2.2s, transform 0.6s ease-out 2.2s` : 'none'
                 }}
               >
                 {/* <div className="text-lg md:text-xl font-bold text-brand-accent mb-3">
