@@ -22,7 +22,7 @@ function Navigation() {
       <Link href={`/${locale}/mission`} className="hover:text-gray-600">{n('mission')}</Link>
       <Link href={`/${locale}/news`} className="hover:text-gray-600">{n('news')}</Link>
       <Link href={`/${locale}/equipment`} className="hover:text-gray-600">{n('equipment')}</Link>
-      <a href={`/careers.html?lang=${locale}`} className="hover:text-gray-600">{n('careers')}</a>
+      <a href={`/careers.html?lang=${locale}`} target="_blank" rel="noopener noreferrer" className="hover:text-gray-600">{n('careers')}</a>
       <Link href={`/${locale}#contact`} className="hover:text-gray-600">{n('contact')}</Link>
       <div className="ml-2">
         <LocaleSwitcher />
