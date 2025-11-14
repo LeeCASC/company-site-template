@@ -683,7 +683,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 {t('strengthDesc')}
               </p>
               <Link 
-                href={`/${currentLocale}#strength`} 
+                href={`/${currentLocale}/mission`} 
                 className="btn btn-primary"
                 style={{
                   fontSize: 'clamp(12px, 2.25vw, 18px)',
@@ -717,7 +717,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 {t('equipmentListTitle')}
               </h2>
               <Link 
-                href={`/${currentLocale}#equipment`} 
+                href={`/${currentLocale}/equipment`} 
                 className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-4 sm:px-6 py-2 sm:py-3 font-medium transition-colors"
                 style={{
                   fontSize: 'clamp(12px, 2.25vw, 18px)',
