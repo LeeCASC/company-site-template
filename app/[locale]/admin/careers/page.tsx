@@ -8,6 +8,9 @@ type Job = {
   id: string;
   title: { cn: string; en: string };
   salary: { cn: string; en: string };
+  responsibilities?: { cn?: string; en?: string };
+  requirements?: { cn?: string; en?: string };
+  preferredConditions?: { cn?: string; en?: string };
 };
 
 interface CareersData {
@@ -58,13 +61,21 @@ export default function CareersAdminPage() {
   }, []);
 
   // 修改 Job 某个字段（当前语言）
-  const patchJob = (id: string, path: 'title' | 'salary', v: string) => {
+  const patchJob = (id: string, path: 'title' | 'salary' | 'responsibilities' | 'requirements' | 'preferredConditions', v: string) => {
     setData((prev) => {
       if (!prev) return prev;
       const next: CareersData = structuredClone(prev);
       const job = next.jobs.find((j) => j.id === id);
       if (job) {
-        (job as any)[path][lang] = v;
+        if (path === 'title' || path === 'salary') {
+          (job as any)[path][lang] = v;
+        } else {
+          // 对于 responsibilities, requirements, preferredConditions
+          if (!(job as any)[path]) {
+            (job as any)[path] = { cn: '', en: '' };
+          }
+          (job as any)[path][lang] = v;
+        }
       }
       return next;
     });
@@ -106,10 +117,13 @@ export default function CareersAdminPage() {
       } catch {}
   
       localStorage.setItem('careers-updated', String(Date.now()));
+      
+      // 显示成功提示，然后跳转到招聘页面
       alert('已发布成功');
+      const langParam = locale === 'en' ? 'en' : 'cn';
+      window.location.href = `/careers.html?lang=${langParam}`;
     } catch (e: any) {
       alert('发布失败：' + e.message);
-    } finally {
       setSaving(false);
     }
   };
@@ -158,6 +172,41 @@ export default function CareersAdminPage() {
                   className="border rounded-lg px-3 py-2"
                   value={job.salary[lang]}
                   onChange={(e) => patchJob(job.id, 'salary', e.target.value)}
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 grid gap-4">
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600 font-medium">核心职责</span>
+                <span className="text-xs text-gray-500 mb-1">支持HTML格式，例如：&lt;li&gt;内容&lt;/li&gt; 或纯文本（每行一个）</span>
+                <textarea
+                  className="border rounded-lg px-3 py-2 min-h-[120px] font-mono text-sm"
+                  value={job.responsibilities?.[lang] || ''}
+                  onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value)}
+                  placeholder="输入核心职责内容..."
+                />
+              </label>
+
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600 font-medium">职位要求</span>
+                <span className="text-xs text-gray-500 mb-1">支持HTML格式，例如：&lt;li&gt;&lt;strong&gt;标题&lt;/strong&gt;&lt;ul class="sub-list"&gt;&lt;li&gt;内容&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;</span>
+                <textarea
+                  className="border rounded-lg px-3 py-2 min-h-[200px] font-mono text-sm"
+                  value={job.requirements?.[lang] || ''}
+                  onChange={(e) => patchJob(job.id, 'requirements', e.target.value)}
+                  placeholder="输入职位要求内容..."
+                />
+              </label>
+
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600 font-medium">优先条件</span>
+                <span className="text-xs text-gray-500 mb-1">支持HTML格式，例如：&lt;li&gt;内容&lt;/li&gt; 或纯文本（每行一个）</span>
+                <textarea
+                  className="border rounded-lg px-3 py-2 min-h-[100px] font-mono text-sm"
+                  value={job.preferredConditions?.[lang] || ''}
+                  onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value)}
+                  placeholder="输入优先条件内容..."
                 />
               </label>
             </div>

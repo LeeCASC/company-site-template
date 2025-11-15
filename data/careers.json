@@ -14,27 +14,23 @@
         "cn": "负责工程分包商管理、总包商商务对接、重型运输成本控制等工作",
         "en": "Responsible for subcontractor management, EPC contractor engagement, and heavy transport cost control"
       },
+      "responsibilities": {
+        "cn": "<li><strong>工程合作方管理</strong><ul class=\"sub-list\"><li>起草/监管7类分包合同：船务代理、码头操作、拖轮公司、吊装租赁、道路改造、电力迁改、林木修剪</li><li>审核分包商账单，管控付款进度（单项目常涉及5+分包商协同）</li></ul></li><li><strong>总包商(EPC)商务对接</strong><ul class=\"sub-list\"><li>依据工程合同条款处理进度款申请、变更签证、履约保函延期</li><li>主导项目索赔：因总包商原因导致的运输延误及物流成本增加的索赔</li></ul></li><li><strong>重型运输成本控制</strong><ul class=\"sub-list\"><li>监控特有成本项：桥梁加固费、临时征地费、警车开道费、超限许可证</li><li>编制风电项目分标段损益报告（海运/港口/陆运）</li></ul></li>",
+        "en": "<li><strong>Subcontractor Management</strong><ul class=\"sub-list\"><li>Draft/supervise contracts for 7 types of subcontractors: shipping agency, terminal operations, tugboat services, crane rental, road modification, power line relocation, tree trimming</li><li>Verify subcontractor invoices and control payment schedules (managing 5+ subcontractors per project)</li></ul></li><li><strong>EPC Contractor Engagement</strong><ul class=\"sub-list\"><li>Process progress payment claims, change orders, performance bond extensions under engineering contracts</li><li>Lead project claims against EPC contractors for delays and cost overruns caused by EPC decisions</li></ul></li><li><strong>Heavy Transport Cost Control</strong><ul class=\"sub-list\"><li>Monitor specialized costs: bridge reinforcement, temporary land acquisition, police escort fees, oversize permits</li><li>Prepare segmented P&L reports for wind projects (sea/port/land transport)</li></ul></li>"
+      },
       "requirements": {
-        "cn": [
-          "5年以上工程物流/建筑施工企业经验",
-          "3年以上多类型分包商管理经验",
-          "≥5次成功向总包商索赔经验",
-          "菲律宾籍，能适应项目现场工作环境",
-          "流利的英语沟通能力"
-        ],
-        "en": [
-          "5+ years in engineering logistics/construction",
-          "3+ years managing multiple subcontractor types",
-          "≥5 successful claims against EPC contractors",
-          "Filipino national, able to work at project sites",
-          "Fluent English communication skills"
-        ]
+        "cn": "<li><strong>经验要求</strong><ul class=\"sub-list\"><li>5年以上工程物流/建筑施工企业经验（需参与过大型设备运输项目）</li><li>3年以上多类型分包商管理经验（同时管理≥3类）</li><li>≥5次成功向总包商索赔经验（需面试展示证明文件）</li></ul></li><li><strong>核心能力</strong><ul class=\"sub-list\"><li>精通重型运输合同条款设计：滞期费阶梯计价、吊装事故责任界定</li><li>熟悉菲律宾大件运输法规：DPWH超限许可流程、LGU地方道路使用许可、NGCP线路迁改规范</li><li>总包商索赔专长：证据链构建、成本计算模型</li></ul></li><li><strong>其他要求</strong><ul class=\"sub-list\"><li>菲律宾籍，能适应项目现场工作环境</li><li>持有有效驾照，能前往不同项目现场</li><li>流利的英语沟通能力</li></ul></li>",
+        "en": "<li><strong>Experience</strong><ul class=\"sub-list\"><li>5+ years in engineering logistics/construction (experience with heavy equipment transport projects required)</li><li>3+ years managing multiple subcontractor types (concurrently managing ≥3 types)</li><li>≥5 successful claims against EPC contractors (proof required during interview)</li></ul></li><li><strong>Core Competencies</strong><ul class=\"sub-list\"><li>Expertise in heavy transport contract clauses: demurrage tiered pricing, crane accident liability allocation</li><li>Knowledge of Philippine heavy transport regulations: DPWH oversize permits, LGU road access approvals, NGCP relocation standards</li><li>EPC claim specialization: evidence chain development, cost modeling</li></ul></li><li><strong>Other Requirements</strong><ul class=\"sub-list\"><li>Filipino national, able to work at project sites</li><li>Valid driver's license, able to travel to different sites</li><li>Fluent English communication skills</li></ul></li>"
+      },
+      "preferredConditions": {
+        "cn": "<li>有大型工程物流项目经验者优先</li>",
+        "en": "<li>Experience in large-scale engineering logistics projects preferred</li>"
       }
     },
     {
       "id": "translator",
       "title": {
-        "cn": "在线翻译",
+        "cn": "现场翻译",
         "en": "On-site Translator"
       },
       "salary": {
@@ -45,21 +41,44 @@
         "cn": "为中方特种设备操作手提供现场英语口语翻译服务",
         "en": "Provide on-site English interpretation for Chinese heavy equipment operators"
       },
+      "responsibilities": {
+        "cn": "<li>为中方特种设备操作手提供现场英语口语翻译服务</li><li>协助操作手与当地工作人员进行日常沟通协调</li><li>翻译设备操作手册、安全规范等技术文档</li><li>参与项目会议并提供中英双向翻译支持</li><li>协助处理中方员工与当地社区的基本沟通</li><li>记录并整理翻译日志，确保信息准确传递</li>",
+        "en": "<li>Provide on-site English interpretation for Chinese heavy equipment operators</li><li>Assist operators in daily communication with local staff</li><li>Translate technical documents such as equipment manuals and safety regulations</li><li>Provide bilingual support in project meetings</li><li>Assist in basic communication between Chinese staff and local communities</li><li>Maintain interpretation logs to ensure accurate information transfer</li>"
+      },
       "requirements": {
-        "cn": [
-          "中国籍应届本科毕业生",
-          "英语相关专业优先",
-          "大学英语六级600分以上",
-          "优秀的中英双语口语表达能力",
-          "吃苦耐劳，能适应项目现场环境"
-        ],
-        "en": [
-          "Chinese fresh graduate with bachelor's degree",
-          "English-related majors preferred",
-          "CET-6 score ≥600",
-          "Excellent Chinese-English oral interpretation skills",
-          "Hardworking, adaptable to project site conditions"
-        ]
+        "cn": "<li><strong>基本要求</strong><ul class=\"sub-list\"><li>中国籍应届本科毕业生</li><li>英语相关专业优先（如翻译、英语、国际商务等）</li><li>大学英语六级600分以上或专四/专八良好以上</li></ul></li><li><strong>核心能力</strong><ul class=\"sub-list\"><li>优秀的中英双语口语表达能力</li><li>快速学习技术术语和专业知识的能力</li><li>良好的跨文化沟通和理解能力</li></ul></li><li><strong>个人素质</strong><ul class=\"sub-list\"><li>吃苦耐劳，能适应项目现场环境</li><li>有耐心，脾气好，能妥善处理压力</li><li>积极主动，有上进心，学习能力强</li><li>具备优秀的情绪管理能力</li><li>良好的团队协作精神</li></ul></li>",
+        "en": "<li><strong>Basic Requirements</strong><ul class=\"sub-list\"><li>Chinese fresh graduate with bachelor's degree</li><li>English-related majors preferred (translation, English, international business, etc.)</li><li>CET-6 score ≥600 or TEM-4/8 with good grade</li></ul></li><li><strong>Core Competencies</strong><ul class=\"sub-list\"><li>Excellent Chinese-English oral interpretation skills</li><li>Ability to quickly learn technical terminology and professional knowledge</li><li>Strong cross-cultural communication and understanding skills</li></ul></li><li><strong>Personal Qualities</strong><ul class=\"sub-list\"><li>Hardworking, adaptable to project site conditions</li><li>Patient, good-tempered, able to handle pressure</li><li>Proactive, motivated, fast learner</li><li>Excellent emotional management skills</li><li>Strong team collaboration spirit</li></ul></li>"
+      },
+      "preferredConditions": {
+        "cn": "<li>有机械、工程类知识背景</li><li>通过CATTI口译三级或以上</li><li>有海外学习或生活经历</li><li>掌握基础菲律宾语</li>",
+        "en": "<li>Background in mechanical/engineering knowledge</li><li>CATTI Level 3 Interpretation or higher</li><li>Overseas study or living experience</li><li>Basic Filipino language skills</li>"
+      }
+    },
+    {
+      "id": "freight",
+      "title": {
+        "cn": "货代操作",
+        "en": "Freight Forwarding Operator"
+      },
+      "salary": {
+        "cn": "薪资待遇：面议",
+        "en": "Salary: Negotiable"
+      },
+      "description": {
+        "cn": "负责国际货运的全流程操作，包括订舱、报关、单证制作及跟踪",
+        "en": "Manage end-to-end international freight operations including booking, customs clearance, documentation and tracking"
+      },
+      "responsibilities": {
+        "cn": "<li>负责国际货运的全流程操作，包括订舱、报关、单证制作及跟踪</li><li>协调船公司、港口、仓库等各方资源，确保货物按时安全运输</li><li>处理进出口货物的报关报检及相关文件准备工作</li><li>监控货物运输状态，及时处理运输过程中的异常情况</li><li>与客户保持良好沟通，及时反馈货物运输信息</li><li>优化货运方案，降低物流成本，提高运输效率</li><li>准备和处理提单、发票、装箱单等运输单据</li><li>确保所有单证符合国际贸易规则和目的国海关要求</li><li>审核信用证条款，确保单证一致</li><li>处理进出口报关文件及相关许可证</li>",
+        "en": "<li>Manage end-to-end international freight operations including booking, customs clearance, documentation and tracking</li><li>Coordinate with shipping lines, ports, warehouses to ensure timely and safe cargo transportation</li><li>Handle customs declaration and inspection for import/export goods</li><li>Monitor cargo status and resolve any transportation issues promptly</li><li>Maintain good communication with clients and provide shipment updates</li><li>Optimize shipping solutions to reduce costs and improve efficiency</li><li>Prepare and process shipping documents including BL, invoices, packing lists</li><li>Ensure all documents comply with international trade rules and destination customs requirements</li><li>Review L/C terms to ensure document consistency</li><li>Handle import/export customs documents and related permits</li>"
+      },
+      "requirements": {
+        "cn": "<li><strong>经验要求</strong><ul class=\"sub-list\"><li>至少3年以上国际货代公司工作经验</li><li>熟悉海运、空运及多式联运操作流程</li><li>有大型设备或风电项目物流经验者优先</li></ul></li><li><strong>专业知识</strong><ul class=\"sub-list\"><li>精通国际贸易术语（Incoterms 2020）</li><li>熟悉国际海运、空运操作流程及相关法规</li><li>了解菲律宾海关进出口政策及清关流程</li><li>掌握主要船公司及航空公司的操作规范</li></ul></li><li><strong>技能要求</strong><ul class=\"sub-list\"><li>熟练使用物流管理系统（如CargoWise, SAP等）</li><li>精通Office办公软件，特别是Excel高级功能</li><li>出色的多任务处理能力及时间管理能力</li><li>优秀的英语读写能力（CET-6或同等以上）</li></ul></li><li><strong>其他要求</strong><ul class=\"sub-list\"><li>具备高度责任心和抗压能力</li><li>良好的沟通协调能力和团队合作精神</li><li>能适应快节奏工作环境，处理紧急情况</li></ul></li>",
+        "en": "<li><strong>Experience</strong><ul class=\"sub-list\"><li>Minimum 3 years experience in international freight forwarding</li><li>Familiar with sea, air and multimodal transportation processes</li><li>Experience in heavy equipment or wind power logistics preferred</li></ul></li><li><strong>Professional Knowledge</strong><ul class=\"sub-list\"><li>Proficient in Incoterms 2020</li><li>Knowledge of international sea/air transport regulations</li><li>Understanding of Philippines customs policies and clearance procedures</li><li>Familiar with major shipping lines and airlines operations</li></ul></li><li><strong>Skills</strong><ul class=\"sub-list\"><li>Proficient in logistics management systems (e.g. CargoWise, SAP)</li><li>Advanced MS Office skills, especially Excel</li><li>Excellent multitasking and time management abilities</li><li>Strong English reading/writing skills (CET-6 or equivalent)</li></ul></li><li><strong>Additional Requirements</strong><ul class=\"sub-list\"><li>High sense of responsibility and stress tolerance</li><li>Good communication and teamwork skills</li><li>Ability to work in fast-paced environment and handle emergencies</li></ul></li>"
+      },
+      "preferredConditions": {
+        "cn": "<li>有大型设备或风电项目物流经验者优先</li>",
+        "en": "<li>Experience in heavy equipment or wind power logistics preferred</li>"
       }
     }
   ],
