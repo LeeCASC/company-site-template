@@ -81,6 +81,52 @@ export default function CareersAdminPage() {
     });
   };
 
+  // 删除岗位
+  const deleteJob = (id: string) => {
+    if (!confirm('确定要删除这个岗位吗？此操作不可撤销。')) return;
+    setData((prev) => {
+      if (!prev) return prev;
+      const next: CareersData = structuredClone(prev);
+      next.jobs = next.jobs.filter((j) => j.id !== id);
+      return next;
+    });
+  };
+
+  // 新增岗位
+  const addNewJob = () => {
+    setData((prev) => {
+      if (!prev) return prev;
+      const next: CareersData = structuredClone(prev);
+      // 生成新的ID（基于时间戳）
+      const newId = `job-${Date.now()}`;
+      const newJob: Job = {
+        id: newId,
+        title: { cn: '新岗位', en: 'New Position' },
+        salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' },
+        responsibilities: { cn: '', en: '' },
+        requirements: { cn: '', en: '' },
+        preferredConditions: { cn: '', en: '' },
+      };
+      next.jobs.push(newJob);
+      
+      // 滚动到新岗位的编辑区域
+      setTimeout(() => {
+        const element = document.getElementById(`job-article-${newId}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // 可选：高亮显示新岗位
+          element.style.transition = 'box-shadow 0.3s ease';
+          element.style.boxShadow = '0 0 0 3px rgba(34, 197, 94, 0.5)';
+          setTimeout(() => {
+            element.style.boxShadow = '';
+          }, 2000);
+        }
+      }, 100);
+      
+      return next;
+    });
+  };
+
   const saveDraft = () => {
     if (!data) return;
     localStorage.setItem('careersDraft', JSON.stringify(data));
@@ -149,11 +195,28 @@ export default function CareersAdminPage() {
       </header>
 
       <section className="grid gap-6">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-lg font-semibold">招聘岗位</h2>
+          <button
+            onClick={addNewJob}
+            className="px-4 py-2 rounded-lg border bg-green-600 text-white hover:bg-green-700 transition-colors"
+          >
+            + 新增岗位
+          </button>
+        </div>
         {data.jobs.map((job) => (
-          <article key={job.id} className="rounded-xl border p-4 bg-white/70">
+          <article key={job.id} id={`job-article-${job.id}`} className="rounded-xl border p-4 bg-white/70">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-semibold">{job.id}</h2>
-              <span className="text-xs text-gray-500">编辑 {lang.toUpperCase()}</span>
+              <div className="flex items-center gap-3">
+                <h2 className="font-semibold">{job.id}</h2>
+                <span className="text-xs text-gray-500">编辑 {lang.toUpperCase()}</span>
+              </div>
+              <button
+                onClick={() => deleteJob(job.id)}
+                className="px-3 py-1.5 rounded-lg border bg-red-600 text-white hover:bg-red-700 transition-colors text-sm"
+              >
+                删除
+              </button>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">

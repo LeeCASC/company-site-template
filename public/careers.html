@@ -218,10 +218,8 @@
         <h1 id="main-title">物流人才招聘</h1>
         <p class="tagline" id="sub-title">加入Wintex，共同打造菲律宾清洁能源未来</p>
 
-        <div class="job-tabs">
-          <button class="tab-btn active" data-tab="business" id="business-tab">商务助理</button>
-          <button class="tab-btn" data-tab="translator" id="translator-tab">现场翻译</button>
-          <button class="tab-btn" data-tab="freight" id="freight-tab">货代操作</button>
+        <div class="job-tabs" id="job-tabs-container">
+          <!-- 动态生成的tab按钮将插入这里 -->
         </div>
 
         <div class="job-highlights">
@@ -244,8 +242,13 @@
       </div>
     </header>
 
-    <!-- 商务助理职位内容 -->
-    <div class="job-content active" id="business-content">
+    <!-- 职位内容容器 -->
+    <div id="job-contents-container">
+      <!-- 动态生成的职位内容将插入这里 -->
+    </div>
+    
+    <!-- 保留原有的静态内容作为后备（向后兼容） -->
+    <div class="job-content active" id="business-content" style="display:none;">
       <div class="job-details">
         <div class="card">
           <h2><i class="fas fa-tasks"></i> <span>核心职责</span></h2>
@@ -546,10 +549,97 @@
         currentLang = lang; localStorage.setItem('lang', lang); render();
       }
 
+      // 动态生成tab按钮
+      function generateTabs() {
+        const tabsContainer = document.getElementById('job-tabs-container');
+        if (!tabsContainer) return;
+        
+        // 清空现有tabs
+        tabsContainer.innerHTML = '';
+        
+        const jobs = careersData?.jobs || [];
+        if (jobs.length === 0) return;
+        
+        jobs.forEach((job, index) => {
+          const btn = document.createElement('button');
+          btn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
+          btn.setAttribute('data-tab', job.id);
+          btn.id = `${job.id}-tab`;
+          btn.textContent = job.title?.[currentLang] || job.id;
+          tabsContainer.appendChild(btn);
+        });
+        
+        // 重新绑定事件（重置tabsBound以便重新绑定）
+        tabsBound = false;
+      }
+      
+      // 动态生成职位内容
+      function generateJobContents() {
+        const contentsContainer = document.getElementById('job-contents-container');
+        if (!contentsContainer) return;
+        
+        // 清空现有内容
+        contentsContainer.innerHTML = '';
+        
+        const jobs = careersData?.jobs || [];
+        if (jobs.length === 0) return;
+        
+        jobs.forEach((job, index) => {
+          const contentDiv = document.createElement('div');
+          // 只有第一个岗位设置为active，其他默认隐藏
+          contentDiv.className = `job-content ${index === 0 ? 'active' : ''}`;
+          contentDiv.id = `${job.id}-content`;
+          // 确保非active的内容被隐藏
+          if (index !== 0) {
+            contentDiv.style.display = 'none';
+          }
+          
+          const jobDetails = document.createElement('div');
+          jobDetails.className = 'job-details';
+          
+          // 核心职责
+          const responsibilitiesCard = document.createElement('div');
+          responsibilitiesCard.className = 'card';
+          responsibilitiesCard.innerHTML = `
+            <h2><i class="fas fa-tasks"></i> <span>核心职责</span></h2>
+            <ul id="${job.id}-responsibilities"></ul>
+          `;
+          jobDetails.appendChild(responsibilitiesCard);
+          
+          // 职位要求
+          const requirementsCard = document.createElement('div');
+          requirementsCard.className = 'card';
+          requirementsCard.innerHTML = `
+            <h2><i class="fas fa-user-graduate"></i> <span>职位要求</span></h2>
+            <ul id="${job.id}-requirements"></ul>
+          `;
+          jobDetails.appendChild(requirementsCard);
+          
+          // 优先条件
+          const preferredCard = document.createElement('div');
+          preferredCard.className = 'card';
+          preferredCard.innerHTML = `
+            <h2><i class="fas fa-star"></i> <span>优先条件</span></h2>
+            <ul id="${job.id}-preferredConditions"></ul>
+            <div class="salary-highlight"><i class="fas fa-money-bill-wave"></i> <span id="${job.id}-salary">${job.salary?.[currentLang] || '薪资待遇：面议'}</span></div>
+          `;
+          jobDetails.appendChild(preferredCard);
+          
+          contentDiv.appendChild(jobDetails);
+          contentsContainer.appendChild(contentDiv);
+        });
+      }
+      
       // 渲染流程：先应用内置翻译，再用（可选）接口数据增强
       function render(){
         applyStaticTranslations();
-        applyJobsFromAPI();
+        // 如果API数据存在，动态生成tabs和contents
+        if (careersData?.jobs?.length) {
+          generateTabs();
+          generateJobContents();
+          // 生成后立即应用API数据
+          applyJobsFromAPI();
+        }
         updateContactFromAPI();
         ensureTabs();
       }
@@ -646,10 +736,19 @@
         const jobContents = document.querySelectorAll('.job-content');
         tabBtns.forEach((btn)=>{
           btn.addEventListener('click', ()=>{
+            // 移除所有tab和content的active类
             tabBtns.forEach(b=>b.classList.remove('active'));
-            jobContents.forEach(c=>c.classList.remove('active'));
+            jobContents.forEach(c=>{
+              c.classList.remove('active');
+              c.style.display = 'none'; // 确保隐藏所有内容
+            });
+            // 激活当前选中的tab和对应的content
             btn.classList.add('active');
-            document.getElementById(`${btn.dataset.tab}-content`)?.classList.add('active');
+            const targetContent = document.getElementById(`${btn.dataset.tab}-content`);
+            if(targetContent) {
+              targetContent.classList.add('active');
+              targetContent.style.display = 'block'; // 确保显示当前内容
+            }
           });
         });
         tabsBound = true;

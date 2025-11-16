@@ -55,30 +55,49 @@
       }
     },
     {
-      "id": "freight",
+      "id": "job-1763254816433",
       "title": {
-        "cn": "货代操作",
-        "en": "Freight Forwarding Operator"
+        "cn": "新岗位1",
+        "en": "New Position"
       },
       "salary": {
         "cn": "薪资待遇：面议",
         "en": "Salary: Negotiable"
       },
-      "description": {
-        "cn": "负责国际货运的全流程操作，包括订舱、报关、单证制作及跟踪",
-        "en": "Manage end-to-end international freight operations including booking, customs clearance, documentation and tracking"
-      },
       "responsibilities": {
-        "cn": "<li>负责国际货运的全流程操作，包括订舱、报关、单证制作及跟踪</li><li>协调船公司、港口、仓库等各方资源，确保货物按时安全运输</li><li>处理进出口货物的报关报检及相关文件准备工作</li><li>监控货物运输状态，及时处理运输过程中的异常情况</li><li>与客户保持良好沟通，及时反馈货物运输信息</li><li>优化货运方案，降低物流成本，提高运输效率</li><li>准备和处理提单、发票、装箱单等运输单据</li><li>确保所有单证符合国际贸易规则和目的国海关要求</li><li>审核信用证条款，确保单证一致</li><li>处理进出口报关文件及相关许可证</li>",
-        "en": "<li>Manage end-to-end international freight operations including booking, customs clearance, documentation and tracking</li><li>Coordinate with shipping lines, ports, warehouses to ensure timely and safe cargo transportation</li><li>Handle customs declaration and inspection for import/export goods</li><li>Monitor cargo status and resolve any transportation issues promptly</li><li>Maintain good communication with clients and provide shipment updates</li><li>Optimize shipping solutions to reduce costs and improve efficiency</li><li>Prepare and process shipping documents including BL, invoices, packing lists</li><li>Ensure all documents comply with international trade rules and destination customs requirements</li><li>Review L/C terms to ensure document consistency</li><li>Handle import/export customs documents and related permits</li>"
+        "cn": "请填写",
+        "en": ""
       },
       "requirements": {
-        "cn": "<li><strong>经验要求</strong><ul class=\"sub-list\"><li>至少3年以上国际货代公司工作经验</li><li>熟悉海运、空运及多式联运操作流程</li><li>有大型设备或风电项目物流经验者优先</li></ul></li><li><strong>专业知识</strong><ul class=\"sub-list\"><li>精通国际贸易术语（Incoterms 2020）</li><li>熟悉国际海运、空运操作流程及相关法规</li><li>了解菲律宾海关进出口政策及清关流程</li><li>掌握主要船公司及航空公司的操作规范</li></ul></li><li><strong>技能要求</strong><ul class=\"sub-list\"><li>熟练使用物流管理系统（如CargoWise, SAP等）</li><li>精通Office办公软件，特别是Excel高级功能</li><li>出色的多任务处理能力及时间管理能力</li><li>优秀的英语读写能力（CET-6或同等以上）</li></ul></li><li><strong>其他要求</strong><ul class=\"sub-list\"><li>具备高度责任心和抗压能力</li><li>良好的沟通协调能力和团队合作精神</li><li>能适应快节奏工作环境，处理紧急情况</li></ul></li>",
-        "en": "<li><strong>Experience</strong><ul class=\"sub-list\"><li>Minimum 3 years experience in international freight forwarding</li><li>Familiar with sea, air and multimodal transportation processes</li><li>Experience in heavy equipment or wind power logistics preferred</li></ul></li><li><strong>Professional Knowledge</strong><ul class=\"sub-list\"><li>Proficient in Incoterms 2020</li><li>Knowledge of international sea/air transport regulations</li><li>Understanding of Philippines customs policies and clearance procedures</li><li>Familiar with major shipping lines and airlines operations</li></ul></li><li><strong>Skills</strong><ul class=\"sub-list\"><li>Proficient in logistics management systems (e.g. CargoWise, SAP)</li><li>Advanced MS Office skills, especially Excel</li><li>Excellent multitasking and time management abilities</li><li>Strong English reading/writing skills (CET-6 or equivalent)</li></ul></li><li><strong>Additional Requirements</strong><ul class=\"sub-list\"><li>High sense of responsibility and stress tolerance</li><li>Good communication and teamwork skills</li><li>Ability to work in fast-paced environment and handle emergencies</li></ul></li>"
+        "cn": "请填写\n",
+        "en": ""
       },
       "preferredConditions": {
-        "cn": "<li>有大型设备或风电项目物流经验者优先</li>",
-        "en": "<li>Experience in heavy equipment or wind power logistics preferred</li>"
+        "cn": "请填写",
+        "en": ""
+      }
+    },
+    {
+      "id": "job-1763255141055",
+      "title": {
+        "cn": "新岗位2",
+        "en": "New Position"
+      },
+      "salary": {
+        "cn": "薪资待遇：面议",
+        "en": "Salary: Negotiable"
+      },
+      "responsibilities": {
+        "cn": "。。。",
+        "en": ""
+      },
+      "requirements": {
+        "cn": "。。。",
+        "en": ""
+      },
+      "preferredConditions": {
+        "cn": "。。。",
+        "en": ""
       }
     }
   ],

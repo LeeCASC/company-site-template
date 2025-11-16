@@ -215,10 +215,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   
 
   return (
-    <main className="space-y-10 sm:space-y-14 md:space-y-20">
+    <main>
       {/* Hero Section */}
       <section
-        className="relative w-full overflow-hidden pb-8 sm:pb-12 md:pb-16"
+        className="relative w-full overflow-hidden"
         style={{ maxWidth: '100%' }}
       >
         <div className="w-full relative" style={{ maxWidth: '100%' }}>
@@ -268,18 +268,18 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
 
       {/* 三个图标按钮区域 */}
       <section
-        className="bg-gray-50 flex items-center justify-center"
-        style={{ minHeight: 'clamp(200px, 15vw, 200px)', maxWidth: '100%' }}
+        className="flex items-center justify-center"
+        style={{ maxWidth: '100%', paddingTop: 'clamp(32px, 3vw, 30px)', paddingBottom: 'clamp(0px, 0vw, 0px)', marginBottom: 'clamp(-16px, -1.5vw, -40px)' }}
         ref={buttonSectionRef as any}
       >
-        <div className="w-full max-w-[1287px] mx-auto px-4 sm:px-6 md:px-8 pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12 md:pb-16 flex items-center justify-center">
-          <div className="flex flex-wrap gap-16 sm:gap-24 md:gap-32 justify-center items-center w-full">
+        <div className="w-full max-w-[1287px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-center">
+          <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 justify-center items-center w-full">
             {/* 按钮 1 */}
             <button 
               onClick={() => {
                 console.log('重型工程物流 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[220px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -296,10 +296,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onFocus={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
               onBlur={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
             >
-              <div className="w-[clamp(80px,11vw,140px)] h-[clamp(75px,10.5vw,130px)] flex items-center justify-center mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
+              <div className="w-[clamp(45px,6vw,80px)] h-[clamp(40px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
                 <img src="/icons/Anchor.svg" alt="Anchor" className="w-full h-full object-contain" />
               </div>
-              <p className="text-[clamp(20px,3.5vw,20px)] font-bold text-brand-primary text-center whitespace-nowrap">
+              <p className="text-[clamp(12px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap">
                 {t('icon1Title')}
               </p>
             </button>
@@ -309,7 +309,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onClick={() => {
                 console.log('可再生能源项目 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[220px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -326,10 +326,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onFocus={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
               onBlur={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
             >
-              <div className="w-[clamp(80px,11vw,140px)] h-[clamp(75px,10.5vw,130px)] flex items-center justify-center mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
+              <div className="w-[clamp(45px,6vw,80px)] h-[clamp(40px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
                 <img src="/icons/Feather.svg" alt="Feather" className="w-full h-full object-contain" />
               </div>
-              <p className="text-[clamp(20px,3.5vw,20px)] font-bold text-brand-primary text-center whitespace-nowrap">
+              <p className="text-[clamp(12px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap">
                 {t('icon2Title')}
               </p>
             </button>
@@ -339,7 +339,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onClick={() => {
                 console.log('菲律宾深耕 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[220px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -356,10 +356,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onFocus={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
               onBlur={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
             >
-              <div className="w-[clamp(80px,11vw,140px)] h-[clamp(75px,10.5vw,130px)] flex items-center justify-center mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
+              <div className="w-[clamp(45px,6vw,80px)] h-[clamp(40px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
                 <img src="/icons/Box.svg" alt="Box" className="w-full h-full object-contain" />
               </div>
-              <p className="text-[clamp(20px,3.5vw,20px)] font-bold text-brand-primary text-center whitespace-nowrap">
+              <p className="text-[clamp(12px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap">
                 {t('icon3Title')}
               </p>
             </button>
@@ -370,11 +370,11 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 深蓝色统计区域 */}
       <section
         id="mission"
-        className="text-white scroll-mt-20"
+        className="text-white scroll-mt-20 py-4 sm:py-6 md:py-10"
         style={{ maxWidth: '100%' }}
         ref={missionSectionRef as any}
       >
-        <div className="w-full relative py-8 sm:py-12 md:py-16" style={{ maxWidth: '100%' }}>
+        <div className="w-full relative" style={{ maxWidth: '100%' }}>
           <div className="w-full mx-auto relative overflow-visible bg-brand-primary" style={{ aspectRatio: '1287/648', maxWidth: '100%', width: '100%' }}>
             <div className="relative z-10 flex flex-col px-4 sm:px-6 md:px-12 lg:px-[80px] pr-4 sm:pr-6 md:pr-12 lg:pr-[73px] h-full pb-3 sm:pb-4 md:pb-6 lg:pb-8 xl:pb-10">
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-3 sm:mb-4 md:mb-6 lg:mb-8 gap-4 sm:gap-6 lg:gap-8 flex-shrink-0" style={{ position: 'relative', top: 'clamp(-15px, -2.5vw, -50px)' }}>
@@ -452,8 +452,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 关于我们 */}
-      <section id="about" className="bg-white scroll-mt-20" style={{ maxWidth: '100%' }}>
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] py-8 sm:py-12 md:py-16" style={{ maxWidth: '100%' }}>
+      <section id="about" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%' }}>
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px]" style={{ maxWidth: '100%' }}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
             <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-center">
               <div className="flex-1" ref={introSectionRef as any}>
@@ -525,8 +525,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 新闻区域 */}
-      <section id="news" className="bg-white scroll-mt-20" style={{ maxWidth: '100%' }} ref={newsSectionRef as any}>
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px] py-8 sm:py-12 md:py-16" style={{ maxWidth: '100%' }}>
+      <section id="news" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%' }} ref={newsSectionRef as any}>
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
             <h2 
               className="text-section-title text-brand-primary"
@@ -599,28 +599,29 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 实力见证 */}
-      <section id="strength" className="bg-white scroll-mt-20" style={{ maxWidth: '100%' }}>
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px] pt-8 sm:pt-12 md:pt-16 pb-4 sm:pb-6 md:pb-1" style={{ maxWidth: '100%' }}>
-          <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
-            <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-start">
-              <div className="flex-1 flex items-start" style={{ maxWidth: '100%', overflow: 'hidden' }}>
-                <img
-                  src="/images/strength.png"
-                  alt="Proof of Strength"
-                  className="rounded-lg"
-                  style={{ 
-                    maxWidth: '100%', 
-                    height: 'auto', 
-                    width: '100%',
-                    transform: strengthSectionInView ? 'scale(0.825) translateY(0)' : 'scale(0.825) translateY(30px)',
-                    transformOrigin: 'top center',
-                    opacity: strengthSectionInView ? 1 : 0,
-                    transition: strengthSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
-                  }}
-                />
-              </div>
+      <section id="strength" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%' }}>
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
+          <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-start">
+            <div className="flex-1" style={{ maxWidth: '100%', overflow: 'visible', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+              <img
+                src="/images/strength.png"
+                alt="Proof of Strength"
+                className="rounded-lg"
+                style={{ 
+                  maxWidth: '100%', 
+                  height: 'auto', 
+                  width: '100%',
+                  transform: strengthSectionInView ? 'scale(0.85) translateY(0)' : 'scale(0.85) translateY(30px)',
+                  transformOrigin: 'left top',
+                  opacity: strengthSectionInView ? 1 : 0,
+                  transition: strengthSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none',
+                  marginTop: '0px',
+                  marginBottom: '0px'
+                }}
+              />
+            </div>
 
-              <div className="flex-1" ref={strengthSectionRef as any}>
+            <div className="flex-1" ref={strengthSectionRef as any} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <h2 
                   className="text-section-title text-brand-primary mb-4"
                   style={{
@@ -668,13 +669,12 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 </Link>
               </div>
             </div>
-          </div>
         </div>
       </section>
 
       {/* 设备清单 */}
-      <section id="equipment" className="bg-brand-accent scroll-mt-20" style={{ maxWidth: '100%' }} ref={equipmentSectionRef as any}>
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px] py-8 sm:py-12 md:py-16" style={{ maxWidth: '100%' }}>
+      <section id="equipment" className="bg-brand-accent scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', marginTop: 'clamp(-100px, -6vw, -60px)' }} ref={equipmentSectionRef as any}>
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%'}}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
               <h2 
@@ -744,8 +744,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="bg-white scroll-mt-20" style={{ maxWidth: '100%' }}>
-        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px] py-8 sm:py-12 md:py-16" style={{ maxWidth: '100%' }}>
+      <footer id="contact" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%' }}>
+        <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-6 sm:mb-8">
               <div>
