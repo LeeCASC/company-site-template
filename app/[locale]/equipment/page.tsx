@@ -57,22 +57,22 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
   const equipment = [
     {
       id: 1,
-      image: '/equipment_1.png',
+      image: '/images/equipment_1.png',
       name: currentLocale === 'zh' ? '超级版重载车头' : 'Super Heavy-Duty Prime Mover',
     },
     {
       id: 2,
-      image: '/equipment_2.png',
+      image: '/images/equipment_2.png',
       name: currentLocale === 'zh' ? '液压模块轴线车' : 'Hydraulic Modular Trailer',
     },
     {
       id: 3,
-      image: '/equipment_3.png',
+      image: '/images/equipment_3.png',
       name: currentLocale === 'zh' ? '叶片运输扬举车' : 'Blade Lifting Vehicle',
     },
     {
       id: 4,
-      image: '/equipment_4.png',
+      image: '/images/equipment_4.png',
       name: currentLocale === 'zh' ? '汽车起重机' : 'Truck-mounted Crane',
     },
   ];
