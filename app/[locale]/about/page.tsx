@@ -40,6 +40,24 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
   const currentLocale = (locale as Locale) ?? 'zh';
   const t = useTranslations('home');
   
+  // 背景图片加载状态
+  const [bgImageLoaded, setBgImageLoaded] = useState(false);
+  const [bgImageError, setBgImageError] = useState(false);
+  
+  // 预加载背景图片
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/highresolution/WechatIMG153.jpg';
+    img.onload = () => {
+      setBgImageLoaded(true);
+    };
+    img.onerror = () => {
+      setBgImageError(true);
+      // 即使加载失败，也显示背景（使用占位色）
+      setBgImageLoaded(true);
+    };
+  }, []);
+  
   // 文字部分的动画状态 - 页面加载时立即触发
   const [section1InView, setSection1InView] = useState(false);
   const [section2InView, setSection2InView] = useState(false);
@@ -63,15 +81,25 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(/highresolution/WechatIMG153.jpg)',
+            backgroundImage: bgImageLoaded && !bgImageError ? 'url(/highresolution/WechatIMG153.jpg)' : 'none',
+            backgroundColor: bgImageError ? '#1a1a1a' : 'transparent',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
+            opacity: bgImageLoaded ? 1 : 0,
+            transition: 'opacity 1.2s ease-in-out',
+            willChange: 'opacity',
           }}
         ></div>
         
         {/* 背景遮罩层，确保文字可读性 */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div 
+          className="absolute inset-0 bg-black/40"
+          style={{
+            opacity: bgImageLoaded ? 1 : 0,
+            transition: 'opacity 1.2s ease-in-out',
+          }}
+        ></div>
       </div>
 
       {/* 内容区域 */}
