@@ -572,8 +572,12 @@
         if (careersData?.jobs?.length) {
           generateTabs();
           generateJobContents();
-          // 生成后立即应用API数据
+          // 生成后立即应用API数据（强制覆盖默认内容）
           applyJobsFromAPI();
+        } else {
+          // 即使没有API数据，也确保默认内容显示
+          generateTabs();
+          generateJobContents();
         }
         updateContactFromAPI();
         ensureTabs();
@@ -590,19 +594,94 @@
       }
 
       // 辅助函数：解析并渲染内容到指定的ul元素
+      // 确保所有内容都作为平级列表项显示，不区分标题和正文
       function renderContentToUl(ulElement, content) {
         if (!ulElement) return false;
         
-        // 如果没有内容，清空列表
-        if (!content || !content.trim()) {
+        // 如果内容为 null、undefined 或空字符串，清空列表（覆盖默认内容）
+        if (content === null || content === undefined || content === '') {
           ulElement.innerHTML = '';
-          return false;
+          return true; // 返回true表示已更新（即使是清空，也要覆盖默认内容）
         }
         
-        // 直接使用HTML内容，如果包含HTML标签则直接使用
-        if (content.trim().startsWith('<')) {
-          ulElement.innerHTML = content;
+        // 如果内容只有空白字符，也清空
+        if (!content.trim()) {
+          ulElement.innerHTML = '';
           return true; // 返回true表示已更新
+        }
+        
+        // 处理HTML内容：移除所有标题格式（strong、h2、h3等），提取纯文本
+        if (content.trim().startsWith('<')) {
+          try {
+            // 创建一个临时容器来解析HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            
+            // 提取所有列表项，包括嵌套的列表项
+            const allListItems = tempDiv.querySelectorAll('li');
+            const items = [];
+            
+            allListItems.forEach((li) => {
+              // 克隆元素以避免修改原始DOM
+              const clone = li.cloneNode(true);
+              
+              // 移除所有标题标签（strong、b、h2、h3等），只保留文本
+              const strongEls = clone.querySelectorAll('strong, b, h2, h3, h4, h5, h6');
+              strongEls.forEach(el => {
+                // 将标题标签替换为纯文本，保留其内容
+                const textNode = document.createTextNode(el.textContent || '');
+                el.parentNode.replaceChild(textNode, el);
+              });
+              
+              // 移除所有子列表（ul、ol），但保留其内容作为平级项
+              const subLists = clone.querySelectorAll('ul, ol');
+              subLists.forEach(subList => {
+                const subItems = subList.querySelectorAll('li');
+                subItems.forEach(subItem => {
+                  // 提取子列表项的文本，作为新的平级项
+                  const subText = subItem.textContent?.trim() || '';
+                  if (subText) {
+                    items.push(subText);
+                  }
+                });
+                // 移除子列表
+                subList.remove();
+              });
+              
+              // 提取当前列表项的文本（已移除标题和子列表）
+              const text = clone.textContent?.trim() || '';
+              if (text) {
+                items.push(text);
+              }
+            });
+            
+            // 如果成功提取了列表项，使用它们
+            if (items.length > 0) {
+              ulElement.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+              return true;
+            }
+            
+            // 如果没有列表项，尝试提取所有文本内容
+            const allText = tempDiv.textContent || '';
+            if (allText.trim()) {
+              const lines = allText.split('\n').filter(line => line.trim());
+              if (lines.length > 0) {
+                ulElement.innerHTML = lines.map(line => `<li>${line.trim()}</li>`).join('');
+                return true;
+              }
+            }
+          } catch (e) {
+            console.warn('Error parsing HTML content:', e);
+            // 如果解析失败，回退到简单处理
+            const textContent = content.replace(/<[^>]*>/g, '').trim();
+            if (textContent) {
+              const lines = textContent.split('\n').filter(line => line.trim());
+              if (lines.length > 0) {
+                ulElement.innerHTML = lines.map(line => `<li>${line.trim()}</li>`).join('');
+                return true;
+              }
+            }
+          }
         } else {
           // 将纯文本转换为HTML列表格式（每行一个条目，无标题）
           const lines = content.split('\n').filter(line => line.trim());
@@ -613,45 +692,82 @@
               return `<li>${trimmed}</li>`;
             }).join('');
             return true; // 返回true表示已更新
+          } else {
+            // 如果没有有效行，清空列表
+            ulElement.innerHTML = '';
+            return true;
           }
         }
+        
         return false; // 没有更新
       }
 
       function applyJobsFromAPI(){
-        if(!careersData?.jobs?.length) return;
+        if(!careersData?.jobs?.length) {
+          console.log('No careers data from API, using default content');
+          return;
+        }
+        
+        console.log('Applying jobs data from API:', careersData.jobs.length, 'jobs');
+        
         careersData.jobs.forEach((job)=>{
+          // 更新 tab 按钮标题
           const tabBtn = document.querySelector(`[data-tab="${job.id}"]`);
-          if(tabBtn && job.title?.[currentLang]) tabBtn.textContent = job.title[currentLang];
-          const root = document.getElementById(`${job.id}-content`);
-          if(!root) return;
-          const salaryEl = root.querySelector('.salary-highlight span');
-          if(salaryEl && job.salary?.[currentLang]) salaryEl.textContent = job.salary[currentLang];
+          if(tabBtn && job.title?.[currentLang]) {
+            tabBtn.textContent = job.title[currentLang];
+          }
           
-          // 更新核心职责（只有当API有数据时才更新）
-          const respContent = job.responsibilities?.[currentLang] || job.responsibilities?.[currentLang === 'cn' ? 'cn' : 'en'];
-          if(respContent && respContent.trim()) {
+          const root = document.getElementById(`${job.id}-content`);
+          if(!root) {
+            console.warn(`Job content element not found for job: ${job.id}`);
+            return;
+          }
+          
+          // 更新薪资
+          const salaryEl = root.querySelector('.salary-highlight span');
+          if(salaryEl && job.salary?.[currentLang]) {
+            salaryEl.textContent = job.salary[currentLang];
+          }
+          
+          // 更新核心职责 - 强制更新，即使有默认内容
+          const respContent = job.responsibilities?.[currentLang];
+          if(respContent !== undefined && respContent !== null) {
             const respUl = root.querySelector(`#${job.id}-responsibilities`);
             if(respUl) {
-              renderContentToUl(respUl, respContent);
+              const updated = renderContentToUl(respUl, respContent);
+              if(updated) {
+                console.log(`Updated responsibilities for job: ${job.id}`);
+              }
+            } else {
+              console.warn(`Responsibilities UL not found for job: ${job.id}`);
             }
           }
           
-          // 更新职位要求（只有当API有数据时才更新）
-          const reqContent = job.requirements?.[currentLang] || job.requirements?.[currentLang === 'cn' ? 'cn' : 'en'];
-          if(reqContent && reqContent.trim()) {
+          // 更新职位要求 - 强制更新，即使有默认内容
+          const reqContent = job.requirements?.[currentLang];
+          if(reqContent !== undefined && reqContent !== null) {
             const reqUl = root.querySelector(`#${job.id}-requirements`);
             if(reqUl) {
-              renderContentToUl(reqUl, reqContent);
+              const updated = renderContentToUl(reqUl, reqContent);
+              if(updated) {
+                console.log(`Updated requirements for job: ${job.id}`);
+              }
+            } else {
+              console.warn(`Requirements UL not found for job: ${job.id}`);
             }
           }
           
-          // 更新优先条件（只有当API有数据时才更新）
-          const preferredConditionsContent = job.preferredConditions?.[currentLang] || job.preferredConditions?.[currentLang === 'cn' ? 'cn' : 'en'];
-          if(preferredConditionsContent && preferredConditionsContent.trim()) {
+          // 更新优先条件 - 强制更新，即使有默认内容
+          const preferredConditionsContent = job.preferredConditions?.[currentLang];
+          if(preferredConditionsContent !== undefined && preferredConditionsContent !== null) {
             const preferredConditionsUl = root.querySelector(`#${job.id}-preferredConditions`);
             if(preferredConditionsUl) {
-              renderContentToUl(preferredConditionsUl, preferredConditionsContent);
+              const updated = renderContentToUl(preferredConditionsUl, preferredConditionsContent);
+              if(updated) {
+                console.log(`Updated preferred conditions for job: ${job.id}`);
+              }
+            } else {
+              console.warn(`Preferred conditions UL not found for job: ${job.id}`);
             }
           }
         });
@@ -694,10 +810,31 @@
 
       async function loadCareersData(){
         try{
-          const res = await fetch('/api/careers', { cache:'no-store' });
-          if(res.ok){ careersData = await res.json(); }
-        }catch(e){ console.warn('careers API failed, using fallback translations only.'); }
-        finally{ render(); }
+          // 添加时间戳防止缓存，确保获取最新数据
+          const timestamp = Date.now();
+          const res = await fetch(`/api/careers?t=${timestamp}`, { 
+            method: 'GET',
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0',
+              'Accept': 'application/json'
+            }
+          });
+          if(res.ok){ 
+            careersData = await res.json();
+            console.log('Careers data loaded successfully from API');
+            // 数据加载完成后，强制重新渲染
+            render();
+          } else {
+            console.warn('careers API failed, status:', res.status);
+            render(); // 即使失败也渲染，使用默认数据
+          }
+        }catch(e){ 
+          console.warn('careers API failed, using fallback translations only.', e);
+          render(); // 即使失败也渲染，使用默认数据
+        }
       }
 
       document.addEventListener('DOMContentLoaded', ()=>{
@@ -710,11 +847,27 @@
         loadCareersData();
       });
 
+      // 监听存储事件，当数据更新时重新加载
       window.addEventListener('storage', (e) => {
         if (e.key === 'careers-updated') {
-    loadCareersData();
-  }
-});
+          console.log('Storage event detected, reloading careers data');
+          loadCareersData();
+        }
+      });
+      
+      // 监听 BroadcastChannel 消息（跨标签页通信）
+      try {
+        const channel = new BroadcastChannel('careers');
+        channel.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'updated') {
+            console.log('BroadcastChannel message received, reloading careers data');
+            loadCareersData();
+          }
+        });
+      } catch (e) {
+        // BroadcastChannel 不支持时忽略
+        console.warn('BroadcastChannel not supported');
+      }
 
 
     //   window.openAdminPage = function(){

@@ -213,7 +213,14 @@ export async function GET() {
   const data = await readStore();
   // 规范化数据格式，确保 requirements 是字符串格式
   const normalized = normalizeJobData(data);
-  return NextResponse.json(normalized, { headers: { 'cache-control': 'no-store' } });
+  return NextResponse.json(normalized, { 
+    headers: { 
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'X-Content-Type-Options': 'nosniff'
+    } 
+  });
 }
 
 export async function PUT(req: Request) {
@@ -225,7 +232,13 @@ export async function PUT(req: Request) {
     
     try {
       await writeStore(parsed);
-      return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+      return NextResponse.json({ ok: true }, { 
+        headers: { 
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        } 
+      });
     } catch (writeError: any) {
       // 记录错误信息
       console.error('[Careers API] Write error:', writeError?.message || writeError);
@@ -265,7 +278,13 @@ export async function POST(req: Request) {
     
     try {
       await writeStore(parsed);
-      return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+      return NextResponse.json({ ok: true }, { 
+        headers: { 
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        } 
+      });
     } catch (writeError: any) {
       // 记录错误信息
       console.error('[Careers API] Write error:', writeError?.message || writeError);
