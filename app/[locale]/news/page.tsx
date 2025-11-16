@@ -3,6 +3,7 @@
 import {useTranslations} from 'next-intl';
 import type {Locale} from '@/i18n/routing';
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 // 自定义 hook：检测元素是否进入视口
 function useInView(options = {}) {
@@ -47,16 +48,16 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
   // 新闻卡片网格的滚动检测
   const [newsGridRef, newsGridInView] = useInView();
 
-  // 新闻数据 - 使用 news_1.png 到 news_3.png，重复两遍再加两张（共8张）
+  // 新闻数据，每个新闻项都有唯一的ID，用于链接到详情页
   const newsItems = [
-    { img: '/news_1.png', title: 'News 1' },
-    { img: '/news_2.png', title: 'News 2' },
-    { img: '/news_3.png', title: 'News 3' },
-    { img: '/news_1.png', title: 'News 4' },
-    { img: '/news_2.png', title: 'News 5' },
-    { img: '/news_3.png', title: 'News 6' },
-    { img: '/news_1.png', title: 'News 7' },
-    { img: '/news_2.png', title: 'News 8' },
+    { id: '1', img: '/news_1.png', title: 'News 1' },
+    { id: '2', img: '/news_2.png', title: 'News 2' },
+    { id: '3', img: '/news_3.png', title: 'News 3' },
+    { id: '4', img: '/news_1.png', title: 'News 4' },
+    { id: '5', img: '/news_2.png', title: 'News 5' },
+    { id: '6', img: '/news_3.png', title: 'News 6' },
+    { id: '7', img: '/news_1.png', title: 'News 7' },
+    { id: '8', img: '/news_2.png', title: 'News 8' },
   ];
 
   return (
@@ -93,17 +94,19 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
                 key={i}
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
               >
-                <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[13px] flex items-center justify-center" style={{ minHeight: '200px' }}>
-                  <img
-                    src={news.img}
-                    alt={news.title}
-                    className="w-full h-auto rounded-lg transition-transform hover:scale-105 object-contain"
-                    style={{ 
-                      maxWidth: '100%',
-                      maxHeight: '100%',
-                    }}
-                  />
-                </div>
+                <Link href={`/${currentLocale}/news/${news.id}`}>
+                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[13px] flex items-center justify-center cursor-pointer" style={{ minHeight: '200px' }}>
+                    <img
+                      src={news.img}
+                      alt={news.title}
+                      className="w-full h-auto rounded-lg transition-transform hover:scale-105 object-contain"
+                      style={{ 
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                      }}
+                    />
+                  </div>
+                </Link>
                 <div className="text-body leading-[150%] min-h-[5rem] text-center" style={{ fontSize: '1.25em' }}>
                   <p className="mb-2 font-bold" style={{ color: '#156082' }}>
                     {t('newsCardText')}

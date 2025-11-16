@@ -437,15 +437,16 @@ section#mission button:active::after,
 section#mission button:hover::before,
 section#mission button:hover::after {
   outline: none !important;
-  outline-width: 0 !important;
-  outline-style: none !important;
-  outline-color: transparent !important;
-  border: none !important;
-  border-width: 0 !important;
-  border-style: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  font-family: 'Inter', ui-sans-serif, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif !important;
+}
+
+/* 箭头闪烁动画 */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 
 /* 确保按钮内的所有元素也没有边框 */

@@ -124,11 +124,12 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
                   
                   {/* 图片 - 与蓝色背景有间隙 */}
                   <div className="relative p-2">
-                    <div className="aspect-square relative overflow-hidden rounded-lg">
+                    <div className="aspect-square relative overflow-hidden rounded-lg" style={{ backgroundColor: 'transparent' }}>
                       <img
                         src={item.image}
                         alt={item.name}
                         className="w-full h-full object-contain"
+                        style={{ filter: 'none', backgroundColor: 'transparent' }}
                       />
                     </div>
                   </div>

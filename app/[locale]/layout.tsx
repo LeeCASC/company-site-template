@@ -5,6 +5,7 @@ import {siteConfig} from '@/lib/site';
 import Link from 'next/link';
 import type {Locale} from '@/i18n/routing';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
+import LogoLink from '@/components/LogoLink';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -50,23 +51,16 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        {/* Top white header */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-          <div className="mx-auto max-w-[1200px] px-4 h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <img 
-                src="/images/wintex-logo.png" 
-                alt={siteConfig.name} 
-                className="h-[clamp(32px,4.44vw,64px)] w-auto transition-transform hover:scale-105" 
-              />
-              <span className="sr-only">{siteConfig.name}</span>
-            </Link>
-            <Navigation />
-          </div>
-        </header>
-        {/* spacer to avoid cover by fixed header */}
-        <div className="h-20"></div>
-<NextIntlClientProvider locale={currentLocale} messages={messages}>
+        <NextIntlClientProvider locale={currentLocale} messages={messages}>
+          {/* Top white header */}
+          <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+            <div className="mx-auto max-w-[1200px] px-4 h-20 flex items-center justify-between">
+              <LogoLink />
+              <Navigation />
+            </div>
+          </header>
+          {/* spacer to avoid cover by fixed header */}
+          <div className="h-20"></div>
           <main className="min-h-dvh">{children}</main>
         </NextIntlClientProvider>
 

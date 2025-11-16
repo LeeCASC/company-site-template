@@ -273,7 +273,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
         ref={buttonSectionRef as any}
       >
         <div className="w-full max-w-[1287px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-center">
-          <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 justify-center items-center w-full">
+          <div className="flex flex-wrap gap-8 sm:gap-12 md:gap-16 justify-center items-center w-full">
             {/* 按钮 1 */}
             <button 
               onClick={() => {

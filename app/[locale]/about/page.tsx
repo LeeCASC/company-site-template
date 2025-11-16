@@ -141,6 +141,70 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
                     : 'We are committed to excellent and sustainable development, creating unparalleled value for our employees, clients, and partners. Through relentless innovation, collaborative partnerships, and uncompromising integrity, we strive to set new benchmarks in the logistics industry.'}
                 </p>
               </div>
+              
+              {/* 向下箭头指引 - 三个依序向下 */}
+              <div 
+                className="flex flex-col justify-center items-center mt-12 mb-8 gap-4"
+                style={{
+                  opacity: section3InView ? 1 : 0,
+                  transform: section3InView ? 'translateY(0)' : 'translateY(30px)',
+                  transition: 'opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s'
+                }}
+              >
+                {/* 第一个箭头 */}
+                <svg 
+                  width="64" 
+                  height="64" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#F7B959" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  style={{ 
+                    animation: 'blink 1.5s ease-in-out infinite',
+                    animationDelay: '0s'
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+                {/* 第二个箭头 */}
+                <svg 
+                  width="64" 
+                  height="64" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#F7B959" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  style={{ 
+                    animation: 'blink 1.5s ease-in-out infinite',
+                    animationDelay: '0.3s',
+                    opacity: 0.8
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+                {/* 第三个箭头 */}
+                <svg 
+                  width="64" 
+                  height="64" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#F7B959" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  style={{ 
+                    animation: 'blink 1.5s ease-in-out infinite',
+                    animationDelay: '0.6s',
+                    opacity: 0.6
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </div>
             </div>
 
             {/* 网络图布局区域 - 滚动时显示 */}
