@@ -58,7 +58,7 @@
       "id": "job-1763254816433",
       "title": {
         "cn": "新岗位1",
-        "en": "New Position"
+        "en": "New Position 1"
       },
       "salary": {
         "cn": "薪资待遇：面议",
@@ -66,22 +66,22 @@
       },
       "responsibilities": {
         "cn": "请填写",
-        "en": ""
+        "en": "Please Edit"
       },
       "requirements": {
         "cn": "请填写\n",
-        "en": ""
+        "en": "Please Edit"
       },
       "preferredConditions": {
         "cn": "请填写",
-        "en": ""
+        "en": "Please Edit"
       }
     },
     {
       "id": "job-1763255141055",
       "title": {
         "cn": "新岗位2",
-        "en": "New Position"
+        "en": "New Position 2"
       },
       "salary": {
         "cn": "薪资待遇：面议",
@@ -89,15 +89,15 @@
       },
       "responsibilities": {
         "cn": "。。。",
-        "en": ""
+        "en": "Please Edit"
       },
       "requirements": {
         "cn": "。。。",
-        "en": ""
+        "en": "Please Edit"
       },
       "preferredConditions": {
         "cn": "。。。",
-        "en": ""
+        "en": "Please Edit"
       }
     }
   ],

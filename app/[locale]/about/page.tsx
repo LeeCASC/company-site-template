@@ -144,11 +144,12 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
               
               {/* 向下箭头指引 - 三个依序向下 */}
               <div 
-                className="flex flex-col justify-center items-center mt-12 mb-4 gap-2"
+                className="flex flex-col justify-center items-center mt-16 gap-2"
                 style={{
                   opacity: section3InView ? 1 : 0,
                   transform: section3InView ? 'translateY(0)' : 'translateY(30px)',
-                  transition: 'opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s'
+                  transition: 'opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s',
+                  marginBottom: '-4rem'
                 }}
               >
                 {/* 第一个箭头 */}
