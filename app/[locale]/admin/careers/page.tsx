@@ -30,6 +30,69 @@ export default function CareersAdminPage() {
 
   const lang = useMemo<'cn' | 'en'>(() => (locale === 'en' ? 'en' : 'cn'), [locale]);
 
+  // 将HTML转换为纯文本（用于编辑显示）
+  const htmlToPlainText = (html: string): string => {
+    if (!html || !html.trim()) return '';
+    
+    // 如果已经是纯文本（不以<开头），直接返回
+    if (!html.trim().startsWith('<')) {
+      return html;
+    }
+    
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(`<ul>${html}</ul>`, 'text/html');
+      const lines: string[] = [];
+      
+      // 提取所有列表项，包括子列表中的项，全部平级显示
+      const allListItems = doc.querySelectorAll('li');
+      allListItems.forEach((li) => {
+        // 移除strong标签，只提取文本内容
+        const clone = li.cloneNode(true) as HTMLElement;
+        const strongEl = clone.querySelector('strong');
+        if (strongEl) {
+          // 如果有strong标签，提取其文本
+          const title = strongEl.textContent || '';
+          if (title) {
+            lines.push(title);
+          }
+        }
+        
+        // 提取子列表中的项
+        const subList = clone.querySelector('ul.sub-list');
+        if (subList) {
+          const subItems = Array.from(subList.querySelectorAll('li')).map(li => li.textContent || '').filter(Boolean);
+          subItems.forEach(item => lines.push(item));
+        } else if (!strongEl) {
+          // 没有strong标签也没有子列表，直接提取文本
+          const text = clone.textContent?.trim() || '';
+          if (text) lines.push(text);
+        }
+      });
+      
+      return lines.join('\n');
+    } catch {
+      // 解析失败，尝试简单处理
+      return html.replace(/<[^>]*>/g, '').replace(/\n\s*\n/g, '\n').trim();
+    }
+  };
+
+  // 将纯文本转换为HTML（用于保存）
+  const plainTextToHtml = (text: string): string => {
+    if (!text || !text.trim()) return '';
+    
+    // 如果已经是HTML格式（以<开头），先转换为纯文本再处理
+    if (text.trim().startsWith('<')) {
+      text = htmlToPlainText(text);
+    }
+    
+    const lines = text.split('\n').filter(line => line.trim());
+    if (lines.length === 0) return '';
+    
+    // 每行转换为一个列表项，全部平级，无标题和子列表
+    return lines.map(line => `<li>${line.trim()}</li>`).join('\n');
+  };
+
   // 加载 API（失败则回退到 localStorage 草稿）
   useEffect(() => {
     let mounted = true;
@@ -61,7 +124,7 @@ export default function CareersAdminPage() {
   }, []);
 
   // 修改 Job 某个字段（当前语言）
-  const patchJob = (id: string, path: 'title' | 'salary' | 'responsibilities' | 'requirements' | 'preferredConditions', v: string) => {
+  const patchJob = (id: string, path: 'title' | 'salary' | 'responsibilities' | 'requirements' | 'preferredConditions', v: string, convertToHtml: boolean = false) => {
     setData((prev) => {
       if (!prev) return prev;
       const next: CareersData = structuredClone(prev);
@@ -71,10 +134,12 @@ export default function CareersAdminPage() {
           (job as any)[path][lang] = v;
         } else {
           // 对于 responsibilities, requirements, preferredConditions
+          // 如果 convertToHtml 为 true，才转换为 HTML，否则直接保存原始文本
           if (!(job as any)[path]) {
             (job as any)[path] = { cn: '', en: '' };
           }
-          (job as any)[path][lang] = v;
+          // 直接保存原始文本，保留换行符
+          (job as any)[path][lang] = convertToHtml ? plainTextToHtml(v) : v;
         }
       }
       return next;
@@ -97,7 +162,6 @@ export default function CareersAdminPage() {
     setData((prev) => {
       if (!prev) return prev;
       const next: CareersData = structuredClone(prev);
-      // 生成新的ID（基于时间戳）
       const newId = `job-${Date.now()}`;
       const newJob: Job = {
         id: newId,
@@ -109,12 +173,10 @@ export default function CareersAdminPage() {
       };
       next.jobs.push(newJob);
       
-      // 滚动到新岗位的编辑区域
       setTimeout(() => {
         const element = document.getElementById(`job-article-${newId}`);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // 可选：高亮显示新岗位
           element.style.transition = 'box-shadow 0.3s ease';
           element.style.boxShadow = '0 0 0 3px rgba(34, 197, 94, 0.5)';
           setTimeout(() => {
@@ -133,18 +195,45 @@ export default function CareersAdminPage() {
     alert('已保存到浏览器本地草稿（localStorage）');
   };
 
-  // 示例“发布”（无后端，仅演示）
-  // const publish = async () => {
-  //   if (!data) return;
-  //   setSaving(true);
-  //   await new Promise((r) => setTimeout(r, 500));
-  //   setSaving(false);
-  //   alert('已模拟发布（示例环境未接后端）。\n若要接 DB，请实现 PUT /api/careers');
-  // };
   const publish = async () => {
     if (!data) return;
     setSaving(true);
     try {
+      // 在发布前，将所有的纯文本字段转换为 HTML 格式
+      const dataToPublish = structuredClone(data);
+      dataToPublish.jobs.forEach((job) => {
+        // 转换 responsibilities
+        if (job.responsibilities) {
+          ['cn', 'en'].forEach((langKey) => {
+            const value = job.responsibilities?.[langKey as 'cn' | 'en'];
+            if (value && !value.trim().startsWith('<')) {
+              // 如果是纯文本，转换为 HTML
+              (job.responsibilities as any)[langKey] = plainTextToHtml(value);
+            }
+          });
+        }
+        // 转换 requirements
+        if (job.requirements) {
+          ['cn', 'en'].forEach((langKey) => {
+            const value = job.requirements?.[langKey as 'cn' | 'en'];
+            if (value && !value.trim().startsWith('<')) {
+              // 如果是纯文本，转换为 HTML
+              (job.requirements as any)[langKey] = plainTextToHtml(value);
+            }
+          });
+        }
+        // 转换 preferredConditions
+        if (job.preferredConditions) {
+          ['cn', 'en'].forEach((langKey) => {
+            const value = job.preferredConditions?.[langKey as 'cn' | 'en'];
+            if (value && !value.trim().startsWith('<')) {
+              // 如果是纯文本，转换为 HTML
+              (job.preferredConditions as any)[langKey] = plainTextToHtml(value);
+            }
+          });
+        }
+      });
+
       let res: Response;
       
       // 先尝试 PUT 方法
@@ -152,7 +241,7 @@ export default function CareersAdminPage() {
         res = await fetch('/api/careers', {
           method: 'PUT',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(data),
+          body: JSON.stringify(dataToPublish),
         });
         
         // 如果 PUT 返回 405（方法不允许），尝试使用 POST
@@ -160,7 +249,7 @@ export default function CareersAdminPage() {
           res = await fetch('/api/careers', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(data),
+            body: JSON.stringify(dataToPublish),
           });
         }
       } catch (fetchError) {
@@ -168,7 +257,7 @@ export default function CareersAdminPage() {
         res = await fetch('/api/careers', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(data),
+          body: JSON.stringify(dataToPublish),
         });
       }
       
@@ -196,9 +285,6 @@ export default function CareersAdminPage() {
     }
   };
 
-
-
-
   if (!data) {
     return (
       <main className="container mx-auto p-6">
@@ -221,9 +307,10 @@ export default function CareersAdminPage() {
           <h2 className="text-lg font-semibold">招聘岗位</h2>
           <button
             onClick={addNewJob}
-            className="px-4 py-2 rounded-lg border bg-green-600 text-white hover:bg-green-700 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border bg-green-600 text-white hover:bg-green-700 transition-colors text-lg font-bold"
+            title="新增岗位"
           >
-            + 新增岗位
+            +
           </button>
         </div>
         {data.jobs.map((job) => (
@@ -235,9 +322,10 @@ export default function CareersAdminPage() {
               </div>
               <button
                 onClick={() => deleteJob(job.id)}
-                className="px-3 py-1.5 rounded-lg border bg-red-600 text-white hover:bg-red-700 transition-colors text-sm"
+                className="w-6 h-6 flex items-center justify-center rounded-lg border bg-red-600 text-white hover:bg-red-700 transition-colors text-sm font-bold"
+                title="删除岗位"
               >
-                删除
+                −
               </button>
             </div>
 
@@ -263,35 +351,44 @@ export default function CareersAdminPage() {
 
             <div className="mt-4 grid gap-4">
               <label className="grid gap-1">
-                <span className="text-sm text-gray-600 font-medium">核心职责</span>
-                <span className="text-xs text-gray-500 mb-1">支持HTML格式，例如：&lt;li&gt;内容&lt;/li&gt; 或纯文本（每行一个）</span>
                 <textarea
-                  className="border rounded-lg px-3 py-2 min-h-[120px] font-mono text-sm"
-                  value={job.responsibilities?.[lang] || ''}
-                  onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value)}
-                  placeholder="输入核心职责内容..."
+                  className="border rounded-lg px-3 py-2 min-h-[120px] text-sm resize-y"
+                  value={(() => {
+                    const raw = job.responsibilities?.[lang] || '';
+                    // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                    return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                  })()}
+                  onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value, false)}
+                  placeholder="核心职责...&#10;每行一个条目"
+                  style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
                 />
               </label>
 
               <label className="grid gap-1">
-                <span className="text-sm text-gray-600 font-medium">职位要求</span>
-                <span className="text-xs text-gray-500 mb-1">支持HTML格式，例如：&lt;li&gt;&lt;strong&gt;标题&lt;/strong&gt;&lt;ul class="sub-list"&gt;&lt;li&gt;内容&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;</span>
                 <textarea
-                  className="border rounded-lg px-3 py-2 min-h-[200px] font-mono text-sm"
-                  value={job.requirements?.[lang] || ''}
-                  onChange={(e) => patchJob(job.id, 'requirements', e.target.value)}
-                  placeholder="输入职位要求内容..."
+                  className="border rounded-lg px-3 py-2 min-h-[200px] text-sm resize-y"
+                  value={(() => {
+                    const raw = job.requirements?.[lang] || '';
+                    // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                    return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                  })()}
+                  onChange={(e) => patchJob(job.id, 'requirements', e.target.value, false)}
+                  placeholder="职位要求...&#10;每行一个条目"
+                  style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
                 />
               </label>
 
               <label className="grid gap-1">
-                <span className="text-sm text-gray-600 font-medium">优先条件</span>
-                <span className="text-xs text-gray-500 mb-1">支持HTML格式，例如：&lt;li&gt;内容&lt;/li&gt; 或纯文本（每行一个）</span>
                 <textarea
-                  className="border rounded-lg px-3 py-2 min-h-[100px] font-mono text-sm"
-                  value={job.preferredConditions?.[lang] || ''}
-                  onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value)}
-                  placeholder="输入优先条件内容..."
+                  className="border rounded-lg px-3 py-2 min-h-[100px] text-sm resize-y"
+                  value={(() => {
+                    const raw = job.preferredConditions?.[lang] || '';
+                    // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                    return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                  })()}
+                  onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value, false)}
+                  placeholder="优先条件...&#10;每行一个条目"
+                  style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
                 />
               </label>
             </div>
@@ -346,10 +443,9 @@ export default function CareersAdminPage() {
           disabled={saving}
           className="px-4 py-2 rounded-lg border bg-black text-white disabled:opacity-50"
         >
-          {saving ? '发布中…' : '发布（示例）'}
+          {saving ? '发布中…' : '发布'}
         </button>
       </div>
     </main>
   );
 }
- 

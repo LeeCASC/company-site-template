@@ -1,3 +1,4 @@
+
 // File: app/[locale]/admin/careers/page.tsx
 'use client';
 

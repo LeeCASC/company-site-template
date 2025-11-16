@@ -8,6 +8,31 @@ export const runtime = 'nodejs'; // 允许使用 fs
 
 const DATA_FILE = path.join(process.cwd(), 'data', 'careers.json');
 
+// 尝试导入 Vercel KV（如果可用）
+let kv: any = null;
+let useKV = false;
+
+async function initKV() {
+  if (useKV && kv) return kv;
+  
+  // 检查环境变量
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+    try {
+      const kvModule = await import('@vercel/kv');
+      kv = kvModule.kv;
+      useKV = true;
+      return kv;
+    } catch (error) {
+      console.warn('@vercel/kv not available, using file system');
+      useKV = false;
+      return null;
+    }
+  }
+  return null;
+}
+
+const KV_KEY = 'careers:data';
+
 const CareersSchema = z.object({
   jobs: z.array(
     z.object({
@@ -40,38 +65,67 @@ const CareersSchema = z.object({
   })
 });
 
-// 读文件（若不存在则用默认）
+// 默认数据
+const getDefaultData = () => ({
+  jobs: [
+    { id: 'business', title: { cn: '商务助理', en: 'Business Assistant' }, salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' } },
+    { id: 'translator', title: { cn: '现场翻译', en: 'On-site Translator' }, salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' } },
+    { id: 'freight', title: { cn: '货代操作', en: 'Freight Forwarding Operator' }, salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' } }
+  ],
+  contact: {
+    phone: '+63 9510941210',
+    email: 'wintexlogistics@wintex.com.ph',
+    address: { cn: '菲律宾马尼拉总部', en: 'Headquarters in Manila, Philippines' }
+  }
+});
+
+// 读数据（优先使用 KV，否则使用文件系统）
 async function readStore() {
+  // 尝试使用 Vercel KV
+  const kvInstance = await initKV();
+  if (kvInstance) {
+    try {
+      const data = await kvInstance.get(KV_KEY);
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error('KV read error:', error);
+      // KV 读取失败，继续尝试文件系统
+    }
+  }
+  
+  // 使用文件系统
   try {
     const buf = await fs.readFile(DATA_FILE, 'utf-8');
     return JSON.parse(buf);
   } catch {
-    // 默认数据（可与之前 MOCK 一致）
-    return {
-      jobs: [
-        { id: 'business', title: { cn: '商务助理', en: 'Business Assistant' }, salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' } },
-        { id: 'translator', title: { cn: '现场翻译', en: 'On-site Translator' }, salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' } },
-        { id: 'freight', title: { cn: '货代操作', en: 'Freight Forwarding Operator' }, salary: { cn: '薪资待遇：面议', en: 'Salary: Negotiable' } }
-      ],
-      contact: {
-        phone: '+63 9510941210',
-        email: 'wintexlogistics@wintex.com.ph',
-        address: { cn: '菲律宾马尼拉总部', en: 'Headquarters in Manila, Philippines' }
-      }
-    };
+    // 返回默认数据
+    return getDefaultData();
   }
 }
 
 async function writeStore(data: unknown) {
+  // 优先使用 Vercel KV
+  const kvInstance = await initKV();
+  if (kvInstance) {
+    try {
+      await kvInstance.set(KV_KEY, data);
+      return; // 成功写入 KV，直接返回
+    } catch (error) {
+      console.error('KV write error:', error);
+      // KV 写入失败，继续尝试文件系统
+    }
+  }
+  
+  // 使用文件系统（开发环境或 KV 不可用时）
   try {
-    // 在 serverless 环境中，文件系统可能是只读的
-    // 尝试写入，如果失败则提供更友好的错误信息
     await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
     await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
   } catch (error: any) {
     // 如果是只读文件系统错误，提供更清晰的错误信息
     if (error.code === 'EROFS' || error.message?.includes('read-only')) {
-      throw new Error('文件系统只读：在生产环境中无法直接写入文件。请使用数据库或外部存储服务（如 Vercel KV、PostgreSQL 等）来存储数据。');
+      throw new Error('文件系统只读：在生产环境中无法直接写入文件。请配置 Vercel KV 或其他数据库服务。\n\n配置步骤：\n1. 在 Vercel 项目中添加 KV 数据库\n2. 安装依赖：npm install @vercel/kv\n3. Vercel 会自动配置环境变量');
     }
     throw error;
   }
