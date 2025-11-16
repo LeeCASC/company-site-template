@@ -138,3 +138,17 @@ export async function PUT(req: Request) {
     return NextResponse.json({ ok: false, error: e?.message || 'Invalid payload' }, { status: 400 });
   }
 }
+
+// 添加 POST 方法作为备选，以防某些服务器不支持 PUT
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    // 先规范化数据格式
+    const normalized = normalizeJobData(body);
+    const parsed = CareersSchema.parse(normalized);
+    await writeStore(parsed);
+    return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: e?.message || 'Invalid payload' }, { status: 400 });
+  }
+}
