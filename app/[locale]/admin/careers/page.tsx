@@ -145,15 +145,26 @@ export default function CareersAdminPage() {
     if (!data) return;
     setSaving(true);
     try {
-      // 先尝试 PUT 方法，如果失败则尝试 POST
-      let res = await fetch('/api/careers', {
-        method: 'PUT',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+      let res: Response;
       
-      // 如果 PUT 返回 405，尝试使用 POST
-      if (res.status === 405) {
+      // 先尝试 PUT 方法
+      try {
+        res = await fetch('/api/careers', {
+          method: 'PUT',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        
+        // 如果 PUT 返回 405（方法不允许），尝试使用 POST
+        if (res.status === 405) {
+          res = await fetch('/api/careers', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+        }
+      } catch (fetchError) {
+        // 如果 PUT 请求本身失败（网络错误等），尝试 POST
         res = await fetch('/api/careers', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },

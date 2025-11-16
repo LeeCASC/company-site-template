@@ -63,8 +63,18 @@ async function readStore() {
 }
 
 async function writeStore(data: unknown) {
-  await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-  await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  try {
+    // 在 serverless 环境中，文件系统可能是只读的
+    // 尝试写入，如果失败则提供更友好的错误信息
+    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
+    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (error: any) {
+    // 如果是只读文件系统错误，提供更清晰的错误信息
+    if (error.code === 'EROFS' || error.message?.includes('read-only')) {
+      throw new Error('文件系统只读：在生产环境中无法直接写入文件。请使用数据库或外部存储服务（如 Vercel KV、PostgreSQL 等）来存储数据。');
+    }
+    throw error;
+  }
 }
 
 // 转换数据格式：将数组格式的 requirements 转换为字符串
@@ -132,10 +142,29 @@ export async function PUT(req: Request) {
     // 先规范化数据格式
     const normalized = normalizeJobData(body);
     const parsed = CareersSchema.parse(normalized);
-    await writeStore(parsed);
-    return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+    
+    try {
+      await writeStore(parsed);
+      return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+    } catch (writeError: any) {
+      // 如果是只读文件系统错误，返回更详细的错误信息
+      if (writeError.code === 'EROFS' || writeError.message?.includes('read-only') || writeError.message?.includes('文件系统只读')) {
+        return NextResponse.json({ 
+          ok: false, 
+          error: '文件系统只读：在生产环境中无法直接写入文件。请配置数据库或使用 Vercel KV 等存储服务。',
+          code: 'EROFS',
+          suggestion: '建议使用 Vercel KV、PostgreSQL 或其他数据库来存储数据。'
+        }, { status: 500 });
+      }
+      throw writeError;
+    }
   } catch (e: any) {
-    return NextResponse.json({ ok: false, error: e?.message || 'Invalid payload' }, { status: 400 });
+    // 如果是验证错误，返回 400
+    if (e.name === 'ZodError') {
+      return NextResponse.json({ ok: false, error: e?.message || 'Invalid payload' }, { status: 400 });
+    }
+    // 其他错误返回 500
+    return NextResponse.json({ ok: false, error: e?.message || 'Server error' }, { status: 500 });
   }
 }
 
@@ -146,9 +175,28 @@ export async function POST(req: Request) {
     // 先规范化数据格式
     const normalized = normalizeJobData(body);
     const parsed = CareersSchema.parse(normalized);
-    await writeStore(parsed);
-    return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+    
+    try {
+      await writeStore(parsed);
+      return NextResponse.json({ ok: true }, { headers: { 'cache-control': 'no-store' } });
+    } catch (writeError: any) {
+      // 如果是只读文件系统错误，返回更详细的错误信息
+      if (writeError.code === 'EROFS' || writeError.message?.includes('read-only') || writeError.message?.includes('文件系统只读')) {
+        return NextResponse.json({ 
+          ok: false, 
+          error: '文件系统只读：在生产环境中无法直接写入文件。请配置数据库或使用 Vercel KV 等存储服务。',
+          code: 'EROFS',
+          suggestion: '建议使用 Vercel KV、PostgreSQL 或其他数据库来存储数据。'
+        }, { status: 500 });
+      }
+      throw writeError;
+    }
   } catch (e: any) {
-    return NextResponse.json({ ok: false, error: e?.message || 'Invalid payload' }, { status: 400 });
+    // 如果是验证错误，返回 400
+    if (e.name === 'ZodError') {
+      return NextResponse.json({ ok: false, error: e?.message || 'Invalid payload' }, { status: 400 });
+    }
+    // 其他错误返回 500
+    return NextResponse.json({ ok: false, error: e?.message || 'Server error' }, { status: 500 });
   }
 }
