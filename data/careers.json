@@ -15,7 +15,7 @@
         "en": "Responsible for subcontractor management, EPC contractor engagement, and heavy transport cost control"
       },
       "responsibilities": {
-        "cn": "<li>起草/监管7类分包合同：船务代理、码头操作、拖轮公司、吊装租赁、道路改造、电力迁改、林木修剪</li>\n<li>审核分包商账单，管控付款进度（单项目常涉及5+分包商协同）</li>\n<li>依据工程合同条款处理进度款申请、变更签证、履约保函延期</li>\n<li>主导项目索赔：因总包商原因导致的运输延误及物流成本增加的索赔</li>\n<li>监控特有成本项：桥梁加固费、临时征地费、警车开道费、超限许可证</li>\n<li>编制风电项目分标段损益报告（海运/港口/陆运）</li>",
+        "cn": "<li>起草/监管7类分包合同：船务代理、码头操作、拖轮公司、吊装租赁、道路改造、电力迁改、林木修剪</li>\n<li>审核分包商账单，管控付款进度（单项目常涉及5+分包商协同）主导项目索赔：因总包商原因导致的运输延误及物流成本增加的索赔</li>\n<li>监控特有成本项：桥梁加固费、临时征地费、警车开道费、超限许可证</li>\n<li>编制风电项目分标段损益报告（海运/港口/陆运）</li>",
         "en": "<li>Draft/supervise contracts for 7 types of subcontractors: shipping agency, terminal operations, tugboat services, crane rental, road modification, power line relocation, tree trimming</li><li>Verify subcontractor invoices and control payment schedules (managing 5+ subcontractors per project)</li><li>Process progress payment claims, change orders, performance bond extensions under engineering contracts</li><li>Lead project claims against EPC contractors for delays and cost overruns caused by EPC decisions</li><li>Monitor specialized costs: bridge reinforcement, temporary land acquisition, police escort fees, oversize permits</li><li>Prepare segmented P&L reports for wind projects (sea/port/land transport)</li>"
       },
       "requirements": {
@@ -96,7 +96,7 @@
         "en": "<li>Please Edit</li>"
       },
       "preferredConditions": {
-        "cn": "<li>4444</li>\n<li>5555</li>",
+        "cn": "<li>4444</li>\n<li>555</li>\n<li>5555</li>",
         "en": "<li>Please Edit</li>"
       }
     }
