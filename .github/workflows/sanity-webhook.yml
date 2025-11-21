@@ -1,0 +1,27 @@
+name: Sanity Webhook - Trigger Vercel Deployment
+
+# 此工作流用于通过 GitHub 触发 Vercel 部署
+# 如果使用 Vercel Deployment Hook，此文件可选
+
+on:
+  repository_dispatch:
+    types: [sanity-updated]
+  workflow_dispatch:
+
+jobs:
+  trigger-vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Trigger Vercel Deployment
+        run: |
+          echo "Sanity content updated, creating empty commit to trigger Vercel deployment"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit --allow-empty -m "chore: trigger deployment after Sanity update [skip ci]"
+          git push
+

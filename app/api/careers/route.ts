@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { sanityClient, fetchCareersData } from '@/lib/sanity';
 
 export const runtime = 'nodejs'; // 允许使用 fs
 
@@ -94,8 +95,27 @@ const getDefaultData = () => ({
   }
 });
 
-// 读数据（优先使用 KV/Redis，否则使用文件系统）
+// 读数据（优先使用 Sanity，然后 KV/Redis，最后文件系统）
 async function readStore() {
+  // 优先尝试从 Sanity 读取
+  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    try {
+      const sanityData = await fetchCareersData();
+      if (sanityData) {
+        console.log('[Careers API] Successfully read from Sanity');
+        // 转换 Sanity 数据格式为 API 格式
+        return transformSanityToAPI(sanityData);
+      } else {
+        console.warn('[Careers API] Sanity returned null/empty data, falling back to other storage');
+      }
+    } catch (error) {
+      console.error('[Careers API] Sanity read error:', error);
+      // Sanity 读取失败，继续尝试其他存储方式
+    }
+  } else {
+    console.warn('[Careers API] NEXT_PUBLIC_SANITY_PROJECT_ID not configured, skipping Sanity');
+  }
+
   // 尝试使用 KV/Redis
   const kvInstance = await initKV();
   if (kvInstance) {
@@ -121,8 +141,84 @@ async function readStore() {
   }
 }
 
+// 将 Sanity 数据格式转换为 API 格式
+function transformSanityToAPI(sanityData: any) {
+  if (!sanityData) return getDefaultData();
+
+  return {
+    jobs: (sanityData.jobs || []).map((job: any) => ({
+      id: job.id || job._key || '',
+      title: job.title || { cn: '', en: '' },
+      salary: job.salary || { cn: '', en: '' },
+      description: job.description || { cn: '', en: '' },
+      responsibilities: job.responsibilities || { cn: '', en: '' },
+      requirements: job.requirements || { cn: '', en: '' },
+      preferredConditions: job.preferredConditions || { cn: '', en: '' },
+    })),
+    contact: sanityData.contact || {
+      phone: '',
+      email: '',
+      address: { cn: '', en: '' },
+    },
+  };
+}
+
+// 将 API 数据格式转换为 Sanity 格式
+function transformAPIToSanity(apiData: any) {
+  return {
+    _type: 'careersPage',
+    jobs: (apiData.jobs || []).map((job: any) => ({
+      _type: 'object',
+      _key: job.id || `job-${Date.now()}`,
+      id: job.id,
+      title: job.title || { cn: '', en: '' },
+      salary: job.salary || { cn: '', en: '' },
+      description: job.description || { cn: '', en: '' },
+      responsibilities: job.responsibilities || { cn: '', en: '' },
+      requirements: job.requirements || { cn: '', en: '' },
+      preferredConditions: job.preferredConditions || { cn: '', en: '' },
+    })),
+    contact: apiData.contact || {
+      phone: '',
+      email: '',
+      address: { cn: '', en: '' },
+    },
+  };
+}
+
 async function writeStore(data: unknown) {
-  // 优先使用 KV/Redis
+  // 优先使用 Sanity（如果配置了）
+  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.SANITY_API_TOKEN) {
+    try {
+      const sanityData = transformAPIToSanity(data);
+      
+      // 先查询是否已存在 careersPage 文档
+      const existing = await sanityClient.fetch(
+        `*[_type == "careersPage"][0] { _id }`
+      );
+
+      if (existing?._id) {
+        // 更新现有文档
+        await sanityClient
+          .patch(existing._id)
+          .set(sanityData)
+          .commit();
+      } else {
+        // 创建新文档
+        await sanityClient.create(sanityData);
+      }
+      
+      return; // 成功写入 Sanity，直接返回
+    } catch (error: any) {
+      console.error('Sanity write error:', error);
+      // Sanity 写入失败，继续尝试其他存储方式
+      if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+        throw new Error(`Sanity 写入失败：${error?.message || 'Unknown error'}。请检查环境变量 NEXT_PUBLIC_SANITY_PROJECT_ID 和 SANITY_API_TOKEN 是否正确配置。`);
+      }
+    }
+  }
+
+  // 尝试使用 KV/Redis
   const kvInstance = await initKV();
   if (kvInstance) {
     try {
@@ -139,9 +235,9 @@ async function writeStore(data: unknown) {
     }
   }
   
-  // 在生产环境中，如果没有 KV 配置，应该抛出错误
+  // 在生产环境中，如果没有存储配置，应该抛出错误
   if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
-    throw new Error('生产环境需要配置 Vercel KV 或 Upstash Redis。\n\n请确保在 Vercel 项目设置中配置了以下环境变量：\n- KV_REST_API_URL\n- KV_REST_API_TOKEN\n\n或\n- UPSTASH_REDIS_REST_URL\n- UPSTASH_REDIS_REST_TOKEN');
+    throw new Error('生产环境需要配置 Sanity CMS 或 Vercel KV/Upstash Redis。\n\n请确保在 Vercel 项目设置中配置了以下环境变量之一：\n\nSanity CMS:\n- NEXT_PUBLIC_SANITY_PROJECT_ID\n- NEXT_PUBLIC_SANITY_DATASET\n- SANITY_API_TOKEN\n\n或 Vercel KV:\n- KV_REST_API_URL\n- KV_REST_API_TOKEN\n\n或 Upstash Redis:\n- UPSTASH_REDIS_REST_URL\n- UPSTASH_REDIS_REST_TOKEN');
   }
   
   // 使用文件系统（仅开发环境）
@@ -210,20 +306,69 @@ function normalizeJobData(data: any) {
 }
 
 export async function GET() {
+  // 标记为动态路由，禁用缓存
   const data = await readStore();
   // 规范化数据格式，确保 requirements 是字符串格式
   const normalized = normalizeJobData(data);
+  
+  // 添加调试信息（仅在开发环境）
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[Careers API] GET request - returning data:', {
+      jobsCount: normalized?.jobs?.length || 0,
+      hasContact: !!normalized?.contact,
+      source: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ? 'Sanity' : 'Fallback'
+    });
+  }
+  
   return NextResponse.json(normalized, { 
     headers: { 
-      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
       'Pragma': 'no-cache',
       'Expires': '0',
-      'X-Content-Type-Options': 'nosniff'
+      'X-Content-Type-Options': 'nosniff',
+      'Last-Modified': new Date().toUTCString(),
+      'X-Data-Source': process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ? 'sanity' : 'fallback'
     } 
   });
 }
 
+// 验证管理员身份
+async function verifyAdminAuth(req: Request): Promise<boolean> {
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  
+  if (!adminPassword) {
+    console.error('ADMIN_PASSWORD not configured');
+    return false;
+  }
+  
+  // 从请求头获取认证信息
+  const authHeader = req.headers.get('x-admin-auth');
+  
+  // 如果请求头中有正确的密码，允许访问
+  if (authHeader === adminPassword) {
+    return true;
+  }
+  
+  // 注意：这是一个简化的实现
+  // 生产环境建议使用：
+  // 1. JWT token（更安全）
+  // 2. Session cookie（更标准）
+  // 3. OAuth 2.0（最安全）
+  
+  // 当前实现：只接受正确的密码
+  return false;
+}
+
 export async function PUT(req: Request) {
+  // 验证管理员身份
+  const isAuthorized = await verifyAdminAuth(req);
+  if (!isAuthorized) {
+    return NextResponse.json(
+      { ok: false, error: '未授权访问，请先登录' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body = await req.json();
     // 先规范化数据格式
@@ -270,6 +415,15 @@ export async function PUT(req: Request) {
 
 // 添加 POST 方法作为备选，以防某些服务器不支持 PUT
 export async function POST(req: Request) {
+  // 验证管理员身份
+  const isAuthorized = await verifyAdminAuth(req);
+  if (!isAuthorized) {
+    return NextResponse.json(
+      { ok: false, error: '未授权访问，请先登录' },
+      { status: 401 }
+    );
+  }
+
   try {
     const body = await req.json();
     // 先规范化数据格式

@@ -27,8 +27,47 @@ export default function CareersAdminPage() {
   const [data, setData] = useState<CareersData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   const lang = useMemo<'cn' | 'en'>(() => (locale === 'en' ? 'en' : 'cn'), [locale]);
+
+  // 检查登录状态
+  useEffect(() => {
+    const checkAuth = () => {
+      if (typeof window === 'undefined') return;
+      
+      const authenticated = sessionStorage.getItem('admin_authenticated');
+      const loginTime = sessionStorage.getItem('admin_login_time');
+      
+      if (authenticated === 'true' && loginTime) {
+        // 检查会话是否过期（30分钟）
+        const sessionTimeout = 30 * 60 * 1000; // 30分钟
+        const now = Date.now();
+        const loginTimestamp = parseInt(loginTime, 10);
+        
+        if (now - loginTimestamp < sessionTimeout) {
+          setIsAuthenticated(true);
+          return;
+        } else {
+          // 会话过期，清除登录状态
+          sessionStorage.removeItem('admin_authenticated');
+          sessionStorage.removeItem('admin_login_time');
+        }
+      }
+      
+      setIsAuthenticated(false);
+      // 未登录，重定向到登录页面
+      const currentLocale = locale === 'en' ? 'en' : 'zh';
+      window.location.href = `/${currentLocale}/admin/login?redirect=/${currentLocale}/admin/careers`;
+    };
+
+    checkAuth();
+    
+    // 定期检查会话是否过期
+    const interval = setInterval(checkAuth, 60000); // 每分钟检查一次
+    
+    return () => clearInterval(interval);
+  }, [locale]);
 
   // 将HTML转换为纯文本（用于编辑显示）
   const htmlToPlainText = (html: string): string => {
@@ -234,13 +273,40 @@ export default function CareersAdminPage() {
         }
       });
 
+      // 从 sessionStorage 获取认证状态
+      const isAuthenticated = sessionStorage.getItem('admin_authenticated') === 'true';
+      
+      if (!isAuthenticated) {
+        alert('登录已过期，请重新登录');
+        const currentLocale = locale === 'en' ? 'en' : 'zh';
+        window.location.href = `/${currentLocale}/admin/login?redirect=/${currentLocale}/admin/careers`;
+        return;
+      }
+      
+      // 获取管理员密码用于 API 认证
+      // 注意：为了安全，密码存储在服务器端环境变量中
+      // 客户端通过 API 获取临时 token
+      let adminToken = '';
+      try {
+        const tokenRes = await fetch('/api/admin/token');
+        if (tokenRes.ok) {
+          const tokenData = await tokenRes.json();
+          adminToken = tokenData.token || '';
+        }
+      } catch (e) {
+        console.warn('Failed to get admin token');
+      }
+      
       let res: Response;
       
       // 先尝试 PUT 方法
       try {
         res = await fetch('/api/careers', {
           method: 'PUT',
-          headers: { 'content-type': 'application/json' },
+          headers: { 
+            'content-type': 'application/json',
+            'x-admin-auth': adminToken // 服务器端会验证
+          },
           body: JSON.stringify(dataToPublish),
         });
         
@@ -248,9 +314,22 @@ export default function CareersAdminPage() {
         if (res.status === 405) {
           res = await fetch('/api/careers', {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: { 
+              'content-type': 'application/json',
+              'x-admin-auth': adminToken
+            },
             body: JSON.stringify(dataToPublish),
           });
+        }
+        
+        // 如果返回 401，说明认证失败
+        if (res.status === 401) {
+          alert('登录已过期，请重新登录');
+          sessionStorage.removeItem('admin_authenticated');
+          sessionStorage.removeItem('admin_login_time');
+          const currentLocale = locale === 'en' ? 'en' : 'zh';
+          window.location.href = `/${currentLocale}/admin/login?redirect=/${currentLocale}/admin/careers`;
+          return;
         }
       } catch (fetchError) {
         // 如果 PUT 请求本身失败（网络错误等），尝试 POST
@@ -285,6 +364,17 @@ export default function CareersAdminPage() {
     }
   };
 
+  // 如果未认证，显示加载中（实际会重定向到登录页）
+  if (isAuthenticated === false || isAuthenticated === null) {
+    return (
+      <main className="container mx-auto p-6">
+        <div className="text-center py-12">
+          <p className="text-gray-600">验证身份中...</p>
+        </div>
+      </main>
+    );
+  }
+
   if (!data) {
     return (
       <main className="container mx-auto p-6">
@@ -294,12 +384,39 @@ export default function CareersAdminPage() {
     );
   }
 
+  const handleLogout = () => {
+    if (confirm('确定要退出登录吗？')) {
+      sessionStorage.removeItem('admin_authenticated');
+      sessionStorage.removeItem('admin_login_time');
+      const currentLocale = locale === 'en' ? 'en' : 'zh';
+      window.location.href = `/${currentLocale}/admin/login`;
+    }
+  };
+
   return (
     <main className="container mx-auto p-6">
-      <header className="mb-6 flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Careers 管理</h1>
-        {error && <span className="text-xs text-red-600">{error}</span>}
-        <span className="text-xs text-gray-500">当前语言：{lang.toUpperCase()}</span>
+      <header className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold">Careers 管理</h1>
+          {error && <span className="text-xs text-red-600">{error}</span>}
+          <span className="text-xs text-gray-500">当前语言：{lang.toUpperCase()}</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <a
+            href={`/${locale === 'en' ? 'en' : 'zh'}/careers`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 border border-blue-300 rounded-lg hover:bg-blue-50 transition"
+          >
+            查看前端页面
+          </a>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+          >
+            退出登录
+          </button>
+        </div>
       </header>
 
       <section className="grid gap-6">

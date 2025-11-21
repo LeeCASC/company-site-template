@@ -868,6 +868,49 @@
         // BroadcastChannel 不支持时忽略
         console.warn('BroadcastChannel not supported');
       }
+      
+      // 定期检查数据更新（每30秒检查一次）
+      // 这样可以确保即使在其他标签页或设备上更新了数据，当前页面也能自动更新
+      let lastUpdateTime = Date.now();
+      setInterval(() => {
+        // 检查是否需要刷新（距离上次更新超过30秒）
+        const now = Date.now();
+        if (now - lastUpdateTime > 30000) {
+          // 静默检查更新（不显示加载提示）
+          fetch(`/api/careers?t=${now}`, { 
+            method: 'GET',
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            }
+          })
+          .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            return null;
+          })
+          .then(newData => {
+            if (newData) {
+              // 简单比较数据是否有变化（比较 JSON 字符串）
+              const currentDataStr = JSON.stringify(careersData);
+              const newDataStr = JSON.stringify(newData);
+              if (currentDataStr !== newDataStr) {
+                console.log('Data updated detected, reloading...');
+                careersData = newData;
+                render();
+                lastUpdateTime = now;
+              }
+            }
+          })
+          .catch(err => {
+            // 静默失败，不影响用户体验
+            console.debug('Background update check failed:', err);
+          });
+        }
+      }, 30000); // 每30秒检查一次
 
 
     //   window.openAdminPage = function(){
