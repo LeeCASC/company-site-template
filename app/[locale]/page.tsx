@@ -68,6 +68,11 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   const currentLocale = (locale as Locale) ?? 'zh';
   const t = useTranslations('home');
   
+  // 计算年份：从2000年开始（2025年显示25年）
+  const baseYear = 2000;
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - baseYear;
+  
   // Hero
   const heroImgRef = useRef<HTMLImageElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
@@ -389,7 +394,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                     >
                       <AnimatedNumber 
                         key={`${currentLocale}-${animatedNumberTrigger}`}
-                        target={25} 
+                        target={yearsOfExperience} 
                         duration={2000}
                         className="text-display-lg text-gray-100"
                         trigger={animatedNumberTrigger}

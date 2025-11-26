@@ -13,8 +13,8 @@ export default function StarMap({ children }: StarMapProps) {
     const container = containerRef.current;
     if (!container) return;
 
-    // 创建星星元素 - 大面积点亮东南亚和东南沿海区域
-    // 在世界地图上，这些区域位于左侧（亚洲）的东南部
+    // 创建星星元素 - 大面积点亮多个区域
+    // 包括：东南亚、中国东南沿海、北美（美国、加拿大）、南美（厄瓜多尔、秘鲁）
     const stars: HTMLDivElement[] = [];
     
     // 定义区域范围（基于世界地图的百分比坐标）
@@ -35,6 +35,22 @@ export default function StarMap({ children }: StarMapProps) {
         xMin: 32.5, xMax: 47.5, // 右侧移动（东），横向范围
         yMin: 27.5, yMax: 42.5, // 上移（北），纵向范围
         count: 60, 
+        alwaysOn: true 
+      },
+      { 
+        name: 'NorthAmerica', 
+        // 北美区域：包括美国、加拿大
+        xMin: 65, xMax: 80, // 左侧（西半球），横向范围
+        yMin: 15, yMax: 40, // 中北部，纵向范围
+        count: 50, 
+        alwaysOn: true 
+      },
+      { 
+        name: 'SouthAmerica', 
+        // 南美区域：包括厄瓜多尔、秘鲁
+        xMin: 85, xMax: 90, // 左侧（西半球），横向范围
+        yMin: 50, yMax: 75, // 中南部，纵向范围
+        count: 40, 
         alwaysOn: true 
       },
     ];

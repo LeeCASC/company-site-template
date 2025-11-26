@@ -65,11 +65,11 @@
         "en": "Salary: Negotiable"
       },
       "responsibilities": {
-        "cn": "<li>请填写</li>\n<li>请填写</li>",
+        "cn": "<li>待定</li>",
         "en": "<li>Please Edit</li>"
       },
       "requirements": {
-        "cn": "<li>请填写</li>",
+        "cn": "<li>待定</li>",
         "en": "<li>Please Edit</li>"
       },
       "preferredConditions": {
@@ -88,15 +88,15 @@
         "en": "Salary: Negotiable"
       },
       "responsibilities": {
-        "cn": "<li>尝试编辑中</li>\n<li>尝试编辑中</li>",
+        "cn": "<li>尝试编辑中</li>",
         "en": "<li>Please Edit</li>"
       },
       "requirements": {
-        "cn": "<li>111</li>\n<li>222</li>\n<li>3333</li>",
+        "cn": "<li>尝试编辑中</li>",
         "en": "<li>Please Edit</li>"
       },
       "preferredConditions": {
-        "cn": "<li>4444</li>\n<li>555</li>\n<li>5555</li>",
+        "cn": "<li>尝试编辑中</li>",
         "en": "<li>Please Edit</li>"
       }
     }

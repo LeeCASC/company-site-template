@@ -156,8 +156,9 @@
     .job-details { display:flex; gap:30px; margin-bottom:40px; flex-wrap:wrap; }
     .card { background:#fff; border-radius:15px; box-shadow:0 8px 30px rgba(0,0,0,.1); padding:30px; flex:1; min-width:300px; transition:transform .3s ease; position:relative; }
     .card:hover { transform:translateY(-5px); box-shadow:0 12px 35px rgba(0,0,0,.15); }
-    .card h2 { color:var(--primary); border-bottom:3px solid var(--accent); padding-bottom:15px; margin-bottom:20px; font-size:1.8rem; display:flex; align-items:center; }
-    .card h2 i { margin-right:12px; color:var(--accent2); }
+    .card h2 { color:var(--primary); border-bottom:3px solid var(--accent); padding-bottom:15px; margin-bottom:20px; font-size:1.5rem; display:flex; align-items:center; white-space:nowrap; overflow:visible; }
+    .card h2 span { font-size:1.4rem; white-space:nowrap; overflow:visible; flex-shrink:0; }
+    .card h2 i { margin-right:12px; color:var(--accent2); flex-shrink:0; }
     .card ul { list-style-type:none; padding-left:5px; }
     .card li { margin-bottom:15px; padding-left:30px; position:relative; font-size:1.1rem; color:var(--text); }
     .card li:before { content:"•"; color:var(--accent); font-size:1.8rem; position:absolute; left:0; top:-5px; }
@@ -198,6 +199,8 @@
       .tagline { font-size:1.2rem; }
       .tab-btn { padding:12px 20px; font-size:1rem; min-width:140px; }
       .contact-info { flex-direction:column; gap:15px; }
+      .card h2 { font-size:1.2rem; }
+      .card h2 span { font-size:1.1rem; }
       .language-switcher { position:relative; top:0; right:0; text-align:center; margin:15px 0; }
     }
   </style>
@@ -251,7 +254,7 @@
     <div class="job-content active" id="business-content" style="display:none;">
       <div class="job-details">
         <div class="card">
-          <h2><i class="fas fa-tasks"></i> <span>核心职责</span></h2>
+          <h2><i class="fas fa-tasks"></i> <span id="business-responsibility-title">核心职责</span></h2>
           <ul id="business-responsibilities">
             <li>起草/监管7类分包合同：船务代理、码头操作、拖轮公司、吊装租赁、道路改造、电力迁改、林木修剪</li>
             <li>审核分包商账单，管控付款进度（单项目常涉及5+分包商协同）</li>
@@ -262,7 +265,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-user-graduate"></i> <span>职位要求</span></h2>
+          <h2><i class="fas fa-user-graduate"></i> <span id="business-requirements-title">职位要求</span></h2>
           <ul id="business-requirements">
             <li>5年以上工程物流/建筑施工企业经验（需参与过大型设备运输项目）</li>
             <li>3年以上多类型分包商管理经验（同时管理≥3类）</li>
@@ -276,7 +279,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-star"></i> <span>优先条件</span></h2>
+          <h2><i class="fas fa-star"></i> <span id="business-preferred-title">优先条件</span></h2>
           <ul id="business-preferredConditions">
             <li>有大型工程物流项目经验者优先</li>
           </ul>
@@ -289,7 +292,7 @@
     <div class="job-content" id="translator-content">
       <div class="job-details">
         <div class="card">
-          <h2><i class="fas fa-tasks"></i> <span>核心职责</span></h2>
+          <h2><i class="fas fa-tasks"></i> <span id="translator-responsibility-title">核心职责</span></h2>
           <ul id="translator-responsibilities">
             <li>为中方特种设备操作手提供现场英语口语翻译服务</li>
             <li>协助操作手与当地工作人员进行日常沟通协调</li>
@@ -300,7 +303,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-user-graduate"></i> <span>职位要求</span></h2>
+          <h2><i class="fas fa-user-graduate"></i> <span id="translator-requirements-title">职位要求</span></h2>
           <ul id="translator-requirements">
             <li>中国籍应届本科毕业生</li>
             <li>英语相关专业优先（如翻译、英语、国际商务等）</li>
@@ -316,7 +319,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-star"></i> <span>优先条件</span></h2>
+          <h2><i class="fas fa-star"></i> <span id="translator-preferred-title">优先条件</span></h2>
           <ul id="translator-preferredConditions">
             <li>有机械、工程类知识背景</li>
             <li>通过CATTI口译三级或以上</li>
@@ -332,7 +335,7 @@
     <div class="job-content" id="freight-content">
       <div class="job-details">
         <div class="card">
-          <h2><i class="fas fa-tasks"></i> <span>核心职责</span></h2>
+          <h2><i class="fas fa-tasks"></i> <span id="freight-responsibility-title">核心职责</span></h2>
           <ul id="freight-responsibilities">
             <li>负责国际货运的全流程操作，包括订舱、报关、单证制作及跟踪</li>
             <li>协调船公司、港口、仓库等各方资源，确保货物按时安全运输</li>
@@ -347,7 +350,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-user-graduate"></i> <span>职位要求</span></h2>
+          <h2><i class="fas fa-user-graduate"></i> <span id="freight-requirements-title">职位要求</span></h2>
           <ul id="freight-requirements">
             <li>至少3年以上国际货代公司工作经验</li>
             <li>熟悉海运、空运及多式联运操作流程</li>
@@ -366,7 +369,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-star"></i> <span>优先条件</span></h2>
+          <h2><i class="fas fa-star"></i> <span id="freight-preferred-title">优先条件</span></h2>
           <ul id="freight-preferredConditions">
             <li>有大型设备或风电项目物流经验者优先</li>
           </ul>
@@ -399,8 +402,8 @@
     const translations = {
       cn: { /* —— 为简洁，这里省略注释，仅保留键值 —— */
         "main-title":"物流人才招聘","sub-title":"加入Wintex，共同打造菲律宾清洁能源未来","business-tab":"商务助理","translator-tab":"现场翻译","freight-tab":"货代操作","location-title":"工作地点","location-desc":"菲律宾项目现场","contract-title":"合同类型","contract-desc":"长期项目制","status-title":"招聘状态","status-desc":"火热进行中","apply-text":"立即提交简历","rights-text":"版权所有","business-salary":"薪资待遇：面议","translator-salary":"薪资待遇：面议","freight-salary":"薪资待遇：面议",
-        "responsibility-title":"核心职责","subcontractor-title":"工程分包商管理","subcontractor-desc":"起草/监管7类分包合同：船务代理、码头操作、拖轮公司、吊装租赁、道路改造、电力迁改、林木修剪","payment-desc":"审核分包商账单，管控付款进度（单项目常涉及5+分包商协同）","epc-title":"总包商(EPC)商务对接","contract-process":"依据工程合同条款处理进度款申请、变更签证、履约保函延期","claim-desc":"主导项目索赔：因总包商原因导致的运输延误及物流成本增加的索赔","cost-title":"重型运输成本控制","cost-monitor":"监控特有成本项：桥梁加固费、临时征地费、警车开道费、超限许可证","report-desc":"编制风电项目分标段损益报告（海运/港口/陆运）","requirements-title":"职位要求","experience-title":"经验要求","exp1":"5年以上工程物流/建筑施工企业经验（需参与过大型设备运输项目）","exp2":"3年以上多类型分包商管理经验（同时管理≥3类）","exp3":"≥5次成功向总包商索赔经验（需面试展示证明文件）","competencies-title":"核心能力","skill1":"精通重型运输合同条款设计：滞期费阶梯计价、吊装事故责任界定","skill2":"熟悉菲律宾大件运输法规：DPWH超限许可流程、LGU地方道路使用许可、NGCP线路迁改规范","skill3":"总包商索赔专长：证据链构建、成本计算模型","other-title":"其他要求","req1":"菲律宾籍，能适应项目现场工作环境","req2":"持有有效驾照，能前往不同项目现场","req3":"流利的英语沟通能力",
-        "duties-title":"工作职责","duty1":"为中方特种设备操作手提供现场英语口语翻译服务","duty2":"协助操作手与当地工作人员进行日常沟通协调","duty3":"翻译设备操作手册、安全规范等技术文档","duty4":"参与项目会议并提供中英双向翻译支持","duty5":"协助处理中方员工与当地社区的基本沟通","duty6":"记录并整理翻译日志，确保信息准确传递","environment-title":"工作环境","env1":"菲律宾风电项目现场（马尼拉及周边地区）","env2":"跟随设备操作团队进行户外作业","env3":"需要适应热带气候和项目现场条件","env4":"提供项目现场住宿及餐饮","position-requirements":"职位要求","basic-title":"基本要求","basic1":"中国籍应届本科毕业生","basic2":"英语相关专业优先（如翻译、英语、国际商务等）","basic3":"大学英语六级600分以上或专四/专八良好以上","core-title":"核心能力","core1":"优秀的中英双语口语表达能力","core2":"快速学习技术术语和专业知识的能力","core3":"良好的跨文化沟通和理解能力","personal-title":"个人素质","personal1":"吃苦耐劳，能适应项目现场环境","personal2":"有耐心，脾气好，能妥善处理压力","personal3":"积极主动，有上进心，学习能力强","personal4":"具备优秀的情绪管理能力","personal5":"良好的团队协作精神","preferred-title":"优先条件","pref1":"有机械、工程类知识背景","pref2":"通过CATTI口译三级或以上","pref3":"有海外学习或生活经历","pref4":"掌握基础菲律宾语",
+        "responsibility-title":"核心职责","business-responsibility-title":"核心职责","translator-responsibility-title":"核心职责","freight-responsibility-title":"核心职责","subcontractor-title":"工程分包商管理","subcontractor-desc":"起草/监管7类分包合同：船务代理、码头操作、拖轮公司、吊装租赁、道路改造、电力迁改、林木修剪","payment-desc":"审核分包商账单，管控付款进度（单项目常涉及5+分包商协同）","epc-title":"总包商(EPC)商务对接","contract-process":"依据工程合同条款处理进度款申请、变更签证、履约保函延期","claim-desc":"主导项目索赔：因总包商原因导致的运输延误及物流成本增加的索赔","cost-title":"重型运输成本控制","cost-monitor":"监控特有成本项：桥梁加固费、临时征地费、警车开道费、超限许可证","report-desc":"编制风电项目分标段损益报告（海运/港口/陆运）","requirements-title":"职位要求","business-requirements-title":"职位要求","translator-requirements-title":"职位要求","freight-requirements-title":"职位要求","experience-title":"经验要求","exp1":"5年以上工程物流/建筑施工企业经验（需参与过大型设备运输项目）","exp2":"3年以上多类型分包商管理经验（同时管理≥3类）","exp3":"≥5次成功向总包商索赔经验（需面试展示证明文件）","competencies-title":"核心能力","skill1":"精通重型运输合同条款设计：滞期费阶梯计价、吊装事故责任界定","skill2":"熟悉菲律宾大件运输法规：DPWH超限许可流程、LGU地方道路使用许可、NGCP线路迁改规范","skill3":"总包商索赔专长：证据链构建、成本计算模型","other-title":"其他要求","req1":"菲律宾籍，能适应项目现场工作环境","req2":"持有有效驾照，能前往不同项目现场","req3":"流利的英语沟通能力",
+        "duties-title":"工作职责","duty1":"为中方特种设备操作手提供现场英语口语翻译服务","duty2":"协助操作手与当地工作人员进行日常沟通协调","duty3":"翻译设备操作手册、安全规范等技术文档","duty4":"参与项目会议并提供中英双向翻译支持","duty5":"协助处理中方员工与当地社区的基本沟通","duty6":"记录并整理翻译日志，确保信息准确传递","environment-title":"工作环境","env1":"菲律宾风电项目现场（马尼拉及周边地区）","env2":"跟随设备操作团队进行户外作业","env3":"需要适应热带气候和项目现场条件","env4":"提供项目现场住宿及餐饮","position-requirements":"职位要求","basic-title":"基本要求","basic1":"中国籍应届本科毕业生","basic2":"英语相关专业优先（如翻译、英语、国际商务等）","basic3":"大学英语六级600分以上或专四/专八良好以上","core-title":"核心能力","core1":"优秀的中英双语口语表达能力","core2":"快速学习技术术语和专业知识的能力","core3":"良好的跨文化沟通和理解能力","personal-title":"个人素质","personal1":"吃苦耐劳，能适应项目现场环境","personal2":"有耐心，脾气好，能妥善处理压力","personal3":"积极主动，有上进心，学习能力强","personal4":"具备优秀的情绪管理能力","personal5":"良好的团队协作精神","preferred-title":"优先条件","business-preferred-title":"优先条件","translator-preferred-title":"优先条件","freight-preferred-title":"优先条件","pref1":"有机械、工程类知识背景","pref2":"通过CATTI口译三级或以上","pref3":"有海外学习或生活经历","pref4":"掌握基础菲律宾语",
         "freight-duties-title":"工作职责","freight-duty1":"负责国际货运的全流程操作，包括订舱、报关、单证制作及跟踪","freight-duty2":"协调船公司、港口、仓库等各方资源，确保货物按时安全运输","freight-duty3":"处理进出口货物的报关报检及相关文件准备工作","freight-duty4":"监控货物运输状态，及时处理运输过程中的异常情况","freight-duty5":"与客户保持良好沟通，及时反馈货物运输信息","freight-duty6":"优化货运方案，降低物流成本，提高运输效率","documents-title":"单证处理","doc1":"准备和处理提单、发票、装箱单等运输单据","doc2":"确保所有单证符合国际贸易规则和目的国海关要求","doc3":"审核信用证条款，确保单证一致","doc4":"处理进出口报关文件及相关许可证","freight-requirements":"职位要求","experience-req-title":"经验要求","freight-exp1":"至少3年以上国际货代公司工作经验","freight-exp2":"熟悉海运、空运及多式联运操作流程","freight-exp3":"有大型设备或风电项目物流经验者优先","knowledge-title":"专业知识","knowledge1":"精通国际贸易术语（Incoterms 2020）","knowledge2":"熟悉国际海运、空运操作流程及相关法规","knowledge3":"了解菲律宾海关进出口政策及清关流程","knowledge4":"掌握主要船公司及航空公司的操作规范","skills-title":"技能要求","skill-req1":"熟练使用物流管理系统（如CargoWise, SAP等）","skill-req2":"精通Office办公软件，特别是Excel高级功能","skill-req3":"出色的多任务处理能力及时间管理能力","skill-req4":"优秀的英语读写能力（CET-6或同等以上）","additional-title":"其他要求","add-req1":"具备高度责任心和抗压能力","add-req2":"良好的沟通协调能力和团队合作精神","add-req3":"能适应快节奏工作环境，处理紧急情况",
         "env-title1":"现代化物流中心","env-desc1":"使用先进物流管理系统，优化全球供应链运作","env-title2":"全球物流网络","env-desc2":"连接全球港口、机场和陆运枢纽的高效物流网络","env-title3":"专业发展平台","env-desc3":"提供专业培训和职业发展通道，培养物流专家",
         "why-title":"为什么加入Wintex？","benefit-title1":"国际视野","benefit-desc1":"参与\"一带一路\"重点项目，拓展国际职业发展空间","benefit-title2":"行业前沿","benefit-desc2":"投身快速发展的可再生能源行业，掌握前沿技术","benefit-title3":"职业发展","benefit-desc3":"清晰的晋升通道和专业培训体系，助力职业成长",
@@ -408,8 +411,8 @@
       },
       en: {
         "main-title":"Logistics Talent Recruitment","sub-title":"Join Wintex, Build the Future of Clean Energy in the Philippines","business-tab":"Business Assistant","translator-tab":"On-site Translator","freight-tab":"Freight Forwarding Operator","location-title":"Location","location-desc":"Project Sites in Philippines","contract-title":"Contract Type","contract-desc":"Long-term Project Based","status-title":"Status","status-desc":"Now Hiring","apply-text":"Submit Your Resume","rights-text":"All Rights Reserved","business-salary":"Salary: Negotiable","translator-salary":"Salary: Negotiable","freight-salary":"Salary: Negotiable",
-        "responsibility-title":"Key Responsibilities","subcontractor-title":"Subcontractor Management","subcontractor-desc":"Draft/supervise contracts for 7 types of subcontractors: shipping agency, terminal operations, tugboat services, crane rental, road modification, power line relocation, tree trimming","payment-desc":"Verify subcontractor invoices and control payment schedules (managing 5+ subcontractors per project)","epc-title":"EPC Contractor Engagement","contract-process":"Process progress payment claims, change orders, performance bond extensions under engineering contracts","claim-desc":"Lead project claims against EPC contractors for delays and cost overruns caused by EPC decisions","cost-title":"Heavy Transport Cost Control","cost-monitor":"Monitor specialized costs: bridge reinforcement, temporary land acquisition, police escort fees, oversize permits","report-desc":"Prepare segmented P&L reports for wind projects (sea/port/land transport)","requirements-title":"Requirements","experience-title":"Experience","exp1":"5+ years in engineering logistics/construction (experience with heavy equipment transport projects required)","exp2":"3+ years managing multiple subcontractor types (concurrently managing ≥3 types)","exp3":"≥5 successful claims against EPC contractors (proof required during interview)","competencies-title":"Core Competencies","skill1":"Expertise in heavy transport contract clauses: demurrage tiered pricing, crane accident liability allocation","skill2":"Knowledge of Philippine heavy transport regulations: DPWH oversize permits, LGU road access approvals, NGCP relocation standards","skill3":"EPC claim specialization: evidence chain development, cost modeling","other-title":"Other Requirements","req1":"Filipino national, able to work at project sites","req2":"Valid driver's license, able to travel to different sites","req3":"Fluent English communication skills",
-        "duties-title":"Job Duties","duty1":"Provide on-site English interpretation for Chinese heavy equipment operators","duty2":"Assist operators in daily communication with local staff","duty3":"Translate technical documents such as equipment manuals and safety regulations","duty4":"Provide bilingual support in project meetings","duty5":"Assist in basic communication between Chinese staff and local communities","duty6":"Maintain interpretation logs to ensure accurate information transfer","environment-title":"Work Environment","env1":"Wind power project sites in Philippines (Manila and surrounding areas)","env2":"Field work with equipment operation teams","env3":"Need to adapt to tropical climate and site conditions","env4":"On-site accommodation and meals provided","position-requirements":"Position Requirements","basic-title":"Basic Requirements","basic1":"Chinese fresh graduate with bachelor's degree","basic2":"English-related majors preferred (translation, English, international business, etc.)","basic3":"CET-6 score ≥600 or TEM-4/8 with good grade","core-title":"Core Competencies","core1":"Excellent Chinese-English oral interpretation skills","core2":"Ability to quickly learn technical terminology and professional knowledge","core3":"Strong cross-cultural communication and understanding skills","personal-title":"Personal Qualities","personal1":"Hardworking, adaptable to project site conditions","personal2":"Patient, good-tempered, able to handle pressure","personal3":"Proactive, motivated, fast learner","personal4":"Excellent emotional management skills","personal5":"Strong team collaboration spirit","preferred-title":"Preferred Qualifications","pref1":"Background in mechanical/engineering knowledge","pref2":"CATTI Level 3 Interpretation or higher","pref3":"Overseas study or living experience","pref4":"Basic Filipino language skills",
+        "responsibility-title":"Core Responsibilities","business-responsibility-title":"Core Responsibilities","translator-responsibility-title":"Core Responsibilities","freight-responsibility-title":"Core Responsibilities","subcontractor-title":"Subcontractor Management","subcontractor-desc":"Draft/supervise contracts for 7 types of subcontractors: shipping agency, terminal operations, tugboat services, crane rental, road modification, power line relocation, tree trimming","payment-desc":"Verify subcontractor invoices and control payment schedules (managing 5+ subcontractors per project)","epc-title":"EPC Contractor Engagement","contract-process":"Process progress payment claims, change orders, performance bond extensions under engineering contracts","claim-desc":"Lead project claims against EPC contractors for delays and cost overruns caused by EPC decisions","cost-title":"Heavy Transport Cost Control","cost-monitor":"Monitor specialized costs: bridge reinforcement, temporary land acquisition, police escort fees, oversize permits","report-desc":"Prepare segmented P&L reports for wind projects (sea/port/land transport)","requirements-title":"Requirements","business-requirements-title":"Requirements","translator-requirements-title":"Requirements","freight-requirements-title":"Requirements","experience-title":"Experience","exp1":"5+ years in engineering logistics/construction (experience with heavy equipment transport projects required)","exp2":"3+ years managing multiple subcontractor types (concurrently managing ≥3 types)","exp3":"≥5 successful claims against EPC contractors (proof required during interview)","competencies-title":"Core Competencies","skill1":"Expertise in heavy transport contract clauses: demurrage tiered pricing, crane accident liability allocation","skill2":"Knowledge of Philippine heavy transport regulations: DPWH oversize permits, LGU road access approvals, NGCP relocation standards","skill3":"EPC claim specialization: evidence chain development, cost modeling","other-title":"Other Requirements","req1":"Filipino national, able to work at project sites","req2":"Valid driver's license, able to travel to different sites","req3":"Fluent English communication skills",
+        "duties-title":"Job Duties","duty1":"Provide on-site English interpretation for Chinese heavy equipment operators","duty2":"Assist operators in daily communication with local staff","duty3":"Translate technical documents such as equipment manuals and safety regulations","duty4":"Provide bilingual support in project meetings","duty5":"Assist in basic communication between Chinese staff and local communities","duty6":"Maintain interpretation logs to ensure accurate information transfer","environment-title":"Work Environment","env1":"Wind power project sites in Philippines (Manila and surrounding areas)","env2":"Field work with equipment operation teams","env3":"Need to adapt to tropical climate and site conditions","env4":"On-site accommodation and meals provided","position-requirements":"Position Requirements","basic-title":"Basic Requirements","basic1":"Chinese fresh graduate with bachelor's degree","basic2":"English-related majors preferred (translation, English, international business, etc.)","basic3":"CET-6 score ≥600 or TEM-4/8 with good grade","core-title":"Core Competencies","core1":"Excellent Chinese-English oral interpretation skills","core2":"Ability to quickly learn technical terminology and professional knowledge","core3":"Strong cross-cultural communication and understanding skills","personal-title":"Personal Qualities","personal1":"Hardworking, adaptable to project site conditions","personal2":"Patient, good-tempered, able to handle pressure","personal3":"Proactive, motivated, fast learner","personal4":"Excellent emotional management skills","personal5":"Strong team collaboration spirit","preferred-title":"Preference","business-preferred-title":"Preference","translator-preferred-title":"Preference","freight-preferred-title":"Preference","pref1":"Background in mechanical/engineering knowledge","pref2":"CATTI Level 3 Interpretation or higher","pref3":"Overseas study or living experience","pref4":"Basic Filipino language skills",
         "freight-duties-title":"Job Duties","freight-duty1":"Manage end-to-end international freight operations including booking, customs clearance, documentation and tracking","freight-duty2":"Coordinate with shipping lines, ports, warehouses to ensure timely and safe cargo transportation","freight-duty3":"Handle customs declaration and inspection for import/export goods","freight-duty4":"Monitor cargo status and resolve any transportation issues promptly","freight-duty5":"Maintain good communication with clients and provide shipment updates","freight-duty6":"Optimize shipping solutions to reduce costs and improve efficiency","documents-title":"Documentation","doc1":"Prepare and process shipping documents including BL, invoices, packing lists","doc2":"Ensure all documents comply with international trade rules and destination customs requirements","doc3":"Review L/C terms to ensure document consistency","doc4":"Handle import/export customs documents and related permits","freight-requirements":"Requirements","experience-req-title":"Experience","freight-exp1":"Minimum 3 years experience in international freight forwarding","freight-exp2":"Familiar with sea, air and multimodal transportation processes","freight-exp3":"Experience in heavy equipment or wind power logistics preferred","knowledge-title":"Professional Knowledge","knowledge1":"Proficient in Incoterms 2020","knowledge2":"Knowledge of international sea/air transport regulations","knowledge3":"Understanding of Philippines customs policies and clearance procedures","knowledge4":"Familiar with major shipping lines and airlines operations","skills-title":"Skills","skill-req1":"Proficient in logistics management systems (e.g. CargoWise, SAP)","skill-req2":"Advanced MS Office skills, especially Excel","skill-req3":"Excellent multitasking and time management abilities","skill-req4":"Strong English reading/writing skills (CET-6 or equivalent)","additional-title":"Additional Requirements","add-req1":"High sense of responsibility and stress tolerance","add-req2":"Good communication and teamwork skills","add-req3":"Ability to work in fast-paced environment and handle emergencies",
         "env-title1":"Modern Logistics Center","env-desc1":"Utilizing advanced logistics management systems to optimize global supply chain","env-title2":"Global Logistics Network","env-desc2":"Efficient network connecting ports, airports and land hubs worldwide","env-title3":"Professional Development","env-desc3":"Training programs and career development paths for logistics specialists",
         "why-title":"Why Join Wintex?","benefit-title1":"Global Perspective","benefit-desc1":"Participate in Belt and Road key projects, expand international career","benefit-title2":"Industry Frontier","benefit-desc2":"Join fast-growing renewable energy industry, master cutting-edge technologies","benefit-title3":"Career Development","benefit-desc3":"Clear promotion path and professional training system",
@@ -418,7 +421,35 @@
     };
 
     (function(){
-      let currentLang = localStorage.getItem('lang') || detectInitialLanguage();
+      // 优先检查 URL 参数，如果存在则使用 URL 参数，否则使用 localStorage，最后才使用默认检测
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      let currentLang;
+      if (urlLang) {
+        // URL 参数存在，优先使用 URL 参数
+        if (urlLang === 'en') {
+          currentLang = 'en';
+        } else if (urlLang === 'zh') {
+          currentLang = 'cn'; // 将 Next.js 的 'zh' 映射为 'cn'
+        } else if (urlLang === 'cn') {
+          currentLang = 'cn';
+        } else {
+          currentLang = detectInitialLanguage();
+        }
+        // 将检测到的语言保存到 localStorage
+        localStorage.setItem('lang', currentLang);
+        console.log('Language set from URL parameter:', urlLang, '->', currentLang);
+      } else {
+        // URL 参数不存在，使用 localStorage 或默认检测
+        const storedLang = localStorage.getItem('lang');
+        if (storedLang) {
+          currentLang = storedLang;
+          console.log('Language set from localStorage:', currentLang);
+        } else {
+          currentLang = detectInitialLanguage();
+          console.log('Language set from detection:', currentLang);
+        }
+      }
       let isEditMode = false;
       let originalData = null;
       
@@ -475,13 +506,31 @@
       function detectInitialLanguage(){
         const urlParams = new URLSearchParams(window.location.search);
         const p = urlParams.get('lang');
+        // 支持 Next.js 的 locale (zh/en) 和 careers.html 的语言代码 (cn/en)
         if (p === 'en') return 'en';
-        if (document.referrer && document.referrer.includes('/en')) return 'en';
+        if (p === 'zh') return 'cn'; // 将 Next.js 的 'zh' 映射为 'cn'
+        if (p === 'cn') return 'cn';
+        // 检查 referrer
+        if (document.referrer) {
+          if (document.referrer.includes('/en')) return 'en';
+          if (document.referrer.includes('/zh')) return 'cn';
+        }
         return 'cn';
       }
 
       function setLang(lang){
-        currentLang = lang; localStorage.setItem('lang', lang); render();
+        console.log('Language switching to:', lang);
+        currentLang = lang; 
+        localStorage.setItem('lang', lang); 
+        // 强制重新渲染所有内容
+        render();
+        // 如果 API 数据已加载，再次应用以确保内容更新
+        if (careersData?.jobs?.length) {
+          setTimeout(() => {
+            applyJobsFromAPI();
+            updateContactFromAPI();
+          }, 100);
+        }
       }
 
       // 动态生成tab按钮
@@ -536,7 +585,7 @@
           const responsibilitiesCard = document.createElement('div');
           responsibilitiesCard.className = 'card';
           responsibilitiesCard.innerHTML = `
-            <h2><i class="fas fa-tasks"></i> <span>核心职责</span></h2>
+            <h2><i class="fas fa-tasks"></i> <span id="${job.id}-responsibility-title">${translations[currentLang]['responsibility-title']}</span></h2>
             <ul id="${job.id}-responsibilities"></ul>
           `;
           jobDetails.appendChild(responsibilitiesCard);
@@ -545,7 +594,7 @@
           const requirementsCard = document.createElement('div');
           requirementsCard.className = 'card';
           requirementsCard.innerHTML = `
-            <h2><i class="fas fa-user-graduate"></i> <span>职位要求</span></h2>
+            <h2><i class="fas fa-user-graduate"></i> <span id="${job.id}-requirements-title">${translations[currentLang]['requirements-title']}</span></h2>
             <ul id="${job.id}-requirements"></ul>
           `;
           jobDetails.appendChild(requirementsCard);
@@ -553,10 +602,13 @@
           // 优先条件
           const preferredCard = document.createElement('div');
           preferredCard.className = 'card';
+          // 获取薪水，优先使用 API 数据，否则使用默认值
+          const defaultSalary = currentLang === 'cn' ? '薪资待遇：面议' : 'Salary: Negotiable';
+          const salaryText = job.salary?.[currentLang] || defaultSalary;
           preferredCard.innerHTML = `
-            <h2><i class="fas fa-star"></i> <span>优先条件</span></h2>
+            <h2><i class="fas fa-star"></i> <span id="${job.id}-preferred-title">${translations[currentLang]['preferred-title']}</span></h2>
             <ul id="${job.id}-preferredConditions"></ul>
-            <div class="salary-highlight"><i class="fas fa-money-bill-wave"></i> <span id="${job.id}-salary">${job.salary?.[currentLang] || '薪资待遇：面议'}</span></div>
+            <div class="salary-highlight"><i class="fas fa-money-bill-wave"></i> <span id="${job.id}-salary">${salaryText}</span></div>
           `;
           jobDetails.appendChild(preferredCard);
           
@@ -708,13 +760,18 @@
           return;
         }
         
-        console.log('Applying jobs data from API:', careersData.jobs.length, 'jobs');
+        console.log('Applying jobs data from API:', careersData.jobs.length, 'jobs', 'currentLang:', currentLang);
         
         careersData.jobs.forEach((job)=>{
           // 更新 tab 按钮标题
           const tabBtn = document.querySelector(`[data-tab="${job.id}"]`);
-          if(tabBtn && job.title?.[currentLang]) {
-            tabBtn.textContent = job.title[currentLang];
+          if(tabBtn) {
+            const title = job.title?.[currentLang];
+            if(title) {
+              tabBtn.textContent = title;
+            } else {
+              console.warn(`No title found for job ${job.id} in language ${currentLang}`);
+            }
           }
           
           const root = document.getElementById(`${job.id}-content`);
@@ -723,48 +780,76 @@
             return;
           }
           
-          // 更新薪资
-          const salaryEl = root.querySelector('.salary-highlight span');
-          if(salaryEl && job.salary?.[currentLang]) {
-            salaryEl.textContent = job.salary[currentLang];
+          // 更新标题（核心职责、职位要求、优先条件）
+          const respTitleEl = root.querySelector(`#${job.id}-responsibility-title`);
+          if(respTitleEl) {
+            respTitleEl.textContent = translations[currentLang]['responsibility-title'];
+          }
+          const reqTitleEl = root.querySelector(`#${job.id}-requirements-title`);
+          if(reqTitleEl) {
+            reqTitleEl.textContent = translations[currentLang]['requirements-title'];
+          }
+          const prefTitleEl = root.querySelector(`#${job.id}-preferred-title`);
+          if(prefTitleEl) {
+            prefTitleEl.textContent = translations[currentLang]['preferred-title'];
           }
           
-          // 更新核心职责 - 强制更新，即使有默认内容
+          // 更新薪资 - 使用精确的 ID 选择器
+          const salaryEl = document.getElementById(`${job.id}-salary`);
+          if(salaryEl) {
+            const salary = job.salary?.[currentLang];
+            if(salary) {
+              salaryEl.textContent = salary;
+              console.log(`Updated salary for job: ${job.id}, lang: ${currentLang}, value: ${salary}`);
+            } else {
+              // 如果 API 数据中没有薪水，使用默认值
+              const defaultSalary = currentLang === 'cn' ? '薪资待遇：面议' : 'Salary: Negotiable';
+              salaryEl.textContent = defaultSalary;
+              console.warn(`No salary found for job ${job.id} in language ${currentLang}, using default`);
+            }
+          } else {
+            console.warn(`Salary element not found for job: ${job.id}`);
+          }
+          
+          // 更新核心职责 - 强制更新，即使有默认内容或空内容
           const respContent = job.responsibilities?.[currentLang];
-          if(respContent !== undefined && respContent !== null) {
+          // 明确检查：如果字段存在（包括空字符串），都要更新
+          if('responsibilities' in job && job.responsibilities && currentLang in job.responsibilities) {
             const respUl = root.querySelector(`#${job.id}-responsibilities`);
             if(respUl) {
-              const updated = renderContentToUl(respUl, respContent);
+              const updated = renderContentToUl(respUl, respContent || '');
               if(updated) {
-                console.log(`Updated responsibilities for job: ${job.id}`);
+                console.log(`Updated responsibilities for job: ${job.id}, lang: ${currentLang}`);
               }
             } else {
               console.warn(`Responsibilities UL not found for job: ${job.id}`);
             }
           }
           
-          // 更新职位要求 - 强制更新，即使有默认内容
+          // 更新职位要求 - 强制更新，即使有默认内容或空内容
           const reqContent = job.requirements?.[currentLang];
-          if(reqContent !== undefined && reqContent !== null) {
+          // 明确检查：如果字段存在（包括空字符串），都要更新
+          if('requirements' in job && job.requirements && currentLang in job.requirements) {
             const reqUl = root.querySelector(`#${job.id}-requirements`);
             if(reqUl) {
-              const updated = renderContentToUl(reqUl, reqContent);
+              const updated = renderContentToUl(reqUl, reqContent || '');
               if(updated) {
-                console.log(`Updated requirements for job: ${job.id}`);
+                console.log(`Updated requirements for job: ${job.id}, lang: ${currentLang}`);
               }
             } else {
               console.warn(`Requirements UL not found for job: ${job.id}`);
             }
           }
           
-          // 更新优先条件 - 强制更新，即使有默认内容
+          // 更新优先条件 - 强制更新，即使有默认内容或空内容
           const preferredConditionsContent = job.preferredConditions?.[currentLang];
-          if(preferredConditionsContent !== undefined && preferredConditionsContent !== null) {
+          // 明确检查：如果字段存在（包括空字符串），都要更新
+          if('preferredConditions' in job && job.preferredConditions && currentLang in job.preferredConditions) {
             const preferredConditionsUl = root.querySelector(`#${job.id}-preferredConditions`);
             if(preferredConditionsUl) {
-              const updated = renderContentToUl(preferredConditionsUl, preferredConditionsContent);
+              const updated = renderContentToUl(preferredConditionsUl, preferredConditionsContent || '');
               if(updated) {
-                console.log(`Updated preferred conditions for job: ${job.id}`);
+                console.log(`Updated preferred conditions for job: ${job.id}, lang: ${currentLang}`);
               }
             } else {
               console.warn(`Preferred conditions UL not found for job: ${job.id}`);
@@ -875,12 +960,13 @@
     //     window.open(adminUrl, '_blank');
     //   }
 
+      // 直接跳转到编辑页面（权限验证在编辑页面进行）
       window.openAdminPage = function () {
-    // 将 'cn' 映射成 Next 路由使用的 'zh'
+        // 将 'cn' 映射成 Next 路由使用的 'zh'
         const langSegment = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'zh';
         const adminUrl = `/${langSegment}/admin/careers`;
         window.location.href = adminUrl;
-    };
+      };
     })();
   </script>
 </body>

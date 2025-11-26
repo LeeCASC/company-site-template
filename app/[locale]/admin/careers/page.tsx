@@ -27,8 +27,50 @@ export default function CareersAdminPage() {
   const [data, setData] = useState<CareersData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const lang = useMemo<'cn' | 'en'>(() => (locale === 'en' ? 'en' : 'cn'), [locale]);
+
+  // 检查权限
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const authStatus = sessionStorage.getItem('adminAuth');
+      const authTime = sessionStorage.getItem('adminAuthTime');
+      
+      // 检查认证状态和时效（30分钟）
+      if (authStatus === 'true' && authTime) {
+        const timeDiff = Date.now() - parseInt(authTime);
+        const thirtyMinutes = 30 * 60 * 1000;
+        
+        if (timeDiff < thirtyMinutes) {
+          setIsAuthenticated(true);
+        } else {
+          // 认证过期，清除状态
+          sessionStorage.removeItem('adminAuth');
+          sessionStorage.removeItem('adminAuthTime');
+        }
+      }
+    }
+  }, []);
+
+  // 处理登录
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username === 'wintex' && password === 'wintex2025') {
+      sessionStorage.setItem('adminAuth', 'true');
+      sessionStorage.setItem('adminAuthTime', Date.now().toString());
+      setIsAuthenticated(true);
+      setAuthError(null);
+      setUsername('');
+      setPassword('');
+    } else {
+      setAuthError('用户名或密码错误，请重试');
+      setPassword('');
+    }
+  };
 
   // 将HTML转换为纯文本（用于编辑显示）
   const htmlToPlainText = (html: string): string => {
@@ -123,15 +165,15 @@ export default function CareersAdminPage() {
     };
   }, []);
 
-  // 修改 Job 某个字段（当前语言）
-  const patchJob = (id: string, path: 'title' | 'salary' | 'responsibilities' | 'requirements' | 'preferredConditions', v: string, convertToHtml: boolean = false) => {
+  // 修改 Job 某个字段（指定语言）
+  const patchJob = (id: string, path: 'title' | 'salary' | 'responsibilities' | 'requirements' | 'preferredConditions', v: string, targetLang: 'cn' | 'en', convertToHtml: boolean = false) => {
     setData((prev) => {
       if (!prev) return prev;
       const next: CareersData = structuredClone(prev);
       const job = next.jobs.find((j) => j.id === id);
       if (job) {
         if (path === 'title' || path === 'salary') {
-          (job as any)[path][lang] = v;
+          (job as any)[path][targetLang] = v;
         } else {
           // 对于 responsibilities, requirements, preferredConditions
           // 如果 convertToHtml 为 true，才转换为 HTML，否则直接保存原始文本
@@ -139,7 +181,7 @@ export default function CareersAdminPage() {
             (job as any)[path] = { cn: '', en: '' };
           }
           // 直接保存原始文本，保留换行符
-          (job as any)[path][lang] = convertToHtml ? plainTextToHtml(v) : v;
+          (job as any)[path][targetLang] = convertToHtml ? plainTextToHtml(v) : v;
         }
       }
       return next;
@@ -285,6 +327,84 @@ export default function CareersAdminPage() {
     }
   };
 
+  // 权限验证页面
+  if (!isAuthenticated) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">管理员验证</h1>
+            <p className="text-gray-600">请输入管理员账户和密码</p>
+          </div>
+          
+          {authError && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+              {authError}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                  用户名
+                </span>
+              </label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                placeholder="请输入用户名"
+                required
+                autoFocus
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                  密码
+                </span>
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                placeholder="请输入密码"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              登录
+            </button>
+          </form>
+        </div>
+      </main>
+    );
+  }
+
   if (!data) {
     return (
       <main className="container mx-auto p-6">
@@ -299,7 +419,6 @@ export default function CareersAdminPage() {
       <header className="mb-6 flex items-center gap-3">
         <h1 className="text-2xl font-bold">Careers 管理</h1>
         {error && <span className="text-xs text-red-600">{error}</span>}
-        <span className="text-xs text-gray-500">当前语言：{lang.toUpperCase()}</span>
       </header>
 
       <section className="grid gap-6">
@@ -318,7 +437,7 @@ export default function CareersAdminPage() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <h2 className="font-semibold">{job.id}</h2>
-                <span className="text-xs text-gray-500">编辑 {lang.toUpperCase()}</span>
+                <span className="text-xs text-gray-500">中英文编辑</span>
               </div>
               <button
                 onClick={() => deleteJob(job.id)}
@@ -331,66 +450,140 @@ export default function CareersAdminPage() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <label className="grid gap-1">
-                <span className="text-sm text-gray-600">职位标题</span>
+                <span className="text-sm text-gray-600">职位标题（中文）</span>
                 <input
                   className="border rounded-lg px-3 py-2"
-                  value={job.title[lang]}
-                  onChange={(e) => patchJob(job.id, 'title', e.target.value)}
+                  value={job.title.cn}
+                  onChange={(e) => patchJob(job.id, 'title', e.target.value, 'cn')}
                 />
               </label>
 
               <label className="grid gap-1">
-                <span className="text-sm text-gray-600">薪资文案</span>
+                <span className="text-sm text-gray-600">职位标题（English）</span>
                 <input
                   className="border rounded-lg px-3 py-2"
-                  value={job.salary[lang]}
-                  onChange={(e) => patchJob(job.id, 'salary', e.target.value)}
+                  value={job.title.en}
+                  onChange={(e) => patchJob(job.id, 'title', e.target.value, 'en')}
+                />
+              </label>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 mt-4">
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">薪资文案（中文）</span>
+                <input
+                  className="border rounded-lg px-3 py-2"
+                  value={job.salary.cn}
+                  onChange={(e) => patchJob(job.id, 'salary', e.target.value, 'cn')}
+                />
+              </label>
+
+              <label className="grid gap-1">
+                <span className="text-sm text-gray-600">薪资文案（English）</span>
+                <input
+                  className="border rounded-lg px-3 py-2"
+                  value={job.salary.en}
+                  onChange={(e) => patchJob(job.id, 'salary', e.target.value, 'en')}
                 />
               </label>
             </div>
 
             <div className="mt-4 grid gap-4">
-              <label className="grid gap-1">
-                <textarea
-                  className="border rounded-lg px-3 py-2 min-h-[120px] text-sm resize-y"
-                  value={(() => {
-                    const raw = job.responsibilities?.[lang] || '';
-                    // 如果是 HTML 格式，转换为纯文本；否则直接使用
-                    return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
-                  })()}
-                  onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value, false)}
-                  placeholder="核心职责...&#10;每行一个条目"
-                  style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
-                />
-              </label>
+              <div className="grid md:grid-cols-2 gap-4">
+                <label className="grid gap-1">
+                  <span className="text-sm text-gray-600 font-medium">核心职责（中文）</span>
+                  <textarea
+                    className="border rounded-lg px-3 py-2 min-h-[120px] text-sm resize-y"
+                    value={(() => {
+                      const raw = job.responsibilities?.cn || '';
+                      // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                      return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                    })()}
+                    onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value, 'cn', false)}
+                    placeholder="核心职责...&#10;每行一个条目"
+                    style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+                  />
+                </label>
 
-              <label className="grid gap-1">
-                <textarea
-                  className="border rounded-lg px-3 py-2 min-h-[200px] text-sm resize-y"
-                  value={(() => {
-                    const raw = job.requirements?.[lang] || '';
-                    // 如果是 HTML 格式，转换为纯文本；否则直接使用
-                    return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
-                  })()}
-                  onChange={(e) => patchJob(job.id, 'requirements', e.target.value, false)}
-                  placeholder="职位要求...&#10;每行一个条目"
-                  style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
-                />
-              </label>
+                <label className="grid gap-1">
+                  <span className="text-sm text-gray-600 font-medium">核心职责（English）</span>
+                  <textarea
+                    className="border rounded-lg px-3 py-2 min-h-[120px] text-sm resize-y"
+                    value={(() => {
+                      const raw = job.responsibilities?.en || '';
+                      // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                      return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                    })()}
+                    onChange={(e) => patchJob(job.id, 'responsibilities', e.target.value, 'en', false)}
+                    placeholder="Core Responsibilities...&#10;One item per line"
+                    style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+                  />
+                </label>
+              </div>
 
-              <label className="grid gap-1">
-                <textarea
-                  className="border rounded-lg px-3 py-2 min-h-[100px] text-sm resize-y"
-                  value={(() => {
-                    const raw = job.preferredConditions?.[lang] || '';
-                    // 如果是 HTML 格式，转换为纯文本；否则直接使用
-                    return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
-                  })()}
-                  onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value, false)}
-                  placeholder="优先条件...&#10;每行一个条目"
-                  style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
-                />
-              </label>
+              <div className="grid md:grid-cols-2 gap-4">
+                <label className="grid gap-1">
+                  <span className="text-sm text-gray-600 font-medium">职位要求（中文）</span>
+                  <textarea
+                    className="border rounded-lg px-3 py-2 min-h-[200px] text-sm resize-y"
+                    value={(() => {
+                      const raw = job.requirements?.cn || '';
+                      // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                      return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                    })()}
+                    onChange={(e) => patchJob(job.id, 'requirements', e.target.value, 'cn', false)}
+                    placeholder="职位要求...&#10;每行一个条目"
+                    style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+                  />
+                </label>
+
+                <label className="grid gap-1">
+                  <span className="text-sm text-gray-600 font-medium">职位要求（English）</span>
+                  <textarea
+                    className="border rounded-lg px-3 py-2 min-h-[200px] text-sm resize-y"
+                    value={(() => {
+                      const raw = job.requirements?.en || '';
+                      // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                      return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                    })()}
+                    onChange={(e) => patchJob(job.id, 'requirements', e.target.value, 'en', false)}
+                    placeholder="Requirements...&#10;One item per line"
+                    style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+                  />
+                </label>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <label className="grid gap-1">
+                  <span className="text-sm text-gray-600 font-medium">优先条件（中文）</span>
+                  <textarea
+                    className="border rounded-lg px-3 py-2 min-h-[100px] text-sm resize-y"
+                    value={(() => {
+                      const raw = job.preferredConditions?.cn || '';
+                      // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                      return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                    })()}
+                    onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value, 'cn', false)}
+                    placeholder="优先条件...&#10;每行一个条目"
+                    style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+                  />
+                </label>
+
+                <label className="grid gap-1">
+                  <span className="text-sm text-gray-600 font-medium">优先条件（English）</span>
+                  <textarea
+                    className="border rounded-lg px-3 py-2 min-h-[100px] text-sm resize-y"
+                    value={(() => {
+                      const raw = job.preferredConditions?.en || '';
+                      // 如果是 HTML 格式，转换为纯文本；否则直接使用
+                      return raw.trim().startsWith('<') ? htmlToPlainText(raw) : raw;
+                    })()}
+                    onChange={(e) => patchJob(job.id, 'preferredConditions', e.target.value, 'en', false)}
+                    placeholder="Preference...&#10;One item per line"
+                    style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+                  />
+                </label>
+              </div>
             </div>
           </article>
         ))}
@@ -398,7 +591,7 @@ export default function CareersAdminPage() {
 
       <section className="mt-6 rounded-xl border p-4 bg-white/70">
         <h3 className="font-semibold mb-3">联系方式</h3>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <label className="grid gap-1">
             <span className="text-sm text-gray-600">电话</span>
             <input
@@ -415,17 +608,33 @@ export default function CareersAdminPage() {
               onChange={(e) => setData({ ...data, contact: { ...data.contact, email: e.target.value } })}
             />
           </label>
-          <label className="grid gap-1 md:col-span-3">
-            <span className="text-sm text-gray-600">地址（{lang.toUpperCase()}）</span>
+          <label className="grid gap-1">
+            <span className="text-sm text-gray-600">地址（中文）</span>
             <input
               className="border rounded-lg px-3 py-2"
-              value={data.contact.address[lang]}
+              value={data.contact.address.cn}
               onChange={(e) =>
                 setData({
                   ...data,
                   contact: {
                     ...data.contact,
-                    address: { ...data.contact.address, [lang]: e.target.value },
+                    address: { ...data.contact.address, cn: e.target.value },
+                  },
+                })
+              }
+            />
+          </label>
+          <label className="grid gap-1">
+            <span className="text-sm text-gray-600">地址（English）</span>
+            <input
+              className="border rounded-lg px-3 py-2"
+              value={data.contact.address.en}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  contact: {
+                    ...data.contact,
+                    address: { ...data.contact.address, en: e.target.value },
                   },
                 })
               }

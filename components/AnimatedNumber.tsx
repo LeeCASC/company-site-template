@@ -26,7 +26,11 @@ export default function AnimatedNumber({
     let startTime: number | null = null;
     let animationFrame: number;
     let pauseStartTime: number | null = null;
-    const highlightPoints = [5, 10, 15, 20]; // 需要突出的时间点
+    // 动态生成突出显示点：5, 10, 15, 20, 以及25之后每5年一个点（直到目标值）
+    const highlightPoints: number[] = [];
+    for (let i = 5; i <= target; i += 5) {
+      highlightPoints.push(i);
+    }
     const pauseDuration = 250; // 停留时间（毫秒）
     let lastHighlighted = -1; // 记录上次突出的数字
     let pausedValue = 0; // 暂停时的值
