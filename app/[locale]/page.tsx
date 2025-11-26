@@ -771,9 +771,6 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 </div>
               </div>
             </div>
-            <div className="text-center pt-6 sm:pt-8 border-t border-gray-200">
-              <p className="text-small text-gray-500">{t('copyright')}</p>
-            </div>
           </div>
         </div>
       </footer>
