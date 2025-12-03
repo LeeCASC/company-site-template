@@ -499,7 +499,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                   href={`/${currentLocale}/about`} 
                   className="btn btn-primary"
                   style={{
-                    fontSize: '18px',
+                    fontSize: 'clamp(12px, 2.25vw, 18px)',
                     opacity: introSectionInView ? 1 : 0,
                     transform: introSectionInView ? 'translateY(0)' : 'translateY(30px)',
                     transition: introSectionInView ? 'opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s' : 'none'
@@ -566,7 +566,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
               >
                 <Link href={`/${currentLocale}/news/${news.id}`}>
-                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[13px] flex items-center justify-center cursor-pointer" style={{ minHeight: '200px' }}>
+                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[11.7px] flex items-center justify-center cursor-pointer" style={{ minHeight: '180px' }}>
                     <img
                       ref={newsRefs[i]}
                       src={news.img}
