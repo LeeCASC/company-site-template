@@ -75,10 +75,10 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
             </h1>
           </div>
 
-          {/* 新闻卡片网格 - 一行三列布局 */}
+          {/* 新闻卡片网格 - 移动端单列，桌面端三列布局 */}
           <div 
             ref={newsGridRef as any}
-            className="grid grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
             style={{
               opacity: newsGridInView ? 1 : 0,
               transform: newsGridInView ? 'translateY(0)' : 'translateY(30px)',
@@ -107,11 +107,11 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
                     />
                   </div>
                 </Link>
-                <div className="text-body leading-[150%] text-center px-2" style={{ fontSize: '1.25em' }}>
-                  <p className="mb-3 font-bold text-center" style={{ color: '#156082', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <div className="text-body leading-[150%] text-center px-2 md:px-2" style={{ fontSize: '1.25em' }}>
+                  <p className="mb-3 font-bold text-center md:whitespace-nowrap md:overflow-hidden md:text-ellipsis" style={{ color: '#156082' }}>
                     {preview.title}
                   </p>
-                  <p className="text-gray-400 line-clamp-2 mb-2 text-justify" style={{ minHeight: '3em' }}>
+                  <p className="text-gray-400 line-clamp-2 md:line-clamp-2 mb-2 text-justify md:text-justify" style={{ minHeight: '3em' }}>
                     {preview.preview}...
                   </p>
                   {preview.date && (

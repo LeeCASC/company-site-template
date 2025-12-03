@@ -464,9 +464,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
             <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-center">
               <div className="flex-1" ref={introSectionRef as any}>
                 <h2 
-                  className="text-section-title text-brand-primary mb-4 "
+                  className="text-section-title text-brand-primary mb-4 text-base sm:text-lg md:text-2xl lg:text-3xl"
                   style={{
-                    fontSize: 'clamp(15px, 3.75vw, 36px)',
                     opacity: introSectionInView ? 1 : 0,
                     transform: introSectionInView ? 'translateY(0)' : 'translateY(30px)',
                     transition: introSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
@@ -535,9 +534,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
             <h2 
-              className="text-section-title text-brand-primary"
+              className="text-section-title text-brand-primary text-base sm:text-lg md:text-2xl lg:text-3xl"
               style={{
-                fontSize: 'clamp(15px, 3.75vw, 36px)',
                 opacity: newsSectionInView ? 1 : 0,
                 transform: newsSectionInView ? 'translateY(0)' : 'translateY(30px)',
                 transition: newsSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'

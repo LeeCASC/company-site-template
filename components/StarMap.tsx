@@ -15,8 +15,8 @@ export default function StarMap({ children }: StarMapProps) {
 
     // 检测是否为移动端（屏幕宽度小于768px）
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    // 移动端减少星星数量，使用30%的密度
-    const densityMultiplier = isMobile ? 0.3 : 1;
+    // 移动端减少星星数量，使用27%的密度（比之前的30%再减少10%）
+    const densityMultiplier = isMobile ? 0.27 : 1;
 
     // 创建星星元素 - 大面积点亮多个区域
     // 包括：东南亚、中国东南沿海、北美（美国、加拿大）、南美（厄瓜多尔、秘鲁）
