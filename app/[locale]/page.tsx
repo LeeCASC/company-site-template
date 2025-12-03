@@ -275,17 +275,17 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       {/* 三个图标按钮区域 */}
       <section
         className="flex items-center justify-center"
-        style={{ maxWidth: '100%', paddingTop: 'clamp(32px, 3vw, 30px)', paddingBottom: 'clamp(0px, 0vw, 0px)', marginBottom: 'clamp(-16px, -1.5vw, -40px)' }}
+        style={{ maxWidth: '100%', paddingTop: 'clamp(32px, 3vw, 30px)', paddingBottom: 'clamp(32px, 3vw, 30px)', marginBottom: 'clamp(-16px, -1.5vw, -40px)' }}
         ref={buttonSectionRef as any}
       >
         <div className="w-full max-w-[1287px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-center">
-          <div className="flex flex-wrap gap-8 sm:gap-12 md:gap-16 justify-center items-center w-full">
+          <div className="flex flex-nowrap gap-2 sm:gap-12 md:gap-16 justify-center items-center w-full">
             {/* 按钮 1 */}
             <button 
               onClick={() => {
                 console.log('重型工程物流 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-1 max-w-[100px] sm:max-w-[140px] md:max-w-[160px]"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -302,10 +302,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onFocus={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
               onBlur={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
             >
-              <div className="w-[clamp(45px,6vw,80px)] h-[clamp(40px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
+              <div className="w-[clamp(30px,6vw,80px)] h-[clamp(28px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
                 <img src="/icons/Anchor.svg" alt="Anchor" className="w-full h-full object-contain" />
               </div>
-              <p className="text-[clamp(12px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap">
+              <p className="text-[clamp(9px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap leading-tight">
                 {t('icon1Title')}
               </p>
             </button>
@@ -315,7 +315,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onClick={() => {
                 console.log('可再生能源项目 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-1 max-w-[100px] sm:max-w-[140px] md:max-w-[160px]"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -332,10 +332,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onFocus={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
               onBlur={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
             >
-              <div className="w-[clamp(45px,6vw,80px)] h-[clamp(40px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
+              <div className="w-[clamp(30px,6vw,80px)] h-[clamp(28px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
                 <img src="/icons/Feather.svg" alt="Feather" className="w-full h-full object-contain" />
               </div>
-              <p className="text-[clamp(12px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap">
+              <p className="text-[clamp(9px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap leading-tight">
                 {t('icon2Title')}
               </p>
             </button>
@@ -345,7 +345,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onClick={() => {
                 console.log('菲律宾深耕 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-1 max-w-[100px] sm:max-w-[140px] md:max-w-[160px]"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -362,10 +362,10 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onFocus={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
               onBlur={(e) => (e.target as HTMLButtonElement).style.outline = 'none'}
             >
-              <div className="w-[clamp(45px,6vw,80px)] h-[clamp(40px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
+              <div className="w-[clamp(30px,6vw,80px)] h-[clamp(28px,5.5vw,70px)] flex items-center justify-center mb-1 sm:mb-2" style={{ border: 'none', outline: 'none', flexShrink: 0 }}>
                 <img src="/icons/Box.svg" alt="Box" className="w-full h-full object-contain" />
               </div>
-              <p className="text-[clamp(12px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap">
+              <p className="text-[clamp(9px,2vw,16px)] font-bold text-brand-primary text-center whitespace-nowrap leading-tight">
                 {t('icon3Title')}
               </p>
             </button>
