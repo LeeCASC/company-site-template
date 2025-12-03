@@ -13,6 +13,11 @@ export default function StarMap({ children }: StarMapProps) {
     const container = containerRef.current;
     if (!container) return;
 
+    // 检测是否为移动端（屏幕宽度小于768px）
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    // 移动端减少星星数量，使用30%的密度
+    const densityMultiplier = isMobile ? 0.3 : 1;
+
     // 创建星星元素 - 大面积点亮多个区域
     // 包括：东南亚、中国东南沿海、北美（美国、加拿大）、南美（厄瓜多尔、秘鲁）
     const stars: HTMLDivElement[] = [];
@@ -26,7 +31,7 @@ export default function StarMap({ children }: StarMapProps) {
         // 东南亚区域：包括菲律宾、新加坡、马来西亚、印尼等
         xMin: 27.5, xMax: 42.5, // 右侧移动（东），横向范围
         yMin: 42.5, yMax: 57.5, // 上移（北），纵向范围
-        count: 50, 
+        count: Math.floor(50 * densityMultiplier), 
         alwaysOn: true 
       },
       { 
@@ -34,7 +39,7 @@ export default function StarMap({ children }: StarMapProps) {
         // 中国东南沿海区域：包括广东、福建、浙江、上海等
         xMin: 32.5, xMax: 47.5, // 右侧移动（东），横向范围
         yMin: 27.5, yMax: 42.5, // 上移（北），纵向范围
-        count: 60, 
+        count: Math.floor(60 * densityMultiplier), 
         alwaysOn: true 
       },
       { 
@@ -42,7 +47,7 @@ export default function StarMap({ children }: StarMapProps) {
         // 北美区域：包括美国、加拿大
         xMin: 65, xMax: 80, // 左侧（西半球），横向范围
         yMin: 15, yMax: 40, // 中北部，纵向范围
-        count: 50, 
+        count: Math.floor(50 * densityMultiplier), 
         alwaysOn: true 
       },
       { 
@@ -50,7 +55,7 @@ export default function StarMap({ children }: StarMapProps) {
         // 南美区域：包括厄瓜多尔、秘鲁
         xMin: 85, xMax: 90, // 左侧（西半球），横向范围
         yMin: 50, yMax: 75, // 中南部，纵向范围
-        count: 40, 
+        count: Math.floor(40 * densityMultiplier), 
         alwaysOn: true 
       },
     ];
@@ -67,9 +72,11 @@ export default function StarMap({ children }: StarMapProps) {
           const x = region.xMin + Math.random() * (region.xMax - region.xMin);
           const y = region.yMin + Math.random() * (region.yMax - region.yMin);
           
-          const size = Math.random() * 3 + 3; // 3-6px，更大
+          // 移动端星星稍微小一点
+          const sizeBase = isMobile ? 2 : 3;
+          const size = Math.random() * 2 + sizeBase; // 移动端: 2-4px, 桌面端: 3-5px
           const glowColor = '#F7B959';
-          const glowSize = size * 4;
+          const glowSize = size * (isMobile ? 3 : 4); // 移动端光晕也稍微小一点
           
           star.style.cssText = `
             position: absolute;
@@ -100,8 +107,9 @@ export default function StarMap({ children }: StarMapProps) {
         const x = region.xMin + Math.random() * (region.xMax - region.xMin);
         const y = region.yMin + Math.random() * (region.yMax - region.yMin);
         
-        // 随机大小（更大更明显）
-        const size = Math.random() * 3 + 2.5; // 2.5-5.5px
+        // 随机大小（移动端稍微小一点）
+        const sizeBase = isMobile ? 1.5 : 2.5;
+        const size = Math.random() * 2.5 + sizeBase; // 移动端: 1.5-4px, 桌面端: 2.5-5px
         
         // 随机延迟（0-1.5秒），让闪烁更频繁
         const delay = Math.random() * 1.5;
@@ -111,7 +119,7 @@ export default function StarMap({ children }: StarMapProps) {
         
         // 增强的黄色光晕效果
         const glowColor = '#F7B959'; // 品牌黄色
-        const glowSize = size * 4; // 更大的光晕
+        const glowSize = size * (isMobile ? 3 : 4); // 移动端光晕稍微小一点
         
         star.style.cssText = `
           position: absolute;

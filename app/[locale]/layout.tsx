@@ -6,6 +6,7 @@ import Link from 'next/link';
 import type {Locale} from '@/i18n/routing';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import LogoLink from '@/components/LogoLink';
+import MobileNavigation from '@/components/MobileNavigation';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -57,6 +58,7 @@ export default async function RootLayout({
             <div className="mx-auto max-w-[1200px] px-4 h-20 flex items-center justify-between">
               <LogoLink />
               <Navigation />
+              <MobileNavigation />
             </div>
           </header>
           {/* spacer to avoid cover by fixed header */}

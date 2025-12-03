@@ -6,6 +6,7 @@ import type {Locale} from '@/i18n/routing';
 import AnimatedNumber from '@/components/AnimatedNumber';
 import StarMap from '@/components/StarMap';
 import { useEffect, useRef, useState } from 'react';
+import { getNewsPreview } from '@/lib/newsData';
 
 // 自定义 hook：检测元素是否进入视口，支持手动触发动画
 function useInView(options = {}) {
@@ -556,10 +557,12 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
-              { img: '/images/news_1.png', title: 'News 1', id: '1' },
-              { img: '/images/news_2.png', title: 'News 2', id: '2' },
-              { img: '/images/news_3.png', title: 'News 3', id: '3' },
-            ].map((news, i) => (
+              { img: '/movenews.JPG', id: '1' },
+              { img: '/news_tanay.jpeg', id: '2' },
+              { img: '/news_alabat.jpeg', id: '3' },
+            ].map((news, i) => {
+              const preview = getNewsPreview(news.id);
+              return (
               <div
                 key={i}
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
@@ -569,7 +572,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                     <img
                       ref={newsRefs[i]}
                       src={news.img}
-                      alt={news.title}
+                      alt={preview.title}
                       className="w-full h-auto object-contain rounded-lg transition-transform hover:scale-105"
                       style={{ 
                         maxWidth: '100%',
@@ -591,14 +594,20 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                   }}
                 >
                   <p className="mb-2 font-bold" style={{ color: '#156082' }}>
-                    {t('newsCardText')}
+                    {preview.title}
                   </p>
-                  <p className="text-gray-400">
-                    {t('newsCardText')}
+                  <p className="text-gray-400 line-clamp-2 mb-1">
+                    {preview.preview}...
                   </p>
+                  {preview.date && (
+                    <p className="text-gray-400 text-right text-sm mt-2">
+                      {preview.date}
+                    </p>
+                  )}
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>

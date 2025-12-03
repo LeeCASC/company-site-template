@@ -79,7 +79,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
             : 'Tanay Wind Power Project - Quezon',
           description: currentLocale === 'zh'
             ? '风力发电机组部件的物流运输及特种货物操作'
-            : 'The full-process out-of-gauge logistics for the Philippines\' first BMW oversized wind turbine generator, including 90 km of mountainous transport with winding roads and continuous gradients',
+            : "Full-process logistics for the Philippines'first 8MW wind turbine generator, transporting its oversized components along 90 km of mountainous roads with sharp turns and steady gradients",
         },
         {
           projectName: currentLocale === 'zh'

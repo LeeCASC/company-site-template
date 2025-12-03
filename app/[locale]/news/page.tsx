@@ -4,6 +4,7 @@ import {useTranslations} from 'next-intl';
 import type {Locale} from '@/i18n/routing';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { getNewsPreview } from '@/lib/newsData';
 
 // 自定义 hook：检测元素是否进入视口
 function useInView(options = {}) {
@@ -50,14 +51,9 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
 
   // 新闻数据，每个新闻项都有唯一的ID，用于链接到详情页
   const newsItems = [
-    { id: '1', img: '/news_1.png', title: 'News 1' },
-    { id: '2', img: '/news_2.png', title: 'News 2' },
-    { id: '3', img: '/news_3.png', title: 'News 3' },
-    { id: '4', img: '/news_1.png', title: 'News 4' },
-    { id: '5', img: '/news_2.png', title: 'News 5' },
-    { id: '6', img: '/news_3.png', title: 'News 6' },
-    { id: '7', img: '/news_1.png', title: 'News 7' },
-    { id: '8', img: '/news_2.png', title: 'News 8' },
+    { id: '1', img: '/movenews.JPG' },
+    { id: '2', img: '/news_tanay.jpeg' },
+    { id: '3', img: '/news_alabat.jpeg' },
   ];
 
   return (
@@ -79,44 +75,54 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
             </h1>
           </div>
 
-          {/* 新闻卡片网格 - 3列布局 */}
+          {/* 新闻卡片网格 - 一行三列布局 */}
           <div 
             ref={newsGridRef as any}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+            className="grid grid-cols-3 gap-6 sm:gap-8"
             style={{
               opacity: newsGridInView ? 1 : 0,
               transform: newsGridInView ? 'translateY(0)' : 'translateY(30px)',
               transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
             }}
           >
-            {newsItems.map((news, i) => (
+            {newsItems.map((news, i) => {
+              const preview = getNewsPreview(news.id);
+              return (
               <div
                 key={i}
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
               >
                 <Link href={`/${currentLocale}/news/${news.id}`}>
-                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[13px] flex items-center justify-center cursor-pointer" style={{ minHeight: '200px' }}>
+                  <div className="w-full rounded-lg mb-4 bg-brand-accent-50 p-2 flex items-center justify-center cursor-pointer aspect-[4/3] overflow-hidden">
                     <img
                       src={news.img}
-                      alt={news.title}
-                      className="w-full h-auto rounded-lg transition-transform hover:scale-105 object-contain"
+                      alt={preview.title}
+                      className="rounded-lg transition-transform hover:scale-105 object-contain"
                       style={{ 
                         maxWidth: '100%',
                         maxHeight: '100%',
+                        width: 'auto',
+                        height: 'auto'
                       }}
                     />
                   </div>
                 </Link>
-                <div className="text-body leading-[150%] min-h-[5rem] text-center" style={{ fontSize: '1.25em' }}>
-                  <p className="mb-2 font-bold" style={{ color: '#156082' }}>
-                    {t('newsCardText')}
+                <div className="text-body leading-[150%] text-center px-2" style={{ fontSize: '1.25em' }}>
+                  <p className="mb-3 font-bold text-center" style={{ color: '#156082', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {preview.title}
                   </p>
-                  <p className="text-gray-400">
-                    {t('newsCardText')}
+                  <p className="text-gray-400 line-clamp-2 mb-2 text-justify" style={{ minHeight: '3em' }}>
+                    {preview.preview}...
                   </p>
+                  {preview.date && (
+                    <p className="text-gray-400 text-right text-sm mt-3">
+                      {preview.date}
+                    </p>
+                  )}
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </div>
