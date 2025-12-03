@@ -192,16 +192,24 @@
 
     @media (max-width:768px) {
       .job-details { flex-direction:column; }
-      .job-highlights { flex-direction:column; align-items:center; }
+      .job-highlights { flex-direction:row; justify-content:center; gap:6px; margin-top:15px; }
+      .highlight { padding:8px 6px; min-width:auto; flex:1; max-width:120px; }
+      .highlight i { font-size:1.2rem; margin-bottom:5px; }
+      .highlight h3 { font-size:0.7rem; margin-bottom:3px; }
+      .highlight p { font-size:0.65rem; }
       .bilingual { flex-direction:column; }
       .bilingual p:first-child { border-right:none; border-bottom:2px solid var(--accent); }
       h1 { font-size:2.2rem; }
-      .tagline { font-size:1.2rem; }
+      .tagline { font-size:0.75rem; white-space:nowrap; letter-spacing:-0.2px; line-height:1.2; }
       .tab-btn { padding:12px 20px; font-size:1rem; min-width:140px; }
       .contact-info { flex-direction:column; gap:15px; }
       .card h2 { font-size:1.2rem; }
       .card h2 span { font-size:1.1rem; }
       .language-switcher { position:relative; top:0; right:0; text-align:center; margin:15px 0; }
+      .footer-logo { font-size:1rem; margin-bottom:5px; letter-spacing:0.5px; }
+      footer { padding:10px 15px; font-size:0.8rem; }
+      .container { padding-bottom:180px; }
+      .btn-contact { margin-bottom:20px; }
     }
   </style>
 </head>

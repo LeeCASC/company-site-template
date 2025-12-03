@@ -611,7 +611,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 实力见证 */}
-      <section id="strength" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%' }}>
+      <section id="strength" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', paddingBottom: 'clamp(60px, 8vw, 80px)' }}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-start">
             <div className="flex-1" style={{ maxWidth: '100%', overflow: 'visible', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
@@ -633,7 +633,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               />
             </div>
 
-            <div className="flex-1" ref={strengthSectionRef as any} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div className="flex-1" ref={strengthSectionRef as any} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', position: 'relative', zIndex: 10 }}>
                 <h2 
                   className="text-section-title text-brand-primary mb-4"
                   style={{
@@ -674,7 +674,9 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                     fontSize: 'clamp(12px, 2.25vw, 18px)',
                     opacity: strengthSectionInView ? 1 : 0,
                     transform: strengthSectionInView ? 'translateY(0)' : 'translateY(30px)',
-                    transition: strengthSectionInView ? 'opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s' : 'none'
+                    transition: strengthSectionInView ? 'opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s' : 'none',
+                    position: 'relative',
+                    zIndex: 20
                   }}
                 >
                   {t('readMore')}
@@ -685,12 +687,12 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 设备清单 */}
-      <section id="equipment" className="bg-brand-accent scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', marginTop: 'clamp(-100px, -6vw, -60px)' }} ref={equipmentSectionRef as any}>
+      <section id="equipment" className="bg-brand-accent scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', marginTop: 'clamp(0px, 0vw, -60px)' }} ref={equipmentSectionRef as any}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%'}}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
+            <div className="flex flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
               <h2 
-                className="text-section-title text-white"
+                className="text-section-title text-white flex-shrink"
                 style={{
                   fontSize: 'clamp(15px, 3.75vw, 36px)',
                   opacity: equipmentSectionInView ? 1 : 0,
@@ -702,7 +704,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               </h2>
               <Link 
                 href={`/${currentLocale}/equipment`} 
-                className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-4 sm:px-6 py-2 sm:py-3 font-medium transition-colors"
+                className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-3 sm:px-6 py-2 sm:py-3 font-medium transition-colors whitespace-nowrap flex-shrink-0"
                 style={{
                   fontSize: 'clamp(12px, 2.25vw, 18px)',
                 }}
@@ -765,15 +767,15 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <img src="/icons/Phone.svg" alt="Phone" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-                    <span className="text-body text-gray-500" style={{ fontSize: '1.15em' }}>{t('contactTel')}</span>
+                    <span className="text-body text-gray-500 text-[1.035em] md:text-[1.15em]">{t('contactTel')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <img src="/icons/Mail.svg" alt="Mail" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-                    <span className="text-body text-gray-500" style={{ fontSize: '1.15em' }}>{t('contactEmail')}</span>
+                    <span className="text-body text-gray-500 text-[1.035em] md:text-[1.15em]">{t('contactEmail')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <img src="/icons/Map pin.svg" alt="Map pin" className="w-[30px] h-[30px]" style={{ maxWidth: '100%', height: 'auto' }} />
-                    <span className="text-body text-gray-500" style={{ fontSize: '1.15em' }}>{t('contactAddress')}</span>
+                    <span className="text-body text-gray-500 text-[1.035em] md:text-[1.15em]">{t('contactAddress')}</span>
                   </div>
                 </div>
               </div>
