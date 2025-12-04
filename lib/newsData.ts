@@ -34,26 +34,26 @@ export const newsData: {
 关于 Wintex Logistics Corporation: Wintex Logistics Corporation 是一家专业的综合物流服务提供商，业务涵盖大件运输业务，国际货运代理、工程物流、供应链咨询等，致力于为客户提供定制化、一站式的物流解决方案。`,
         en: `Date: September 10, 2024
 
-To Our Esteemed Clients and Partners,
+<strong>To Our Esteemed Clients and Partners,</strong>
 
-We are pleased to announce that Wintex Logistics Corporation has officially relocated to its new office address on September 10, 2024, at: Trade and Financial Tower, BGC (Bonifacio Global City), Manila, Philippines.
+We are pleased to announce that <strong>Wintex Logistics Corporation</strong> has officially relocated to its new office address on <strong>September 10, 2024</strong>, at: <strong>Trade and Financial Tower, BGC (Bonifacio Global City), Manila, Philippines.</strong>
 
 This relocation marks a significant milestone in the development of WINTEX. Situated in the heart of Manila's central business district, our new office not only provides our team with a more modern and efficient working environment but also lays a solid foundation for further resource integration, optimized operational processes, and closer alignment with client needs. This move reflects our unwavering commitment to investing in future growth and continuously enhancing our service capabilities.
 
 Since its establishment, WINTEX has been dedicated to providing reliable, efficient, and competitive integrated logistics and transportation solutions. We are deeply aware that every step of our progress is made possible by the long-term trust, support, and collaboration of our valued clients. We extend our sincerest gratitude to each of you.
 
-Moving forward, WINTEX will continue to uphold our principle of "Client First, Service Excellence." Leveraging our enhanced location and upgraded facilities, we will further optimize our services, including:
+Moving forward, WINTEX will continue to uphold our principle of <strong>"Client First, Service Excellence."</strong> Leveraging our enhanced location and upgraded facilities, we will further optimize our services, including:
 Heavy-lift and project logistics,
 Sea, land, and air freight forwarding,
 Supply chain management, and related support services.
 
 Our team remains committed to delivering professionalism and dedication, ensuring the safe and timely delivery of your goods and striving to create greater value for all our clients.
 
-New environment, new starting point, new journey. The entire team at Wintex Logistics Corporation looks forward to continuing to provide you with higher-quality and more convenient services at our new location. We warmly welcome clients and partners to visit us for guidance, discussions, and collaborative growth.
+<strong>New environment, new starting point, new journey.</strong> The entire team at Wintex Logistics Corporation looks forward to continuing to provide you with higher-quality and more convenient services at our new location. We warmly welcome clients and partners to visit us for guidance, discussions, and collaborative growth.
 
 Once again, thank you for your continued support. Let us move forward together and create a new chapter in logistics.
 
-About Wintex Logistics Corporation:
+<strong>About Wintex Logistics Corporation:</strong>
 Wintex Logistics Corporation is a professional integrated logistics service provider, specializing in heavy-lift transportation, international freight forwarding, project logistics, supply chain consulting, and more. We are dedicated to offering customized, one-stop logistics solutions for our clients.`
       }
   },
@@ -135,10 +135,18 @@ export function getNewsPreview(id: string, locale: 'zh' | 'en' = 'zh'): { title:
     const trimmed = line.trim();
     return trimmed !== '' && !trimmed.match(/^(日期|Date)[：:]/);
   });
-  const firstTwoLines = lines.slice(0, 2).map(line => line.trim()).join(' ');
+  
+  // 移除HTML标签，只保留纯文本用于预览
+  const removeHtmlTags = (text: string) => {
+    return text.replace(/<[^>]*>/g, '').trim();
+  };
+  
+  const firstTwoLines = lines.slice(0, 2).map(line => removeHtmlTags(line.trim())).join(' ');
+  const previewText = firstTwoLines.length > 0 ? firstTwoLines : removeHtmlTags(content.substring(0, 100));
+  
   return {
     title: title,
-    preview: firstTwoLines.length > 0 ? firstTwoLines : content.substring(0, 100),
+    preview: previewText,
     date: date
   };
 }

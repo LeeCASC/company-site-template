@@ -80,9 +80,10 @@ export default function NewsDetailPage() {
               transition: 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s'
             }}
           >
-            <div className="text-sm md:text-base text-gray-700 leading-relaxed whitespace-pre-line">
-              {secondParagraph}
-            </div>
+            <div 
+              className="text-sm md:text-base text-gray-700 leading-relaxed whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: secondParagraph.replace(/\n/g, '<br />') }}
+            />
           </div>
         </div>
       </div>
