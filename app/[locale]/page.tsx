@@ -279,13 +279,13 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
         ref={buttonSectionRef as any}
       >
         <div className="w-full max-w-[1287px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-center">
-          <div className="flex flex-nowrap gap-2 sm:gap-12 md:gap-16 justify-center items-center w-full">
+          <div className="flex flex-nowrap justify-evenly items-center w-full gap-4 sm:gap-8 md:gap-12 lg:gap-16">
             {/* 按钮 1 */}
             <button 
               onClick={() => {
                 console.log('重型工程物流 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-1 max-w-[100px] sm:max-w-[140px] md:max-w-[160px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-shrink-0"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -315,7 +315,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onClick={() => {
                 console.log('可再生能源项目 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-1 max-w-[100px] sm:max-w-[140px] md:max-w-[160px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-shrink-0"
               style={{ 
                 border: 'none', 
                 outline: 'none',
@@ -345,7 +345,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               onClick={() => {
                 console.log('菲律宾深耕 clicked');
               }}
-              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-1 max-w-[100px] sm:max-w-[140px] md:max-w-[160px]"
+              className="flex flex-col items-center justify-center text-center cursor-pointer hover:opacity-80 transition-opacity relative flex-shrink-0"
               style={{ 
                 border: 'none', 
                 outline: 'none',
