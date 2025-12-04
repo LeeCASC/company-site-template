@@ -559,7 +559,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               { img: '/news_tanay.jpeg', id: '2' },
               { img: '/news_alabat.jpeg', id: '3' },
             ].map((news, i) => {
-              const preview = getNewsPreview(news.id);
+              const localeKey = currentLocale === 'en' ? 'en' : 'zh';
+              const preview = getNewsPreview(news.id, localeKey);
               return (
               <div
                 key={i}
@@ -591,7 +592,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                     transition: newsInViews[i] ? `opacity 0.8s ease-out ${(i * 0.1 + 0.2)}s, transform 0.8s ease-out ${(i * 0.1 + 0.2)}s` : 'none'
                   }}
                 >
-                  <p className="mb-2 font-bold" style={{ color: '#156082' }}>
+                  <p className="mb-2 font-bold truncate" style={{ color: '#156082' }}>
                     {preview.title}
                   </p>
                   <p className="text-gray-400 line-clamp-2 mb-1">

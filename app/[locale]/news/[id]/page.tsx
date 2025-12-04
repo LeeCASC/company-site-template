@@ -28,8 +28,9 @@ export default function NewsDetailPage() {
 
   const currentNews = newsData[newsId] || newsData['1'];
   const newsImage = currentNews.image;
-  const firstParagraph = currentNews.title;
-  const secondParagraph = currentNews.content;
+  const localeKey = currentLocale === 'en' ? 'en' : 'zh';
+  const firstParagraph = currentNews.title[localeKey];
+  const secondParagraph = currentNews.content[localeKey];
 
   return (
     <div className="relative min-h-screen bg-white" style={{ fontSize: '0.72em' }}>

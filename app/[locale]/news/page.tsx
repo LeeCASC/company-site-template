@@ -86,7 +86,8 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
             }}
           >
             {newsItems.map((news, i) => {
-              const preview = getNewsPreview(news.id);
+              const localeKey = currentLocale === 'en' ? 'en' : 'zh';
+              const preview = getNewsPreview(news.id, localeKey);
               return (
               <div
                 key={i}
@@ -107,8 +108,8 @@ export default function NewsPage({params:{locale}}:{params:{locale:string}}) {
                     />
                   </div>
                 </Link>
-                <div className="text-body leading-[150%] text-center px-2 md:px-2" style={{ fontSize: '1.25em' }}>
-                  <p className="mb-3 font-bold text-center md:whitespace-nowrap md:overflow-hidden md:text-ellipsis" style={{ color: '#156082' }}>
+                <div className="text-body leading-[150%] text-center px-2 md:px-2" style={{ fontSize: '1em' }}>
+                  <p className="mb-3 font-bold text-center md:whitespace-nowrap md:overflow-hidden md:text-ellipsis" style={{ color: '#156082', fontSize: '1.08em' }}>
                     {preview.title}
                   </p>
                   <p className="text-gray-400 line-clamp-2 md:line-clamp-2 mb-2 text-justify md:text-justify" style={{ minHeight: '3em' }}>
