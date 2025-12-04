@@ -612,7 +612,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 实力见证 */}
-      <section id="strength" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', paddingBottom: 'clamp(20px, 3vw, 40px)' }}>
+      <section id="strength" className="bg-white scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', paddingBottom: 'clamp(60px, 8vw, 40px)' }}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%' }}>
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-[60px] items-start">
             <div className="flex-1" style={{ maxWidth: '100%', overflow: 'visible', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
@@ -688,26 +688,30 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
       </section>
 
       {/* 设备清单 */}
-      <section id="equipment" className="bg-brand-accent scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', marginTop: 'clamp(-120px, -2vw, -120px)' }} ref={equipmentSectionRef as any}>
+      <section id="equipment" className="bg-brand-accent scroll-mt-20 py-4 sm:py-6 md:py-10" style={{ maxWidth: '100%', marginTop: 'clamp(0px, 0vw, -120px)' }} ref={equipmentSectionRef as any}>
         <div className="container max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[80px] pr-4 sm:pr-6 md:pr-8 lg:pr-[73px]" style={{ maxWidth: '100%'}}>
           <div className="max-w-[1287px] mx-auto" style={{ maxWidth: '100%' }}>
-            <div className="flex flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
+            <div className="flex flex-row justify-between items-center mb-6 sm:mb-8 gap-2 sm:gap-4">
               <h2 
-                className="text-section-title text-white flex-shrink"
+                className="text-section-title text-white shrink-0 sm:flex-shrink"
                 style={{
                   fontSize: 'clamp(15px, 3.75vw, 36px)',
                   opacity: equipmentSectionInView ? 1 : 0,
                   transform: equipmentSectionInView ? 'translateY(0)' : 'translateY(30px)',
-                  transition: equipmentSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none'
+                  transition: equipmentSectionInView ? 'opacity 0.8s ease-out, transform 0.8s ease-out' : 'none',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  maxWidth: 'calc(100% - 100px)'
                 }}
               >
                 {t('equipmentListTitle')}
               </h2>
               <Link 
                 href={`/${currentLocale}/equipment`} 
-                className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-3 sm:px-6 py-2 sm:py-3 font-medium transition-colors whitespace-nowrap flex-shrink-0"
+                className="inline-flex items-center justify-center bg-white text-brand-primary hover:bg-gray-100 rounded-button px-2 sm:px-6 py-1.5 sm:py-3 font-medium transition-colors whitespace-nowrap shrink-0"
                 style={{
-                  fontSize: 'clamp(12px, 2.25vw, 18px)',
+                  fontSize: 'clamp(10px, 2vw, 18px)',
                 }}
               >
                 {t('readMore')}
