@@ -57,22 +57,22 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
   const equipment = [
     {
       id: 1,
-      image: '/images/equipment_1.png',
+      image: '/images/equipment_1.jpg',
       name: currentLocale === 'zh' ? '超级版重载车头' : 'Super Heavy-Duty Prime Mover',
     },
     {
       id: 2,
-      image: '/images/equipment_2.png',
+      image: '/images/equipment_2.jpg',
       name: currentLocale === 'zh' ? '液压模块轴线车' : 'Hydraulic Modular Trailer',
     },
     {
       id: 3,
-      image: '/images/equipment_3.png',
+      image: '/images/equipment_3.jpg',
       name: currentLocale === 'zh' ? '叶片运输扬举车' : 'Blade Lifting Vehicle',
     },
     {
       id: 4,
-      image: '/images/equipment_4.png',
+      image: '/images/equipment_4.jpg',
       name: currentLocale === 'zh' ? '汽车起重机' : 'Truck-mounted Crane',
     },
   ];
@@ -119,12 +119,12 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
                 
                 {/* 图片容器 - 带蓝色背景 */}
                 <div className="relative">
-                  {/* 蓝色方块背景 - 底层 */}
-                  <div className="absolute inset-0 bg-equip-blue rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-300"></div>
+                  {/* 蓝色背景 - 适配16:9比例 */}
+                  <div className="aspect-video bg-equip-blue rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-300"></div>
                   
-                  {/* 图片 - 与蓝色背景有间隙 */}
-                  <div className="relative p-2">
-                    <div className="aspect-square relative overflow-hidden rounded-lg" style={{ backgroundColor: 'transparent' }}>
+                  {/* 图片 - 与蓝色背景有间隙，绝对定位在蓝色背景上方 */}
+                  <div className="absolute inset-0 p-2 flex items-center justify-center">
+                    <div className="w-full h-full relative overflow-hidden rounded-lg" style={{ backgroundColor: 'transparent' }}>
                       <img
                         src={item.image}
                         alt={item.name}
@@ -165,7 +165,7 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
                 },
                 {
                   titleEn: 'Heavy-Duty / High-Capacity Tractor Truck',
-                  titleZh: '超强/重版牵引车',
+                  titleZh: '超强、重版牵引车',
                   descEn: 'Equipped with an all-wheel-drive torque converter transmission system, it delivers exceptional off-road traction capabilities, effortlessly handling diverse and challenging terrains. Widely applicable for specialized operations such as wind turbine equipment transport and heavy-duty engineering towing.',
                   descZh: '配备全轮驱动扭矩转换器传动系统，具有卓越的越野牵引能力，轻松应对各种复杂地形。广泛适用于风力发电设备运输和重型工程拖运等专业作业。',
                 },
@@ -234,13 +234,13 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
                   titleEn: 'Multi-Axle Modular Nacelle Transport Trailer',
                   titleZh: '多轴线模块化机舱运输车',
                   descEn: 'Based on the weight of the cabin module and bridge weight restrictions, cabin transport vehicles can be configured with varying axle configurations. Designed specifically for large-scale engineering transport, these self-propelled vehicles feature integrated drive and lifting capabilities. They fulfill long-distance, heavy-load equipment transportation requirements and are widely used in engineering projects across mountainous terrain or complex working conditions.',
-                  descZh: '根据机舱的重量和通行桥梁的限重,可组合成不同轴线数量的机舱运输车,专为大型工程运输设计。自带驱动和升降功能,满足长距离、大吨位设备运输需求,广泛应用于山区或复杂工况下的工程运输项目。',
+                  descZh: '根据机舱的重量和通行桥梁的限重，可组合成不同轴线数量的机舱运输车，专为大型工程运输设计。自带驱动和升降功能，满足长距离、大吨位设备运输需求，广泛应用于山区或复杂工况下的工程运输项目。',
                 },
                 {
                   titleEn: 'Multi-Axle Modular Hub Transport Trailer',
                   titleZh: '多轴线模块化轮毂运输车',
                   descEn: 'Based on the characteristics of the hub, multi-axle hydraulic transport vehicles can be assembled, specifically designed for transporting large wind turbine hubs. They can adjust the suspension height during loading/unloading or on sloped sections to enhance maneuverability. The multi-axle configuration ensures even axle load distribution, accommodates various hub specifications, and meets long-distance, safe transportation requirements for equipment of varying weight classes.',
-                  descZh: '可根据轮毂的特点组装成多轴液压运输车,专为大型风电轮毂运输而设计。可在装卸或坡道路段调节牵引高度,提高通过性;多轴线布局确保轴荷分配均匀,适配多规格轮毂,满足不同重量等级设备的长距离、安全运输需求。',
+                  descZh: '可根据轮毂的特点组装成多轴液压运输车，专为大型风电轮毂运输而设计。可在装卸或坡道路段调节牵引高度，提高通过性；多轴线布局确保轴荷分配均匀，适配多规格轮毂，满足不同重量等级设备的长距离、安全运输需求。',
                 },
               ].map((item, index) => (
                 <div key={index} className="flex flex-col">
@@ -265,13 +265,13 @@ export default function EquipmentPage({params:{locale}}:{params:{locale:string}}
                   titleEn: 'Multi-Axle Modular Tower Transport Trailer',
                   titleZh: '多轴线模块化塔筒运输车',
                   descEn: 'Through the installation of telescopic platforms/frames, these vehicles can transport overweight/oversized tower sections. Equipped with self-propelled functionality, they enhance overall climbing ability and maneuverability. The transport length is flexibly adjustable according to tower segment dimensions. Multi-axle configurations achieve an optimal balance of high payload capacity, reduced ground pressure, and superior terrain adaptability.',
-                  descZh: '通过加装抽拉平台/抽拉框架,可运输超重/超高塔筒,具备主动驱动功能,提升整体爬坡能力与转弯性能,可根据塔筒长度灵活调节,多轴线组合实现整车高载重、低载荷、强适应性的完美平衡。',
+                  descZh: '通过加装抽拉平台、抽拉框架，可运输超重、超高塔筒，具备主动驱动功能，提升整体爬坡能力与转弯性能，可根据塔筒长度灵活调节，多轴线组合实现整车高载重、低载荷、强适应性的完美平衡。',
                 },
                 {
                   titleEn: 'Low-Bed Auxiliary Transporter',
                   titleZh: '低平板辅助运输车',
                   descEn: 'Primarily used for transporting containers and accessories for wind turbine equipment, this specialized semi-trailer is engineered for heavy-duty machinery and oversized/heavy components. Featuring a low deck height, it offers enhanced ground clearance for improved passability and exceptional load stability. Commonly deployed for transporting wind turbine nacelles, transformers, tracked equipment, and other high center-of-gravity or height-restricted heavy cargo in constrained scenarios.',
-                  descZh: '主要为风机设备配套的集装箱和附件的运输使用,是一种专为重型设备、超高超重大件构件运输设计的半挂车,车架离地高度较低,具有较强的通过性与装载稳定性。常用于运输风电机舱、变压器、履带式设备等高重心或限高场景下的重型货物。',
+                  descZh: '主要为风机设备配套的集装箱和附件的运输使用，是一种专为重型设备、超高超重大件构件运输设计的半挂车，车架离地高度较低，具有较强的通过性与装载稳定性。常用于运输风电机舱、变压器、履带式设备等高重心或限高场景下的重型货物。',
                 },
               ].map((item, index) => (
                 <div key={index} className="flex flex-col">

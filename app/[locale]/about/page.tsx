@@ -137,7 +137,7 @@ export default function AboutPage({params:{locale}}:{params:{locale:string}}) {
               <p className="text-sm md:text-xl text-white/90 leading-relaxed">
                 {currentLocale === 'zh' 
                   ? 'Wintex国际重型工程物流集团，以"无界创新"理念，重构供应链逻辑，开创性实施"中国港口-菲律宾近海"全程不换载的平板驳船直达运输方案，攻克了超限件跨国、端到端运输的行业难题。'
-                  : 'We have redefned supply chain logic by pioneering a“China Port to Philippines Offshore” direct fat barge transport solution, eliminating cargo reloading. This breakthrough overcomes the longstanding industry challenge of cross-border, end-to-end transportation for oversized cargo.'}
+                  : 'We have redefned supply chain logic by pioneering a "China Port to Philippines Offshore" direct fat barge transport solution, eliminating cargo reloading. This breakthrough overcomes the longstanding industry challenge of cross-border, end-to-end transportation for oversized cargo.'}
               </p>
             </div>
 

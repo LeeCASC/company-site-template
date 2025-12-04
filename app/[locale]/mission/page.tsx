@@ -55,7 +55,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
     {
       year: '2023',
       projectName: currentLocale === 'zh' 
-        ? '良安水电站 – 北拉瑙省'
+        ? '良安水电站——北拉瑙省'
         : 'Liangan Hydroelectric Power Plant - Lanao Del Norte',
       description: currentLocale === 'zh'
         ? '发电机、变压器及输电线路材料的物流运输'
@@ -64,7 +64,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
     {
       year: '2024',
       projectName: currentLocale === 'zh'
-        ? '拉布拉多太阳能电站 – 邦阿西南省'
+        ? '拉布拉多太阳能电站——邦阿西南省'
         : 'Labrador Solar Power Plant - Pangasinan',
       description: currentLocale === 'zh'
         ? '光伏组件及太阳能电站材料的物流运输'
@@ -75,7 +75,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
       projects: [
         {
           projectName: currentLocale === 'zh'
-            ? '塔奈风电项目 – 奎松省'
+            ? '塔奈风电项目——奎松省'
             : 'Tanay Wind Power Project - Quezon',
           description: currentLocale === 'zh'
             ? '风力发电机组部件的物流运输及特种货物操作'
@@ -83,10 +83,10 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
         },
         {
           projectName: currentLocale === 'zh'
-            ? '阿拉巴特风电项目 – 奎松省'
+            ? '阿拉巴特风电项目——奎松省'
             : 'Alabat Wind Power Project - Quezon',
           description: currentLocale === 'zh'
-            ? '风力发电机组部件的重大件、 超限物流运输'
+            ? '风力发电机组部件的重大件、超限物流运输'
             : 'Full-process logistics transportation and special cargo operations for the components of the Philippines\' first BMW standalone wind turbine generator',
         },
       ],
@@ -111,7 +111,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
               {currentLocale === 'zh' ? '全过程风电物流' : 'Full-process Wind Power Logistics'}
             </h1>
             <h2 className="text-lg md:text-xl lg:text-2xl text-gray-600">
-              {currentLocale === 'zh' ? '清洁能源项目的成功实践 (2023-2025)' : 'Successful Practice of Clean Energy Projects (2023-2025)'}
+              {currentLocale === 'zh' ? '清洁能源项目的成功实践（2023-2025）' : 'Successful Practice of Clean Energy Projects (2023-2025)'}
             </h2>
           </div>
 
@@ -188,7 +188,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
             {/* 底部聚焦文字 */}
             <div className="mt-12 text-center">
               <p className="text-lg md:text-xl text-gray-600 font-bold">
-                {currentLocale === 'zh' ? '聚焦:阿拉巴特与塔奈' : 'Focus: Alabat and Tanay'}
+                {currentLocale === 'zh' ? '聚焦：阿拉巴特与塔奈' : 'Focus: Alabat and Tanay'}
               </p>
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function MissionPage({params:{locale}}:{params:{locale:string}}) 
                 </h3>
                 <p className="text-sm md:text-base text-gray-400 leading-relaxed text-center">
                   {currentLocale === 'zh' 
-                    ? '风力发电机组部件的重大件、超限物流运输, 确保准时且安全交付'
+                    ? '风力发电机组部件的重大件、超限物流运输，确保准时且安全交付'
                     : 'Oversized/heavy-lift logistics transport for wind turbine components, ensuring timely and secure delivery'}
                 </p>
               </div>

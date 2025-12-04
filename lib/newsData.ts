@@ -13,11 +13,11 @@ export const newsData: {
         en: 'Wintex Logistics Relocates to New Office, Continuously Enhancing Service Quality'
       },
       content: {
-        zh: `日期：2024年9月10日
+        zh: `日期：2025年9月10日
 
 尊敬的客户及合作伙伴：
 
-我们很高兴地宣布，Wintex Logistics Corporation 已于2024年9月10日正式乔迁至新的办公地址：菲律宾马尼拉BGC（博尼法西奥环球城）贸易金融大厦。
+我们很高兴地宣布，Wintex Logistics Corporation 已于2025年9月10日正式乔迁至新的办公地址：菲律宾马尼拉BGC（博尼法西奥环球城）贸易金融大厦。
 
 此次乔迁标志着Wintex Logistics发展历程中的一个重要里程碑。新的办公场所位于马尼拉核心商务区，不仅为我们团队提供了更现代化、更高效的工作环境，也为我们进一步整合资源、优化运营流程、贴近客户需求奠定了坚实基础。这体现了公司持续投资于未来发展、不断提升服务能力的坚定承诺。
 
@@ -31,12 +31,12 @@ export const newsData: {
 
 再次感谢您的支持！让我们携手并进，共创物流新篇章。
 
-关于 Wintex Logistics Corporation: Wintex Logistics Corporation 是一家专业的综合物流服务提供商，业务涵盖大件运输业务，国际货运代理、工程物流、供应链咨询等，致力于为客户提供定制化、一站式的物流解决方案。`,
-        en: `Date: September 10, 2024
+关于 Wintex Logistics Corporation：Wintex Logistics Corporation 是一家专业的综合物流服务提供商，业务涵盖大件运输业务，国际货运代理、工程物流、供应链咨询等，致力于为客户提供定制化、一站式的物流解决方案。`,
+        en: `Date: September 10, 2025
 
 <strong>To Our Esteemed Clients and Partners,</strong>
 
-We are pleased to announce that <strong>Wintex Logistics Corporation</strong> has officially relocated to its new office address on <strong>September 10, 2024</strong>, at: <strong>Trade and Financial Tower, BGC (Bonifacio Global City), Manila, Philippines.</strong>
+We are pleased to announce that <strong>Wintex Logistics Corporation</strong> has officially relocated to its new office address on <strong>September 10, 2025</strong>, at: <strong>Trade and Financial Tower, BGC (Bonifacio Global City), Manila, Philippines.</strong>
 
 This relocation marks a significant milestone in the development of WINTEX. Situated in the heart of Manila's central business district, our new office not only provides our team with a more modern and efficient working environment but also lays a solid foundation for further resource integration, optimized operational processes, and closer alignment with client needs. This move reflects our unwavering commitment to investing in future growth and continuously enhancing our service capabilities.
 
@@ -64,22 +64,22 @@ Wintex Logistics Corporation is a professional integrated logistics service prov
       en: 'Another Success: First Shipment of Equipment Successfully Delivered for the Philippines Tanay Wind Power Project'
     },
     content: {
-      zh: `日期：2024年7月2日
+      zh: `日期：2025年7月2日
 
 继菲律宾阿尔拜特（Alabat）风电项目首船设备顺利交付后，我司在菲承建的另一个重要项目——Tanay风电项目再传捷报。
 
-2024年7月2日凌晨5时30分，运载着Tanay风电项目首批关键机组的"JY Cheng Rong"轮准时抵达菲律宾因凡塔（Infanta）港外锚地。经过高效的联检与准备工作，该轮于当日下午4时30分成功完成技术要求较高的尾靠作业，安全泊入项目临时码头。
+2025年7月2日凌晨5时30分，运载着Tanay风电项目首批关键机组的"JY Cheng Rong"轮准时抵达菲律宾因凡塔（Infanta）港外锚地。经过高效的联检与准备工作，该轮于当日下午4时30分成功完成技术要求较高的尾靠作业，安全泊入项目临时码头。
 
 尤为值得一提的是，在各方的大力协调与推动下，海关部门于船舶靠泊当日即高效完成清关放行手续。项目运输团队随即紧锣密鼓地展开行动，于当晚立即启动卸货作业，确保了整个物流环节无缝衔接、高效推进。
 
 本次首船设备的成功交付，标志着Tanay风电项目正式进入现场安装阶段，为项目后续建设按计划推进奠定了坚实基础。我们衷心感谢菲律宾因凡塔（Infanta）市政府、海关及港务局在此过程中给予的大力支持与高效协作，同时也对项目团队及所有合作伙伴的专业付出致以诚挚谢意。
 
 我司将继续凭借在重大件物流领域的丰富经验与专业能力，安全、高效地保障后续设备的运输与交付，全力推动Tanay风电项目及菲律宾其他绿色能源项目的成功建设。`,
-      en: `Date: July 2, 2024
+      en: `Date: July 2, 2025
 
 Following the successful delivery of the first shipment for the Philippines Alabat Wind Power Project, we are pleased to announce another milestone for another key project we are undertaking in the Philippines—the Tanay Wind Power Project.
 
-At 5:30 AM on July 2, 2024, the vessel "JY Cheng Rong," carrying the first batch of critical components for the Tanay Wind Power Project, arrived on schedule at the outer anchorage of Infanta Port in the Philippines. After efficient joint inspections and preparations, the vessel successfully completed a technically demanding stern-to mooring operation at 4:30 PM the same day, safely berthing at the project's temporary terminal.
+At 5:30 AM on July 2, 2025, the vessel "JY Cheng Rong," carrying the first batch of critical components for the Tanay Wind Power Project, arrived on schedule at the outer anchorage of Infanta Port in the Philippines. After efficient joint inspections and preparations, the vessel successfully completed a technically demanding stern-to mooring operation at 4:30 PM the same day, safely berthing at the project's temporary terminal.
 
 It is particularly noteworthy that, thanks to the strong coordination and efforts of all parties involved, the customs authorities efficiently completed clearance and release procedures on the same day the vessel docked. The project's transportation team immediately sprang into action, commencing unloading operations that very evening, ensuring seamless and efficient progress throughout the logistics chain.
 
@@ -95,18 +95,18 @@ Our company will continue to leverage our extensive experience and professional 
       en: 'Successful Maiden Voyage of Jinwan Times, Wind Turbine Equipment Welcomed at Alabat Temporary Terminal'
     },
     content: {
-      zh: `日期：2024年4月8日
+      zh: `日期：2025年4月8日
 
-2024年4月8日清晨，在我司项目团队的高效组织和精心操作下，运载着两套完整风力发电机组设备的"金湾时代"轮，于天气晴好、海况平稳的有利条件下，成功安全靠泊菲律宾阿尔拜特（Alabat）临时码头。
+2025年4月8日清晨，在我司项目团队的高效组织和精心操作下，运载着两套完整风力发电机组设备的"金湾时代"轮，于天气晴好、海况平稳的有利条件下，成功安全靠泊菲律宾阿尔拜特（Alabat）临时码头。
 
 本次作业采用技术要求较高的尾靠方式，"金湾时代"轮在各方通力协作下，操作精准，过程顺利，圆满完成了首航靠泊任务。这不仅标志着该项目关键大件设备运输取得了阶段性重大进展，也为后续现场安装工作奠定了坚实基础。
 
 两套完整风机设备成功落地菲律宾Alabat岛，离不开项目团队的周密策划、船方的专业操作以及现场所有工作人员的密切配合与辛勤付出。我们对所有参与首航作业的团队及合作伙伴表示衷心感谢！
 
 未来，我们将继续秉持专业、安全、高效的服务宗旨，确保项目后续物流环节的顺利推进，为项目的成功建设和绿色能源发展贡献力量。`,
-      en: `Date: April 8, 2024
+      en: `Date: April 8, 2025
 
-In the early morning of April 8, 2024, thanks to the efficient organization and meticulous execution by our project team, the "Jin Wan Shi Dai" vessel, carrying two complete sets of wind turbine equipment, successfully and safely docked at the Alabat Jetty in the Philippines under favorable weather conditions and calm seas.
+In the early morning of April 8, 2025, thanks to the efficient organization and meticulous execution by our project team, the "Jin Wan Shi Dai" vessel, carrying two complete sets of wind turbine equipment, successfully and safely docked at the Alabat Jetty in the Philippines under favorable weather conditions and calm seas.
 
 This operation employed the technically demanding stern-to mooring method. With seamless collaboration from all parties involved, the " Jin Wan Shi Dai " executed the maneuver with precision, ensuring a smooth process and the successful completion of its maiden docking mission. This not only marks a significant milestone in the transportation of critical large-scale equipment for the project but also lays a solid foundation for subsequent on-site installation work.
 
