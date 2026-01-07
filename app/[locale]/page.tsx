@@ -107,9 +107,20 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   const [newsSectionRef, newsSectionInView] = useInView();
   const [equipmentSectionRef, equipmentSectionInView] = useInView();
   
-  const newsRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
+  const newsItems = [
+    { img: '/news3_new.png', id: '3' }, // 2025-11 渡轮修复
+    { img: '/movenews.JPG', id: '1' },   // 2025-09 BGC 乔迁
+    { img: '/news_tanay.jpeg', id: '2' },// 2025-07 Tanay 首船
+    { img: '/news4.png', id: '4' },      // 2025-04 平板驳船直达
+  ];
+  const newsRefs = [
+    useRef<HTMLImageElement>(null), 
+    useRef<HTMLImageElement>(null), 
+    useRef<HTMLImageElement>(null),
+    useRef<HTMLImageElement>(null)
+  ];
   const equipmentRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
-  const [newsInViews, setNewsInViews] = useState([false, false, false]);
+  const [newsInViews, setNewsInViews] = useState(Array(newsItems.length).fill(false));
   const [equipmentInViews, setEquipmentInViews] = useState([false, false, false, false]);
   
   const newsObserversRef = useRef<IntersectionObserver[]>([]);
@@ -117,7 +128,7 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
   
   // news images
   useEffect(() => {
-    setNewsInViews([false, false, false]);
+    setNewsInViews(Array(newsItems.length).fill(false));
     
     const setupObservers = () => {
       newsObserversRef.current.forEach(observer => observer.disconnect());
@@ -553,12 +564,8 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
               {t('allNews')}
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              { img: '/movenews.JPG', id: '1' },
-              { img: '/news_tanay.jpeg', id: '2' },
-              { img: '/news_alabat.jpeg', id: '3' },
-            ].map((news, i) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {newsItems.map((news, i) => {
               const localeKey = currentLocale === 'en' ? 'en' : 'zh';
               const preview = getNewsPreview(news.id, localeKey);
               return (
@@ -567,12 +574,12 @@ export default function Home({params:{locale}}:{params:{locale:string}}) {
                 className="rounded-card flex flex-col overflow-hidden transition-all hover:shadow-lg"
               >
                 <Link href={`/${currentLocale}/news/${news.id}`}>
-                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[11.7px] flex items-center justify-center cursor-pointer" style={{ minHeight: '180px' }}>
+                  <div className="w-full rounded-lg mb-3 bg-brand-accent-50 p-[11.7px] flex items-center justify-center cursor-pointer aspect-[4/3] overflow-hidden">
                     <img
                       ref={newsRefs[i]}
                       src={news.img}
                       alt={preview.title}
-                      className="w-full h-auto object-contain rounded-lg transition-transform hover:scale-105"
+                      className="w-full h-full object-cover rounded-lg transition-transform hover:scale-105"
                       style={{ 
                         maxWidth: '100%',
                         maxHeight: '100%',
